@@ -1,1 +1,1 @@
-# pylectro
+# electromagpy
