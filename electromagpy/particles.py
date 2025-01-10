@@ -12,24 +12,20 @@ class Particle:
     m: cython.float = 0.0
 
     t: cython.float = 0.0
-    r: cython.float[3] = 0.0, 0.0, 0.0
-    v: cython.float[3] = 0.0, 0.0, 0.0
+    r: cython.float[3] = [0.0, 0.0, 0.0]
+    v: cython.float[3] = [0.0, 0.0, 0.0]
 
     field = Vacuum()
 
     # pre-initialized acceleration vectors
-    _a1: cython.float[3] = 0.0, 0.0, 0.0
-    _a2: cython.float[3] = 0.0, 0.0, 0.0
+    _a1: cython.float[3] = [0.0, 0.0, 0.0]
+    _a2: cython.float[3] = [0.0, 0.0, 0.0]
 
     # pre-initialized field vectors
-    _E: cython.float[3] = 0.0, 0.0, 0.0
-    _B: cython.float[3] = 0.0, 0.0, 0.0
+    _E: cython.float[3] = [0.0, 0.0, 0.0]
+    _B: cython.float[3] = [0.0, 0.0, 0.0]
 
-    def __init__(self,
-            q: cython.float, m: cython.float, field=None,
-            r: cython.float[3] = None,
-            v: cython.float[3] = None
-    ):
+    def __init__(self, q: cython.float, m: cython.float, field=None, r=None, v=None):
 
         self.q = q
         self.m = m
@@ -81,21 +77,21 @@ class Particle:
             self.update(dt)
 
     @property
-    def L(self):
+    def L(self) -> cython.float[3]:
         """Angular momentum vector"""
         return self.m * cross(self.r, self.v)
 
     @property
-    def KE(self):
+    def KE(self) -> cython.float:
         """Kinetic energy"""
         return 0.5 * self.m * dot(self.v, self.v)
 
     @property
-    def PE(self):
+    def PE(self) -> cython.float:
         """Potential energy"""
         return self.q * self.field.V(self.r, self.t)
 
     @property
-    def TE(self):
+    def TE(self) -> cython.float:
         """Total energy"""
         return self.KE + self.PE

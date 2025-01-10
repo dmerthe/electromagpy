@@ -3,11 +3,13 @@ import cython
 from math import log, sqrt, pi
 
 
-def dot(v1: cython.float[3], v2:cython.float[3]) -> cython.float:
+def dot(v1: cython.float[3], v2: cython.float[3]) -> cython.float:
+    """Compute the dot product of two 3-vectors"""
     return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
 
 
 def cross(v1: cython.float[3], v2: cython.float[3]) -> cython.float[3]:
+    """Compute the cross product of two 3-vectors"""
 
     v3: cython.float[3]
 
@@ -20,7 +22,7 @@ def cross(v1: cython.float[3], v2: cython.float[3]) -> cython.float[3]:
 
 class Field:
     """
-    Base class for all bodies.
+    Base class for all electromagnetic fields.
 
     Establishes the electric potential (V), electric field (E), magnetic
     potential (A) and magnetic field (B).
@@ -57,64 +59,60 @@ class Orbitrap(Field):
     parameters, k, Rm and C.
     """
 
-    def __init__(
-            self, bias: cython.float,
-            rc: cython.float = None, ra: cython.float = None, Ra: cython.float = None,
-            k: cython.float = None, Rm: cython.float = None, C: cython.float = None
-    ):
+    def __init__(self, k: cython.float, Rm: cython.float, C: cython.float):
 
-        self.bias: cython.float = bias
-
-        if rc is not None and ra is not None and Ra is not None:
-
-            self.rc = rc
-            self.ra = ra
-            self.Ra = Ra
-
-            # Traditional orbitr
-            self.Rm = Rm = sqrt(ra ** 2 + 2 * ra * Ra)
-            self.k = k = 4 * bias / (2 * Rm ** 2 * log(ra / rc) - ra ** 2 + rc ** 2)
-            self.C = (k / 2) * (ra ** 2 / 2 + Rm ** 2 * log(Rm / ra))
-        elif k is not None and Rm is not None and C is not None:
-            self.Rm = Rm
-            self.k = k
-            self.C = C
-        else:
-            raise ValueError("Either (rc, ra, Ra) or (k, Rm, C) must be defined)")
+        self.k = k
+        self.Rm = Rm
+        self.C = C
 
     def V(self, r: cython.float[3], t: cython.float):
 
-        k = self.k
-        Rm = self.Rm
-        C = self.C
+        rr2 = r[0] * r[0] + r[1] * r[1]
+        rr = sqrt(rr2)  # cylindrical radius
 
-        rr = sqrt(r[0] * r[0] + r[1] * r[1])
-        z = r[2]
-
-        return 0.5*k * ((z*z - 0.5 * rr*rr) + Rm*Rm*log(rr / Rm)) + C
+        return 0.5*self.k * ((r[2]*r[2] - 0.5 * rr2) + self.Rm*self.Rm*log(rr / self.Rm)) + self.C
 
     def E(self, r: cython.float[3], t: cython.float):
 
-        x, y, z = r
-        k, Rm = self.k, self.Rm
-        r2 = x*x + y*y
+        rr2 = r[0]*r[0] + r[1]*r[1]
 
-        factor = 0.5 * k * (1.0 - Rm*Rm / r2)
+        factor = 0.5 * self.k * (1.0 - self.Rm*self.Rm / rr2)
 
-        self._E[0] = x * factor
-        self._E[1] = y * factor
-        self._E[2] = -k * z
+        self._E[0] = r[0] * factor
+        self._E[1] = r[1] * factor
+        self._E[2] = -self.k * r[2]
 
         return self._E
 
-    def calc_axial_freq(self, q: cython.float, m: cython.float):
+    @staticmethod
+    def params_from_geom(
+            bias: cython.float, rc: cython.float, ra: cython.float, Ra: cython.float
+    ) -> cython.float[3]:
+        """
+        Calculate the orbitrap parameters (k, Rm, C) from the electrical bias and
+        geometrical parameters of the electrodes.
+
+        :param bias: electrical bias (anode-cathode)
+        :param rc: radius of the cathode in the z = 0 plane
+        :param ra: radius of the anode in the z = 0 plane
+        :param Ra: radius of curvature in the rz-plane at z = 0
+        """
+
+        Rm = sqrt(ra ** 2 + 2 * ra * Ra)
+        k = 4 * bias / (2 * Rm ** 2 * log(ra / rc) - ra ** 2 + rc ** 2)
+        C = (k / 2) * (ra ** 2 / 2 + Rm ** 2 * log(Rm / ra))
+
+        return k, Rm, C
+
+    def calc_axial_freq(self, q: cython.float, m: cython.float) -> cython.float:
         """
         Calculate the axial oscillation frequency of a particle
         """
 
         return sqrt(self.k * q / m) / (2 * pi)
 
-    def calc_circ_orb(self, q: cython.float, m: cython.float, Lz: cython.float):
+    def calc_circ_orb(
+            self, q: cython.float, m: cython.float, Lz: cython.float) -> cython.float:
         """
         Calculate the equivalent circular orbit at z = 0 for a particle based on
         azimuthal angular momentum
