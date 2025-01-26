@@ -95,12 +95,15 @@ class _Field:
         return B_view
 
 
-def py_field_factory(cclass):
+def py_field_factory(cfield):
+    """
+    Generate the python wrapper for the given C field class
+    """
 
     class PythonField:
 
-        def __init__(self, *args, **kwargs):
-            self._field = cclass()
+        def __init__(self, *args):
+            self._field = cfield(*args)
 
         def V(self, r, t):
             return self._field.V(r, t)
