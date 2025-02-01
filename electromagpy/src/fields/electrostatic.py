@@ -1,17 +1,22 @@
 # cython extension module for electrostatic fields
 
 import cython
-from _fields import _Field, py_field_factory
-
+from cython.cimports.electromagpy.src.fields.field import _Field
+from electromagpy.src.fields.field import py_field_factory
 
 @cython.cclass
 class _Vacuum(_Field):
     """Region with zero electromagnetic field"""
-    pass
+
+    def __cinit__(self):
+
+        self._V = 0.0
+        self._E[0] = self._E[1] = self._E[2] = 0.0
+        self._A[0] = self._A[1] = self._A[2] = 0.0
+        self._B[0] = self._B[1] = self._B[2] = 0.0
 
 
 Vacuum = py_field_factory(_Vacuum)
-
 
 # class Orbitrap(Field):
 #     """

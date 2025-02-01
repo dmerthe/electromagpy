@@ -1,8 +1,9 @@
 # Particles that respond to electromagnetic fields
 import cython
 import numpy as np
-from electromagpy.fields import dot, cross, Field, Vacuum
-from electromagpy.fields._fields import _Field
+from electromagpy.fields import dot, cross, _Field, Field, Vacuum
+
+from collections.abc import Iterable
 
 
 @cython.cclass
@@ -11,33 +12,33 @@ class _Particle:
     Charged particle that responds to electromagnetic fields
     """
 
-    q: cython.float
-    m: cython.float
+    q: cython.double
+    m: cython.double
 
-    t: cython.float
-    r: cython.float[3]
-    v: cython.float[3]
+    t: cython.double
+    r: cython.double[3]
+    v: cython.double[3]
 
     #pre-initialized electric and magnetic field vector
-    _E: cython.float[3]
-    _B: cython.float[3]
+    _E: cython.double[3]
+    _B: cython.double[3]
 
     # pre-initialized acceleration and force vectors
-    _F: cython.float[3]
-    _a1: cython.float[3]
-    _a2: cython.float[3]
+    _F: cython.double[3]
+    _a1: cython.double[3]  # there are two acceleration vectors used
+    _a2: cython.double[3]  # by the velocity-Verlet algorithm
 
-    def __cinit__(
-            self, q: cython.float, m: cython.float, field: _Field,
-            r: cython.double[3], v: cython.double[3]
+    def __init__(
+            self, q: float, m: float, field: _Field,
+            r: Iterable, v: Iterable
     ):
 
         self.q = q
         self.m = m
 
         self.field = field
-        self.r = r
-        self.v = v
+        self.r = list(r)
+        self.v = list(v)
 
     @cython.cfunc
     def _eval_F(self) -> cython.void:
@@ -59,51 +60,61 @@ class _Particle:
         return F_view
 
     @cython.cfunc
-    def update(self, dt: cython.float) -> cython.void:
+    def update(self, dt: cython.double) -> cython.void:
         """
         Update particle position based on forces and velocity, using velocity Verlet
         integration
         """
 
+        # Update the force
         self._eval_F()
 
+        # Update the acceleration
         self._a1[0] = self._F[0] / self.m
         self._a1[1] = self._F[1] / self.m
         self._a1[2] = self._F[2] / self.m
 
+        # update the coordinates
         self.r[0] += self.v[0] * dt + 0.5 * self._a1[0] * dt * dt
         self.r[1] += self.v[1] * dt + 0.5 * self._a1[1] * dt * dt
         self.r[2] += self.v[2] * dt + 0.5 * self._a1[2] * dt * dt
 
+        # update the force again, at the new coordinate
         self._eval_F()
 
-        self._a2[0] = self._F[0] / self.m  # update based on new position
+        # update the acceleration again
+        self._a2[0] = self._F[0] / self.m
         self._a2[1] = self._F[1] / self.m
         self._a2[2] = self._F[2] / self.m
 
+        # update the velocity
         self.v[0] += 0.5 * (self._a1[0] + self._a2[0]) * dt
         self.v[1] += 0.5 * (self._a1[1] + self._a2[1]) * dt
         self.v[2] += 0.5 * (self._a1[2] + self._a2[2]) * dt
 
+        # update the time
         self.t += dt
 
     @cython.cfunc
-    def evolve(self, duration: cython.float, dt: cython.float) -> cython.void:
+    def evolve(self, duration: cython.double, dt: cython.double) -> cython.void:
         """
         Evolve the position and velocity of the particle over the given duration with
         time step dt
         """
 
-        # TODO: add error estimation
-        t0: cython.double = self.t
+        t: cython.double = 0.0
 
-        while self.t < t0 + duration:
+        while t < duration:
             self.update(dt)
+            t += dt
 
 
 class Particle:
 
-    def __init__(self, q, m, field=None, r=None, v=None):
+    def __init__(
+            self, q: float, m: float, field: Field = None,
+            r: Iterable = None, v: Iterable = None
+    ):
 
         if field is None:
             field = Vacuum()
@@ -112,73 +123,82 @@ class Particle:
 
         if r is None:
             r = [0.0, 0.0, 0.0]
+        else:
+            r = [float(ri) for ri in r]
 
         if v is None:
             v = [0.0, 0.0, 0.0]
+        else:
+            v = [float(vi) for vi in v]
 
         self._particle = _Particle(q, m, field._field, r, v)
 
     @property
-    def q(self):
+    def q(self) -> float:
         return self._particle.q
 
     @q.setter
-    def q(self, q):
+    def q(self, q: float):
         self._particle.q = q
 
     @property
-    def m(self):
+    def m(self) -> float:
         return self._particle.m
 
     @m.setter
-    def m(self, m):
+    def m(self, m: float):
         self._particle.m = m
 
     @property
-    def field(self):
+    def field(self) -> Field:
         return self._field
 
     @field.setter
-    def field(self, field):
+    def field(self, field: Field):
         self._field = field
         self._particle.field = field._field
 
     @property
-    def r(self):
+    def r(self) -> np.ndarray:
         return np.array([ri for ri in self._particle.r], dtype=np.float64)
 
     @r.setter
-    def r(self, r):
+    def r(self, r: Iterable):
         self._particle.r[0] = r[0]
         self._particle.r[1] = r[1]
         self._particle.r[2] = r[2]
 
     @property
-    def v(self):
+    def v(self) -> np.ndarray:
         return np.array([vi for vi in self._particle.v], dtype=np.float64)
 
     @v.setter
-    def v(self, v):
+    def v(self, v: Iterable):
         self._particle.v[0] = v[0]
         self._particle.v[1] = v[1]
         self._particle.v[2] = v[2]
 
     @property
-    def L(self) -> cython.float[3]:
+    def F(self) -> np.ndarray:
+
+        return self._particle.F
+
+    @property
+    def L(self) -> np.ndarray:
         """Angular momentum vector"""
-        return self.m * cross(self.r, self.v)
+        return self.m * np.linalg.cross(self.r, self.v)
 
     @property
-    def KE(self) -> cython.float:
+    def KE(self) -> float:
         """Kinetic energy"""
-        return 0.5 * self.m * dot(self.v, self.v)
+        return 0.5 * self.m * np.dot(self.v, self.v)
 
     @property
-    def PE(self) -> cython.float:
+    def PE(self) -> float:
         """Potential energy"""
         return self.q * self.field.V(self.r, self.t)
 
     @property
-    def TE(self) -> cython.float:
+    def TE(self) -> float:
         """Total energy"""
         return self.KE + self.PE
