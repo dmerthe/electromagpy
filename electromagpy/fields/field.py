@@ -15,8 +15,8 @@ def dot(v1: vector[double], v2: vector[double]) -> double:
 def cross(i: int, v1: vector[double], v2: vector[double]) -> double:
     """Compute the ith element of the cross product of two 3-vectors"""
 
-    j: cython.int = (i + 1) % 3
-    k: cython.int = (i + 2) % 3
+    j: int = (i + 1) % 3
+    k: int = (i + 2) % 3
 
     return v1[j] * v2[k] - v1[k] * v2[j]
 
@@ -34,7 +34,7 @@ class _Field:
 
         self._V = 0.0
 
-        # Initialize the vector values
+        # Initialize the vector field values
         self._E.push_back(0.0)
         self._E.push_back(0.0)
         self._E.push_back(0.0)

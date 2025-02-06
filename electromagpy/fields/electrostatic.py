@@ -6,7 +6,6 @@ from math import sqrt, log, pi
 from cython.cimports.libcpp.cmath import log as clog
 from cython.cimports.libcpp.vector import vector
 from cython.cimports.electromagpy.fields.field import _Field
-# from electromagpy.fields.field import py_field_factory
 
 @cython.cclass
 class _Vacuum(_Field):
@@ -40,12 +39,14 @@ class _Orbitrap(_Field):
     @cython.ccall
     def V(self, r: vector[double], t: double) -> double:
 
-        rr2: double = r[0] * r[0] + r[1] * r[1]
+        rr2: double = r[0] * r[0] + r[1] * r[1]  # cylindrical radius squared
+        Rm2: double = self.Rm * self.Rm  # Rm squared
 
-        self._V = 0.5*self.k * ((r[2]*r[2] - 0.5 * rr2) + 0.5*self.Rm*self.Rm*clog(rr2 / self.Rm))
-        self._V += self.C
+        self._V = 0.5 * self.k * (
+                (r[2]*r[2] - 0.5 * rr2) + 0.5 * Rm2 * clog(rr2 / Rm2)
+        ) + self.C
 
-        return 0.5*self.k * ((r[2]*r[2] - 0.5 * rr2) + 0.5*self.Rm*self.Rm*clog(rr2 / self.Rm)) + self.C
+        return self._V
 
     @cython.ccall
     def E(self, r: vector[double], t: double) -> vector[double]:
@@ -83,15 +84,16 @@ class Orbitrap(_Orbitrap):
 
     def calc_axial_freq(self, q: float, m: float) -> float:
         """
-        Calculate the axial oscillation frequency of a particle in an orbitrap
+        Calculate the axial oscillation frequency of a particle of charge q and mass m
+        in an orbitrap
         """
 
         return sqrt(self.k * q / m) / (2 * pi)
 
     def calc_circ_orb(self, q: float, m: float, Lz: float) -> float:
         """
-        Calculate the equivalent circular orbit at z = 0 for a particle based on
-        azimuthal angular momentum
+        Calculate the circular orbit at z = 0 for a particle of charge q and mass m and
+        azimuthal angular momentum Lz
         """
 
         w0 = self.calc_axial_freq(q, m)

@@ -1,5 +1,8 @@
 from libcpp.vector cimport vector
 
+cdef double dot(vector[double] v1, vector[double] v2)
+cdef double cross(int i, vector[double] v1, vector[double] v2)
+
 cdef class _Field:
 
     cdef double _V  # electric potential
