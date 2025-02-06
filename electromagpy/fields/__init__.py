@@ -1,5 +1,5 @@
-from electromagpy._fields.field import *
-from electromagpy._fields.electrostatic import *
+from electromagpy.fields.field import *
+from electromagpy.fields.electrostatic import *
 
 __all__ = [
     "Field",

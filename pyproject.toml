@@ -1,14 +1,13 @@
 [build-system]
-requires = ["setuptools", "cython==3.0.11"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel", "Cython"]
 
 [project]
 name = "electromagpy"
 version = "0.1"
 
-[tool.setuptools]
-ext-modules = [
-    {name="electromagpy._fields.field", sources=["electromagpy/src/fields/field.py"]},
-    {name="electromagpy._fields.electrostatic", sources=["electromagpy/src/fields/electrostatic.py"]},
-    {name="electromagpy._particles.particles", sources=["electromagpy/src/particles/particles.py"]}
-]
+#[tool.setuptools]
+#ext-modules = [
+#    {name="electromagpy.field", sources=["electromagpy/fields/field.py"]},
+#    {name="electromagpy.electrostatic", sources=["electromagpy/fields/electrostatic.py"]},
+#    {name="electromagpy.particles", sources=["electromagpy/particles/particles.py"]}
+#]

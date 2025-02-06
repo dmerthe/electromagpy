@@ -1,5 +1,5 @@
 from scipy.constants import physical_constants, m_e, m_p, e
-from electromagpy._particles._particles import Particle
+from electromagpy.particles.particles import Particle
 
 __all__ = [
     "Particle",

@@ -3,12 +3,13 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "electromagpy._particles.particles",
+        "language": "c++",
+        "name": "electromagpy.particles.particles",
         "sources": [
-            "electromagpy/src/particles/particles.py"
+            "electromagpy/particles/particles.py"
         ]
     },
-    "module_name": "electromagpy._particles.particles"
+    "module_name": "electromagpy.particles.particles"
 }
 END: Cython Metadata */
 
@@ -579,19 +580,35 @@ END: Cython Metadata */
 #endif
 #define __PYX_REINTERPRET_FUNCION(func_pointer, other_pointer) ((func_pointer)(void(*)(void))(other_pointer))
 
+#ifndef __cplusplus
+  #error "Cython files generated with the C++ option must be compiled with a C++ compiler."
+#endif
 #ifndef CYTHON_INLINE
   #if defined(__clang__)
     #define CYTHON_INLINE __inline__ __attribute__ ((__unused__))
-  #elif defined(__GNUC__)
-    #define CYTHON_INLINE __inline__
-  #elif defined(_MSC_VER)
-    #define CYTHON_INLINE __inline
-  #elif defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
-    #define CYTHON_INLINE inline
   #else
-    #define CYTHON_INLINE
+    #define CYTHON_INLINE inline
   #endif
 #endif
+template<typename T>
+void __Pyx_call_destructor(T& x) {
+    x.~T();
+}
+template<typename T>
+class __Pyx_FakeReference {
+  public:
+    __Pyx_FakeReference() : ptr(NULL) { }
+    __Pyx_FakeReference(const T& ref) : ptr(const_cast<T*>(&ref)) { }
+    T *operator->() { return ptr; }
+    T *operator&() { return ptr; }
+    operator T&() { return *ptr; }
+    template<typename U> bool operator ==(const U& other) const { return *ptr == other; }
+    template<typename U> bool operator !=(const U& other) const { return *ptr != other; }
+    template<typename U> bool operator==(const __Pyx_FakeReference<U>& other) const { return *ptr == *other.ptr; }
+    template<typename U> bool operator!=(const __Pyx_FakeReference<U>& other) const { return *ptr != *other.ptr; }
+  private:
+    T *ptr;
+};
 
 #define __PYX_BUILD_PY_SSIZE_T "n"
 #define CYTHON_FORMAT_SSIZE_T "z"
@@ -1221,15 +1238,11 @@ static CYTHON_INLINE float __PYX_NAN() {
     #warning Please do not define the '__PYX_EXTERN_C' macro externally. Use 'CYTHON_EXTERN_C' instead.
     #endif
 #else
-  #ifdef __cplusplus
-    #define __PYX_EXTERN_C extern "C"
-  #else
-    #define __PYX_EXTERN_C extern
-  #endif
+    #define __PYX_EXTERN_C extern "C++"
 #endif
 
-#define __PYX_HAVE__electromagpy___particles__particles
-#define __PYX_HAVE_API__electromagpy___particles__particles
+#define __PYX_HAVE__electromagpy__particles__particles
+#define __PYX_HAVE_API__electromagpy__particles__particles
 /* Early includes */
 #include "pythread.h"
 #include <string.h>
@@ -1482,7 +1495,7 @@ static const char *__pyx_filename;
 /* #### Code section: filename_table ### */
 
 static const char *__pyx_f[] = {
-  "electromagpy/src/particles/particles.py",
+  "electromagpy/particles/particles.py",
   "<stringsource>",
 };
 /* #### Code section: utility_code_proto_before_types ### */
@@ -1632,22 +1645,22 @@ typedef struct {
 /* #### Code section: type_declarations ### */
 
 /*--- Type declarations ---*/
-struct __pyx_obj_12electromagpy_10_particles_9particles__Particle;
+struct __pyx_obj_12electromagpy_9particles_9particles__Particle;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "electromagpy/src/particles/particles.py":10
+/* "electromagpy/particles/particles.py":11
  * 
  * @cython.cclass
  * class _Particle:             # <<<<<<<<<<<<<<
  *     """
  *     Charged particle that responds to electromagnetic fields
  */
-struct __pyx_obj_12electromagpy_10_particles_9particles__Particle {
+struct __pyx_obj_12electromagpy_9particles_9particles__Particle {
   PyObject_HEAD
-  struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle *__pyx_vtab;
+  struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *__pyx_vtab;
   double q;
   double m;
   double t;
@@ -1738,7 +1751,7 @@ struct __pyx_memoryviewslice_obj {
 
 
 
-/* "electromagpy/src/particles/particles.py":10
+/* "electromagpy/particles/particles.py":11
  * 
  * @cython.cclass
  * class _Particle:             # <<<<<<<<<<<<<<
@@ -1746,13 +1759,13 @@ struct __pyx_memoryviewslice_obj {
  *     Charged particle that responds to electromagnetic fields
  */
 
-struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle {
-  void (*_eval_F)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *);
-  __Pyx_memviewslice (*F)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *);
-  void (*update)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *, double);
-  void (*evolve)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *, double, double);
+struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle {
+  void (*_eval_F)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *);
+  __Pyx_memviewslice (*F)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *);
+  void (*update)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *, double);
+  void (*evolve)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *, double, double);
 };
-static struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle *__pyx_vtabptr_12electromagpy_10_particles_9particles__Particle;
+static struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *__pyx_vtabptr_12electromagpy_9particles_9particles__Particle;
 
 
 /* "View.MemoryView":114
@@ -2957,6 +2970,9 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 /* CIntFromPy.proto */
 static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
 
+/* None.proto */
+#include <new>
+
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
@@ -2999,10 +3015,10 @@ static PyObject *__pyx_memoryview__get_base(struct __pyx_memoryview_obj *__pyx_v
 static PyObject *__pyx_memoryviewslice_convert_item_to_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp); /* proto*/
 static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp, PyObject *__pyx_v_value); /* proto*/
 static PyObject *__pyx_memoryviewslice__get_base(struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto*/
-static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self); /* proto*/
-static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Particle_F(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self); /* proto*/
-static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, double __pyx_v_dt); /* proto*/
-static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, double __pyx_v_duration, double __pyx_v_dt); /* proto*/
+static void __pyx_f_12electromagpy_9particles_9particles_9_Particle__eval_F(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self); /* proto*/
+static __Pyx_memviewslice __pyx_f_12electromagpy_9particles_9particles_9_Particle_F(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self); /* proto*/
+static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, double __pyx_v_dt); /* proto*/
+static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_evolve(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, double __pyx_v_duration, double __pyx_v_dt); /* proto*/
 
 /* Module declarations from "cython.view" */
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
@@ -3011,7 +3027,7 @@ static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, c
 
 /* Module declarations from "cython" */
 
-/* Module declarations from "electromagpy._particles.particles" */
+/* Module declarations from "electromagpy.particles.particles" */
 static PyObject *__pyx_collections_abc_Sequence = 0;
 static PyObject *generic = 0;
 static PyObject *strided = 0;
@@ -3020,7 +3036,7 @@ static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
 static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
-static PyObject *__pyx_f_12electromagpy_10_particles_9particles___pyx_unpickle__Particle__set_state(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *, PyObject *); /*proto*/
+static PyObject *__pyx_f_12electromagpy_9particles_9particles___pyx_unpickle__Particle__set_state(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *, PyObject *); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double(double *, Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double(double *, Py_ssize_t); /*proto*/
 static int __Pyx_carray_from_py_double(PyObject *, double *, Py_ssize_t); /*proto*/
@@ -3062,11 +3078,11 @@ static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *); /*proto*/
 /* #### Code section: typeinfo ### */
 static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "electromagpy._particles.particles"
-extern int __pyx_module_is_main_electromagpy___particles__particles;
-int __pyx_module_is_main_electromagpy___particles__particles = 0;
+#define __Pyx_MODULE_NAME "electromagpy.particles.particles"
+extern int __pyx_module_is_main_electromagpy__particles__particles;
+int __pyx_module_is_main_electromagpy__particles__particles = 0;
 
-/* Implementation of "electromagpy._particles.particles" */
+/* Implementation of "electromagpy.particles.particles" */
 /* #### Code section: global_var ### */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_range;
@@ -3240,7 +3256,6 @@ static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
-static const char __pyx_k_electromagpy_fields[] = "electromagpy.fields";
 static const char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static const char __pyx_k_Invalid_shape_in_axis[] = "Invalid shape in axis ";
 static const char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
@@ -3251,6 +3266,7 @@ static const char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x
 static const char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
 static const char __pyx_k_Particle___reduce_cython[] = "_Particle.__reduce_cython__";
 static const char __pyx_k_Dimension_d_is_not_direct[] = "Dimension %d is not direct";
+static const char __pyx_k_electromagpy_fields_field[] = "electromagpy.fields.field";
 static const char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d)";
 static const char __pyx_k_Particle___setstate_cython[] = "_Particle.__setstate_cython__";
 static const char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
@@ -3269,12 +3285,13 @@ static const char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensi
 static const char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, expected 'c' or 'fortran', got ";
 static const char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on buffer access (axis ";
 static const char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item to object";
-static const char __pyx_k_electromagpy__particles_particle[] = "electromagpy._particles.particles";
-static const char __pyx_k_electromagpy_src_particles_parti[] = "electromagpy/src/particles/particles.py";
+static const char __pyx_k_electromagpy_fields_electrostati[] = "electromagpy.fields.electrostatic";
+static const char __pyx_k_electromagpy_particles_particles[] = "electromagpy.particles.particles";
 static const char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension ";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static const char __pyx_k_Incompatible_checksums_0x_x_vs_0_2[] = "Incompatible checksums (0x%x vs (0xad4da7c, 0x05b7211, 0xe377ad6) = (_B, _E, _F, _a1, _a2, m, q, r, t, v))";
+static const char __pyx_k_electromagpy_particles_particles_2[] = "electromagpy/particles/particles.py";
 /* #### Code section: decls ### */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
@@ -3317,27 +3334,27 @@ static void __pyx_memoryviewslice___pyx_pf_15View_dot_MemoryView_16_memoryviewsl
 static PyObject *__pyx_pf___pyx_memoryviewslice___reduce_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf___pyx_memoryviewslice_2__setstate_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_15View_dot_MemoryView___pyx_unpickle_Enum(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_2__reduce_cython__(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__setstate_cython__(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_m); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_12field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_field); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_r); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_v); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle__Particle(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_12electromagpy_10_particles_9particles__Particle(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_12electromagpy_9particles_9particles_9_Particle___init__(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_9_Particle_2__reduce_cython__(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_9_Particle_4__setstate_cython__(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_2q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_4q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_6m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_8m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_m); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_10field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_12field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_field); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_14r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_16r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_r); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_18v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_20v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_v); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_22F(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_24L(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_26KE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_28PE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_30TE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles___pyx_unpickle__Particle(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_12electromagpy_9particles_9particles__Particle(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -3376,13 +3393,13 @@ typedef struct {
   #if CYTHON_USE_MODULE_STATE
   #endif
   #if CYTHON_USE_MODULE_STATE
-  PyObject *__pyx_type_12electromagpy_10_particles_9particles__Particle;
+  PyObject *__pyx_type_12electromagpy_9particles_9particles__Particle;
   PyObject *__pyx_type___pyx_array;
   PyObject *__pyx_type___pyx_MemviewEnum;
   PyObject *__pyx_type___pyx_memoryview;
   PyObject *__pyx_type___pyx_memoryviewslice;
   #endif
-  PyTypeObject *__pyx_ptype_12electromagpy_10_particles_9particles__Particle;
+  PyTypeObject *__pyx_ptype_12electromagpy_9particles_9particles__Particle;
   PyTypeObject *__pyx_array_type;
   PyTypeObject *__pyx_MemviewEnum_type;
   PyTypeObject *__pyx_memoryview_type;
@@ -3483,9 +3500,10 @@ typedef struct {
   PyObject *__pyx_n_s_dot;
   PyObject *__pyx_n_s_dtype;
   PyObject *__pyx_n_s_dtype_is_object;
-  PyObject *__pyx_n_s_electromagpy__particles_particle;
-  PyObject *__pyx_n_s_electromagpy_fields;
-  PyObject *__pyx_kp_s_electromagpy_src_particles_parti;
+  PyObject *__pyx_n_s_electromagpy_fields_electrostati;
+  PyObject *__pyx_n_s_electromagpy_fields_field;
+  PyObject *__pyx_n_s_electromagpy_particles_particles;
+  PyObject *__pyx_kp_s_electromagpy_particles_particles_2;
   PyObject *__pyx_kp_u_enable;
   PyObject *__pyx_n_s_encode;
   PyObject *__pyx_n_s_enumerate;
@@ -3684,8 +3702,8 @@ static int __pyx_m_clear(PyObject *m) {
   #ifdef __Pyx_FusedFunction_USED
   Py_CLEAR(clear_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_CLEAR(clear_module_state->__pyx_ptype_12electromagpy_10_particles_9particles__Particle);
-  Py_CLEAR(clear_module_state->__pyx_type_12electromagpy_10_particles_9particles__Particle);
+  Py_CLEAR(clear_module_state->__pyx_ptype_12electromagpy_9particles_9particles__Particle);
+  Py_CLEAR(clear_module_state->__pyx_type_12electromagpy_9particles_9particles__Particle);
   Py_CLEAR(clear_module_state->__pyx_array_type);
   Py_CLEAR(clear_module_state->__pyx_type___pyx_array);
   Py_CLEAR(clear_module_state->__pyx_MemviewEnum_type);
@@ -3790,9 +3808,10 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_dot);
   Py_CLEAR(clear_module_state->__pyx_n_s_dtype);
   Py_CLEAR(clear_module_state->__pyx_n_s_dtype_is_object);
-  Py_CLEAR(clear_module_state->__pyx_n_s_electromagpy__particles_particle);
-  Py_CLEAR(clear_module_state->__pyx_n_s_electromagpy_fields);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_electromagpy_src_particles_parti);
+  Py_CLEAR(clear_module_state->__pyx_n_s_electromagpy_fields_electrostati);
+  Py_CLEAR(clear_module_state->__pyx_n_s_electromagpy_fields_field);
+  Py_CLEAR(clear_module_state->__pyx_n_s_electromagpy_particles_particles);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_electromagpy_particles_particles_2);
   Py_CLEAR(clear_module_state->__pyx_kp_u_enable);
   Py_CLEAR(clear_module_state->__pyx_n_s_encode);
   Py_CLEAR(clear_module_state->__pyx_n_s_enumerate);
@@ -3969,8 +3988,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   #ifdef __Pyx_FusedFunction_USED
   Py_VISIT(traverse_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_VISIT(traverse_module_state->__pyx_ptype_12electromagpy_10_particles_9particles__Particle);
-  Py_VISIT(traverse_module_state->__pyx_type_12electromagpy_10_particles_9particles__Particle);
+  Py_VISIT(traverse_module_state->__pyx_ptype_12electromagpy_9particles_9particles__Particle);
+  Py_VISIT(traverse_module_state->__pyx_type_12electromagpy_9particles_9particles__Particle);
   Py_VISIT(traverse_module_state->__pyx_array_type);
   Py_VISIT(traverse_module_state->__pyx_type___pyx_array);
   Py_VISIT(traverse_module_state->__pyx_MemviewEnum_type);
@@ -4075,9 +4094,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_dot);
   Py_VISIT(traverse_module_state->__pyx_n_s_dtype);
   Py_VISIT(traverse_module_state->__pyx_n_s_dtype_is_object);
-  Py_VISIT(traverse_module_state->__pyx_n_s_electromagpy__particles_particle);
-  Py_VISIT(traverse_module_state->__pyx_n_s_electromagpy_fields);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_electromagpy_src_particles_parti);
+  Py_VISIT(traverse_module_state->__pyx_n_s_electromagpy_fields_electrostati);
+  Py_VISIT(traverse_module_state->__pyx_n_s_electromagpy_fields_field);
+  Py_VISIT(traverse_module_state->__pyx_n_s_electromagpy_particles_particles);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_electromagpy_particles_particles_2);
   Py_VISIT(traverse_module_state->__pyx_kp_u_enable);
   Py_VISIT(traverse_module_state->__pyx_n_s_encode);
   Py_VISIT(traverse_module_state->__pyx_n_s_enumerate);
@@ -4269,13 +4289,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #if CYTHON_USE_MODULE_STATE
 #endif
 #if CYTHON_USE_MODULE_STATE
-#define __pyx_type_12electromagpy_10_particles_9particles__Particle __pyx_mstate_global->__pyx_type_12electromagpy_10_particles_9particles__Particle
+#define __pyx_type_12electromagpy_9particles_9particles__Particle __pyx_mstate_global->__pyx_type_12electromagpy_9particles_9particles__Particle
 #define __pyx_type___pyx_array __pyx_mstate_global->__pyx_type___pyx_array
 #define __pyx_type___pyx_MemviewEnum __pyx_mstate_global->__pyx_type___pyx_MemviewEnum
 #define __pyx_type___pyx_memoryview __pyx_mstate_global->__pyx_type___pyx_memoryview
 #define __pyx_type___pyx_memoryviewslice __pyx_mstate_global->__pyx_type___pyx_memoryviewslice
 #endif
-#define __pyx_ptype_12electromagpy_10_particles_9particles__Particle __pyx_mstate_global->__pyx_ptype_12electromagpy_10_particles_9particles__Particle
+#define __pyx_ptype_12electromagpy_9particles_9particles__Particle __pyx_mstate_global->__pyx_ptype_12electromagpy_9particles_9particles__Particle
 #define __pyx_array_type __pyx_mstate_global->__pyx_array_type
 #define __pyx_MemviewEnum_type __pyx_mstate_global->__pyx_MemviewEnum_type
 #define __pyx_memoryview_type __pyx_mstate_global->__pyx_memoryview_type
@@ -4376,9 +4396,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_dot __pyx_mstate_global->__pyx_n_s_dot
 #define __pyx_n_s_dtype __pyx_mstate_global->__pyx_n_s_dtype
 #define __pyx_n_s_dtype_is_object __pyx_mstate_global->__pyx_n_s_dtype_is_object
-#define __pyx_n_s_electromagpy__particles_particle __pyx_mstate_global->__pyx_n_s_electromagpy__particles_particle
-#define __pyx_n_s_electromagpy_fields __pyx_mstate_global->__pyx_n_s_electromagpy_fields
-#define __pyx_kp_s_electromagpy_src_particles_parti __pyx_mstate_global->__pyx_kp_s_electromagpy_src_particles_parti
+#define __pyx_n_s_electromagpy_fields_electrostati __pyx_mstate_global->__pyx_n_s_electromagpy_fields_electrostati
+#define __pyx_n_s_electromagpy_fields_field __pyx_mstate_global->__pyx_n_s_electromagpy_fields_field
+#define __pyx_n_s_electromagpy_particles_particles __pyx_mstate_global->__pyx_n_s_electromagpy_particles_particles
+#define __pyx_kp_s_electromagpy_particles_particles_2 __pyx_mstate_global->__pyx_kp_s_electromagpy_particles_particles_2
 #define __pyx_kp_u_enable __pyx_mstate_global->__pyx_kp_u_enable
 #define __pyx_n_s_encode __pyx_mstate_global->__pyx_n_s_encode
 #define __pyx_n_s_enumerate __pyx_mstate_global->__pyx_n_s_enumerate
@@ -19094,7 +19115,7 @@ static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *__pyx_v_type) {
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":31
+/* "electromagpy/particles/particles.py":32
  *     _a2: cython.double[3]  # by the velocity-Verlet algorithm
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -19103,8 +19124,8 @@ static PyObject *__pyx_format_from_typeinfo(__Pyx_TypeInfo *__pyx_v_type) {
  */
 
 /* Python wrapper */
-static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_12electromagpy_9particles_9particles_9_Particle_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_12electromagpy_9particles_9particles_9_Particle_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   double __pyx_v_q;
   double __pyx_v_m;
   PyObject *__pyx_v_field = 0;
@@ -19150,7 +19171,7 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -19158,9 +19179,9 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
           (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 1); __PYX_ERR(0, 31, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 1); __PYX_ERR(0, 32, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -19168,9 +19189,9 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
           (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 2); __PYX_ERR(0, 31, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 2); __PYX_ERR(0, 32, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -19178,9 +19199,9 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
           (void)__Pyx_Arg_NewRef_VARARGS(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 3); __PYX_ERR(0, 31, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 3); __PYX_ERR(0, 32, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -19188,14 +19209,14 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
           (void)__Pyx_Arg_NewRef_VARARGS(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 4); __PYX_ERR(0, 31, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, 4); __PYX_ERR(0, 32, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 31, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 32, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 5)) {
       goto __pyx_L5_argtuple_error;
@@ -19206,15 +19227,15 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
       values[3] = __Pyx_Arg_VARARGS(__pyx_args, 3);
       values[4] = __Pyx_Arg_VARARGS(__pyx_args, 4);
     }
-    __pyx_v_q = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_q == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
-    __pyx_v_m = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_m == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
+    __pyx_v_q = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_q == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 33, __pyx_L3_error)
+    __pyx_v_m = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_m == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 33, __pyx_L3_error)
     __pyx_v_field = values[2];
     __pyx_v_r = values[3];
     __pyx_v_v = values[4];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, __pyx_nargs); __PYX_ERR(0, 31, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 5, 5, __pyx_nargs); __PYX_ERR(0, 32, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19224,11 +19245,11 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
       __Pyx_Arg_XDECREF_VARARGS(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(((struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self), __pyx_v_q, __pyx_v_m, __pyx_v_field, __pyx_v_r, __pyx_v_v);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_9_Particle___init__(((struct __pyx_obj_12electromagpy_9particles_9particles__Particle *)__pyx_v_self), __pyx_v_q, __pyx_v_m, __pyx_v_field, __pyx_v_r, __pyx_v_v);
 
   /* function exit code */
   {
@@ -19241,7 +19262,7 @@ static int __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__(
   return __pyx_r;
 }
 
-static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v) {
+static int __pyx_pf_12electromagpy_9particles_9particles_9_Particle___init__(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -19251,7 +19272,7 @@ static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 1);
 
-  /* "electromagpy/src/particles/particles.py":36
+  /* "electromagpy/particles/particles.py":37
  *     ):
  * 
  *         self.q = q             # <<<<<<<<<<<<<<
@@ -19260,7 +19281,7 @@ static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(s
  */
   __pyx_v_self->q = __pyx_v_q;
 
-  /* "electromagpy/src/particles/particles.py":37
+  /* "electromagpy/particles/particles.py":38
  * 
  *         self.q = q
  *         self.m = m             # <<<<<<<<<<<<<<
@@ -19269,42 +19290,42 @@ static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(s
  */
   __pyx_v_self->m = __pyx_v_m;
 
-  /* "electromagpy/src/particles/particles.py":39
+  /* "electromagpy/particles/particles.py":40
  *         self.m = m
  * 
  *         self.field = field             # <<<<<<<<<<<<<<
  *         self.r = list(r)
  *         self.v = list(v)
  */
-  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field, __pyx_v_field) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field, __pyx_v_field) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":40
+  /* "electromagpy/particles/particles.py":41
  * 
  *         self.field = field
  *         self.r = list(r)             # <<<<<<<<<<<<<<
  *         self.v = list(v)
  * 
  */
-  __pyx_t_1 = PySequence_List(__pyx_v_r); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_1 = PySequence_List(__pyx_v_r); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely((__Pyx_carray_from_py_double(__pyx_t_1, __pyx_t_2, 3) < 0))) __PYX_ERR(0, 40, __pyx_L1_error)
+  if (unlikely((__Pyx_carray_from_py_double(__pyx_t_1, __pyx_t_2, 3) < 0))) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   memcpy(&(__pyx_v_self->r[0]), __pyx_t_2, sizeof(__pyx_v_self->r[0]) * (3));
 
-  /* "electromagpy/src/particles/particles.py":41
+  /* "electromagpy/particles/particles.py":42
  *         self.field = field
  *         self.r = list(r)
  *         self.v = list(v)             # <<<<<<<<<<<<<<
  * 
  *     @cython.cfunc
  */
-  __pyx_t_1 = PySequence_List(__pyx_v_v); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = PySequence_List(__pyx_v_v); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely((__Pyx_carray_from_py_double(__pyx_t_1, __pyx_t_2, 3) < 0))) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (unlikely((__Pyx_carray_from_py_double(__pyx_t_1, __pyx_t_2, 3) < 0))) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   memcpy(&(__pyx_v_self->v[0]), __pyx_t_2, sizeof(__pyx_v_self->v[0]) * (3));
 
-  /* "electromagpy/src/particles/particles.py":31
+  /* "electromagpy/particles/particles.py":32
  *     _a2: cython.double[3]  # by the velocity-Verlet algorithm
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -19317,14 +19338,14 @@ static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(s
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":43
+/* "electromagpy/particles/particles.py":44
  *         self.v = list(v)
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19332,7 +19353,7 @@ static int __pyx_pf_12electromagpy_10_particles_9particles_9_Particle___init__(s
  * 
  */
 
-static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self) {
+static void __pyx_f_12electromagpy_9particles_9particles_9_Particle__eval_F(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -19348,21 +19369,21 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_eval_F", 1);
 
-  /* "electromagpy/src/particles/particles.py":46
+  /* "electromagpy/particles/particles.py":47
  *     def _eval_F(self) -> cython.void:
  * 
  *         self.field._eval_E(self.r, self.t)             # <<<<<<<<<<<<<<
  *         self.field._eval_B(self.r, self.t)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_eval_E); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_eval_E); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_self->r, 3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_carray_to_py_double(__pyx_v_self->r, 3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -19384,27 +19405,27 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":47
+  /* "electromagpy/particles/particles.py":48
  * 
  *         self.field._eval_E(self.r, self.t)
  *         self.field._eval_B(self.r, self.t)             # <<<<<<<<<<<<<<
  * 
  *         self._F[0] = self.q * (self.field._E[0] + cross(0, self.v, self.field._B))
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_eval_B); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_eval_B); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_carray_to_py_double(__pyx_v_self->r, 3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_carray_to_py_double(__pyx_v_self->r, 3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->t); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -19426,36 +19447,36 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":49
+  /* "electromagpy/particles/particles.py":50
  *         self.field._eval_B(self.r, self.t)
  * 
  *         self._F[0] = self.q * (self.field._E[0] + cross(0, self.v, self.field._B))             # <<<<<<<<<<<<<<
  *         self._F[1] = self.q * (self.field._E[1] + cross(1, self.v, self.field._B))
  *         self._F[2] = self.q * (self.field._E[2] + cross(2, self.v, self.field._B))
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_E); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_E); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_cross); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_cross); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_carray_to_py_double(__pyx_v_self->v, 3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_carray_to_py_double(__pyx_v_self->v, 3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_B); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_B); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -19478,46 +19499,46 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_3 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   (__pyx_v_self->_F[0]) = __pyx_t_9;
 
-  /* "electromagpy/src/particles/particles.py":50
+  /* "electromagpy/particles/particles.py":51
  * 
  *         self._F[0] = self.q * (self.field._E[0] + cross(0, self.v, self.field._B))
  *         self._F[1] = self.q * (self.field._E[1] + cross(1, self.v, self.field._B))             # <<<<<<<<<<<<<<
  *         self._F[2] = self.q * (self.field._E[2] + cross(2, self.v, self.field._B))
  * 
  */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_E); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_E); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_cross); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_cross); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = __Pyx_carray_to_py_double(__pyx_v_self->v, 3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_carray_to_py_double(__pyx_v_self->v, 3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_B); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_B); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -19540,46 +19561,46 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
-  __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   (__pyx_v_self->_F[1]) = __pyx_t_9;
 
-  /* "electromagpy/src/particles/particles.py":51
+  /* "electromagpy/particles/particles.py":52
  *         self._F[0] = self.q * (self.field._E[0] + cross(0, self.v, self.field._B))
  *         self._F[1] = self.q * (self.field._E[1] + cross(1, self.v, self.field._B))
  *         self._F[2] = self.q * (self.field._E[2] + cross(2, self.v, self.field._B))             # <<<<<<<<<<<<<<
  * 
  *     @cython.cfunc
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_E); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_E); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_cross); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_cross); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_self->v, 3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_self->v, 3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_field); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_B); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_B); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
@@ -19602,23 +19623,23 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_3 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   (__pyx_v_self->_F[2]) = __pyx_t_9;
 
-  /* "electromagpy/src/particles/particles.py":43
+  /* "electromagpy/particles/particles.py":44
  *         self.v = list(v)
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19636,12 +19657,12 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle._eval_F", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle._eval_F", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "electromagpy/src/particles/particles.py":53
+/* "electromagpy/particles/particles.py":54
  *         self._F[2] = self.q * (self.field._E[2] + cross(2, self.v, self.field._B))
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19649,7 +19670,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F(st
  * 
  */
 
-static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Particle_F(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self) {
+static __Pyx_memviewslice __pyx_f_12electromagpy_9particles_9particles_9_Particle_F(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self) {
   __Pyx_memviewslice __pyx_v_F_view = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_memviewslice __pyx_r = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannyDeclarations
@@ -19663,16 +19684,16 @@ static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Parti
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("F", 1);
 
-  /* "electromagpy/src/particles/particles.py":56
+  /* "electromagpy/particles/particles.py":57
  *     def F(self) -> cython.double[:]:
  * 
  *         self._eval_F()             # <<<<<<<<<<<<<<
  * 
  *         F_view = cython.declare(cython.double[:], self._F)
  */
-  ((struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->_eval_F(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->_eval_F(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":58
+  /* "electromagpy/particles/particles.py":59
  *         self._eval_F()
  * 
  *         F_view = cython.declare(cython.double[:], self._F)             # <<<<<<<<<<<<<<
@@ -19682,23 +19703,23 @@ static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Parti
   __pyx_t_1 = __pyx_v_self->_F;
   if (!__pyx_t_1) {
     PyErr_SetString(PyExc_ValueError,"Cannot create cython.array from NULL pointer");
-    __PYX_ERR(0, 58, __pyx_L1_error)
+    __PYX_ERR(0, 59, __pyx_L1_error)
   }
-  __pyx_t_4 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_double); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_4 = __pyx_format_from_typeinfo(&__Pyx_TypeInfo_double); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_3 = Py_BuildValue((char*) "("  __PYX_BUILD_PY_SSIZE_T  ")", ((Py_ssize_t)3)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __pyx_array_new(__pyx_t_3, sizeof(double), PyBytes_AS_STRING(__pyx_t_4), (char *) "fortran", (char *) __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_2 = __pyx_array_new(__pyx_t_3, sizeof(double), PyBytes_AS_STRING(__pyx_t_4), (char *) "fortran", (char *) __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF((PyObject *)__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_t_2), PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_t_2), PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF((PyObject *)__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_F_view = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "electromagpy/src/particles/particles.py":60
+  /* "electromagpy/particles/particles.py":61
  *         F_view = cython.declare(cython.double[:], self._F)
  * 
  *         return F_view             # <<<<<<<<<<<<<<
@@ -19709,7 +19730,7 @@ static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Parti
   __pyx_r = __pyx_v_F_view;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":53
+  /* "electromagpy/particles/particles.py":54
  *         self._F[2] = self.q * (self.field._E[2] + cross(2, self.v, self.field._B))
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19725,7 +19746,7 @@ static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Parti
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_5, 1);
   __pyx_r.data = NULL;
   __pyx_r.memview = NULL;
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.F", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.F", __pyx_clineno, __pyx_lineno, __pyx_filename);
   goto __pyx_L2;
   __pyx_L0:;
   if (unlikely(!__pyx_r.memview)) {
@@ -19737,7 +19758,7 @@ static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Parti
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":62
+/* "electromagpy/particles/particles.py":63
  *         return F_view
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19745,22 +19766,22 @@ static __Pyx_memviewslice __pyx_f_12electromagpy_10_particles_9particles_9_Parti
  *         """
  */
 
-static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, double __pyx_v_dt) {
+static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, double __pyx_v_dt) {
   long __pyx_t_1;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "electromagpy/src/particles/particles.py":70
+  /* "electromagpy/particles/particles.py":71
  * 
  *         # Update the force
  *         self._eval_F()             # <<<<<<<<<<<<<<
  * 
  *         # Update the acceleration
  */
-  ((struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->_eval_F(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->_eval_F(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":73
+  /* "electromagpy/particles/particles.py":74
  * 
  *         # Update the acceleration
  *         self._a1[0] = self._F[0] / self.m             # <<<<<<<<<<<<<<
@@ -19769,11 +19790,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   if (unlikely(__pyx_v_self->m == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 73, __pyx_L1_error)
+    __PYX_ERR(0, 74, __pyx_L1_error)
   }
   (__pyx_v_self->_a1[0]) = ((__pyx_v_self->_F[0]) / __pyx_v_self->m);
 
-  /* "electromagpy/src/particles/particles.py":74
+  /* "electromagpy/particles/particles.py":75
  *         # Update the acceleration
  *         self._a1[0] = self._F[0] / self.m
  *         self._a1[1] = self._F[1] / self.m             # <<<<<<<<<<<<<<
@@ -19782,11 +19803,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   if (unlikely(__pyx_v_self->m == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 74, __pyx_L1_error)
+    __PYX_ERR(0, 75, __pyx_L1_error)
   }
   (__pyx_v_self->_a1[1]) = ((__pyx_v_self->_F[1]) / __pyx_v_self->m);
 
-  /* "electromagpy/src/particles/particles.py":75
+  /* "electromagpy/particles/particles.py":76
  *         self._a1[0] = self._F[0] / self.m
  *         self._a1[1] = self._F[1] / self.m
  *         self._a1[2] = self._F[2] / self.m             # <<<<<<<<<<<<<<
@@ -19795,11 +19816,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   if (unlikely(__pyx_v_self->m == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 75, __pyx_L1_error)
+    __PYX_ERR(0, 76, __pyx_L1_error)
   }
   (__pyx_v_self->_a1[2]) = ((__pyx_v_self->_F[2]) / __pyx_v_self->m);
 
-  /* "electromagpy/src/particles/particles.py":78
+  /* "electromagpy/particles/particles.py":79
  * 
  *         # update the coordinates
  *         self.r[0] += self.v[0] * dt + 0.5 * self._a1[0] * dt * dt             # <<<<<<<<<<<<<<
@@ -19809,7 +19830,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   __pyx_t_1 = 0;
   (__pyx_v_self->r[__pyx_t_1]) = ((__pyx_v_self->r[__pyx_t_1]) + (((__pyx_v_self->v[0]) * __pyx_v_dt) + (((0.5 * (__pyx_v_self->_a1[0])) * __pyx_v_dt) * __pyx_v_dt)));
 
-  /* "electromagpy/src/particles/particles.py":79
+  /* "electromagpy/particles/particles.py":80
  *         # update the coordinates
  *         self.r[0] += self.v[0] * dt + 0.5 * self._a1[0] * dt * dt
  *         self.r[1] += self.v[1] * dt + 0.5 * self._a1[1] * dt * dt             # <<<<<<<<<<<<<<
@@ -19819,7 +19840,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   __pyx_t_1 = 1;
   (__pyx_v_self->r[__pyx_t_1]) = ((__pyx_v_self->r[__pyx_t_1]) + (((__pyx_v_self->v[1]) * __pyx_v_dt) + (((0.5 * (__pyx_v_self->_a1[1])) * __pyx_v_dt) * __pyx_v_dt)));
 
-  /* "electromagpy/src/particles/particles.py":80
+  /* "electromagpy/particles/particles.py":81
  *         self.r[0] += self.v[0] * dt + 0.5 * self._a1[0] * dt * dt
  *         self.r[1] += self.v[1] * dt + 0.5 * self._a1[1] * dt * dt
  *         self.r[2] += self.v[2] * dt + 0.5 * self._a1[2] * dt * dt             # <<<<<<<<<<<<<<
@@ -19829,16 +19850,16 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   __pyx_t_1 = 2;
   (__pyx_v_self->r[__pyx_t_1]) = ((__pyx_v_self->r[__pyx_t_1]) + (((__pyx_v_self->v[2]) * __pyx_v_dt) + (((0.5 * (__pyx_v_self->_a1[2])) * __pyx_v_dt) * __pyx_v_dt)));
 
-  /* "electromagpy/src/particles/particles.py":83
+  /* "electromagpy/particles/particles.py":84
  * 
  *         # update the force again, at the new coordinate
  *         self._eval_F()             # <<<<<<<<<<<<<<
  * 
  *         # update the acceleration again
  */
-  ((struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->_eval_F(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 83, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->_eval_F(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":86
+  /* "electromagpy/particles/particles.py":87
  * 
  *         # update the acceleration again
  *         self._a2[0] = self._F[0] / self.m             # <<<<<<<<<<<<<<
@@ -19847,11 +19868,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   if (unlikely(__pyx_v_self->m == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 86, __pyx_L1_error)
+    __PYX_ERR(0, 87, __pyx_L1_error)
   }
   (__pyx_v_self->_a2[0]) = ((__pyx_v_self->_F[0]) / __pyx_v_self->m);
 
-  /* "electromagpy/src/particles/particles.py":87
+  /* "electromagpy/particles/particles.py":88
  *         # update the acceleration again
  *         self._a2[0] = self._F[0] / self.m
  *         self._a2[1] = self._F[1] / self.m             # <<<<<<<<<<<<<<
@@ -19860,11 +19881,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   if (unlikely(__pyx_v_self->m == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 87, __pyx_L1_error)
+    __PYX_ERR(0, 88, __pyx_L1_error)
   }
   (__pyx_v_self->_a2[1]) = ((__pyx_v_self->_F[1]) / __pyx_v_self->m);
 
-  /* "electromagpy/src/particles/particles.py":88
+  /* "electromagpy/particles/particles.py":89
  *         self._a2[0] = self._F[0] / self.m
  *         self._a2[1] = self._F[1] / self.m
  *         self._a2[2] = self._F[2] / self.m             # <<<<<<<<<<<<<<
@@ -19873,11 +19894,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   if (unlikely(__pyx_v_self->m == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 88, __pyx_L1_error)
+    __PYX_ERR(0, 89, __pyx_L1_error)
   }
   (__pyx_v_self->_a2[2]) = ((__pyx_v_self->_F[2]) / __pyx_v_self->m);
 
-  /* "electromagpy/src/particles/particles.py":91
+  /* "electromagpy/particles/particles.py":92
  * 
  *         # update the velocity
  *         self.v[0] += 0.5 * (self._a1[0] + self._a2[0]) * dt             # <<<<<<<<<<<<<<
@@ -19887,7 +19908,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   __pyx_t_1 = 0;
   (__pyx_v_self->v[__pyx_t_1]) = ((__pyx_v_self->v[__pyx_t_1]) + ((0.5 * ((__pyx_v_self->_a1[0]) + (__pyx_v_self->_a2[0]))) * __pyx_v_dt));
 
-  /* "electromagpy/src/particles/particles.py":92
+  /* "electromagpy/particles/particles.py":93
  *         # update the velocity
  *         self.v[0] += 0.5 * (self._a1[0] + self._a2[0]) * dt
  *         self.v[1] += 0.5 * (self._a1[1] + self._a2[1]) * dt             # <<<<<<<<<<<<<<
@@ -19897,7 +19918,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   __pyx_t_1 = 1;
   (__pyx_v_self->v[__pyx_t_1]) = ((__pyx_v_self->v[__pyx_t_1]) + ((0.5 * ((__pyx_v_self->_a1[1]) + (__pyx_v_self->_a2[1]))) * __pyx_v_dt));
 
-  /* "electromagpy/src/particles/particles.py":93
+  /* "electromagpy/particles/particles.py":94
  *         self.v[0] += 0.5 * (self._a1[0] + self._a2[0]) * dt
  *         self.v[1] += 0.5 * (self._a1[1] + self._a2[1]) * dt
  *         self.v[2] += 0.5 * (self._a1[2] + self._a2[2]) * dt             # <<<<<<<<<<<<<<
@@ -19907,7 +19928,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   __pyx_t_1 = 2;
   (__pyx_v_self->v[__pyx_t_1]) = ((__pyx_v_self->v[__pyx_t_1]) + ((0.5 * ((__pyx_v_self->_a1[2]) + (__pyx_v_self->_a2[2]))) * __pyx_v_dt));
 
-  /* "electromagpy/src/particles/particles.py":96
+  /* "electromagpy/particles/particles.py":97
  * 
  *         # update the time
  *         self.t += dt             # <<<<<<<<<<<<<<
@@ -19916,7 +19937,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  */
   __pyx_v_self->t = (__pyx_v_self->t + __pyx_v_dt);
 
-  /* "electromagpy/src/particles/particles.py":62
+  /* "electromagpy/particles/particles.py":63
  *         return F_view
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19927,11 +19948,11 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
   /* function exit code */
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.update", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.update", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
 }
 
-/* "electromagpy/src/particles/particles.py":98
+/* "electromagpy/particles/particles.py":99
  *         self.t += dt
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19939,14 +19960,14 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_update(str
  *         """
  */
 
-static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, double __pyx_v_duration, double __pyx_v_dt) {
+static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_evolve(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, double __pyx_v_duration, double __pyx_v_dt) {
   double __pyx_v_t;
   int __pyx_t_1;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "electromagpy/src/particles/particles.py":105
+  /* "electromagpy/particles/particles.py":106
  *         """
  * 
  *         t: cython.double = 0.0             # <<<<<<<<<<<<<<
@@ -19955,7 +19976,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(str
  */
   __pyx_v_t = 0.0;
 
-  /* "electromagpy/src/particles/particles.py":107
+  /* "electromagpy/particles/particles.py":108
  *         t: cython.double = 0.0
  * 
  *         while t < duration:             # <<<<<<<<<<<<<<
@@ -19966,16 +19987,16 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(str
     __pyx_t_1 = (__pyx_v_t < __pyx_v_duration);
     if (!__pyx_t_1) break;
 
-    /* "electromagpy/src/particles/particles.py":108
+    /* "electromagpy/particles/particles.py":109
  * 
  *         while t < duration:
  *             self.update(dt)             # <<<<<<<<<<<<<<
  *             t += dt
  * 
  */
-    ((struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->update(__pyx_v_self, __pyx_v_dt); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L1_error)
+    ((struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *)__pyx_v_self->__pyx_vtab)->update(__pyx_v_self, __pyx_v_dt); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
 
-    /* "electromagpy/src/particles/particles.py":109
+    /* "electromagpy/particles/particles.py":110
  *         while t < duration:
  *             self.update(dt)
  *             t += dt             # <<<<<<<<<<<<<<
@@ -19985,7 +20006,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(str
     __pyx_v_t = (__pyx_v_t + __pyx_v_dt);
   }
 
-  /* "electromagpy/src/particles/particles.py":98
+  /* "electromagpy/particles/particles.py":99
  *         self.t += dt
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19996,7 +20017,7 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(str
   /* function exit code */
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.evolve", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.evolve", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
 }
 
@@ -20007,15 +20028,15 @@ static void __pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve(str
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_3__reduce_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_9_Particle_3__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_9_Particle_3__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_3__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_3__reduce_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_9_Particle_3__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_9_Particle_3__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_9_Particle_3__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -20040,14 +20061,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   if (unlikely(__pyx_nargs > 0)) {
     __Pyx_RaiseArgtupleInvalid("__reduce_cython__", 1, 0, 0, __pyx_nargs); return NULL;}
   if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__reduce_cython__", 0))) return NULL;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_9_Particle_2__reduce_cython__(((struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self));
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_9_Particle_2__reduce_cython__(((struct __pyx_obj_12electromagpy_9particles_9particles__Particle *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_2__reduce_cython__(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_9_Particle_2__reduce_cython__(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -20311,7 +20332,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_2__r
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -20329,15 +20350,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_2__r
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_5__setstate_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_9_Particle_5__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_9_Particle_5__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_5__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_5__setstate_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_9_Particle_5__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_9_Particle_5__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_9_Particle_5__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -20407,11 +20428,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__setstate_cython__(((struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *)__pyx_v_self), __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_9_Particle_4__setstate_cython__(((struct __pyx_obj_12electromagpy_9particles_9particles__Particle *)__pyx_v_self), __pyx_v___pyx_state);
 
   /* function exit code */
   {
@@ -20424,7 +20445,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__setstate_cython__(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_9_Particle_4__setstate_cython__(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -20439,7 +20460,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__s
  *     __pyx_unpickle__Particle__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
   if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v___pyx_state))) __PYX_ERR(1, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_12electromagpy_10_particles_9particles___pyx_unpickle__Particle__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12electromagpy_9particles_9particles___pyx_unpickle__Particle__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -20455,7 +20476,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__s
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("electromagpy._particles.particles._Particle.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles._Particle.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -20463,7 +20484,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__s
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":114
+/* "electromagpy/particles/particles.py":115
  * class Particle:
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -20472,15 +20493,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_9_Particle_4__s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_1__init__(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_1__init__(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_1__init__ = {"__init__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_1__init__(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -20515,7 +20536,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   {
     PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_q,&__pyx_n_s_m,&__pyx_n_s_field,&__pyx_n_s_r,&__pyx_n_s_v,0};
 
-    /* "electromagpy/src/particles/particles.py":115
+    /* "electromagpy/particles/particles.py":116
  * 
  *     def __init__(
  *             self, q: float, m: float, field: Field = None,             # <<<<<<<<<<<<<<
@@ -20524,7 +20545,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
  */
     values[3] = __Pyx_Arg_NewRef_FASTCALL(((PyObject *)Py_None));
 
-    /* "electromagpy/src/particles/particles.py":116
+    /* "electromagpy/particles/particles.py":117
  *     def __init__(
  *             self, q: float, m: float, field: Field = None,
  *             r: Iterable = None, v: Iterable = None             # <<<<<<<<<<<<<<
@@ -20558,7 +20579,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -20566,9 +20587,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 6, 1); __PYX_ERR(0, 114, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 6, 1); __PYX_ERR(0, 115, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -20576,35 +20597,35 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 6, 2); __PYX_ERR(0, 114, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 6, 2); __PYX_ERR(0, 115, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_field);
           if (value) { values[3] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_r);
           if (value) { values[4] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_v);
           if (value) { values[5] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 114, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 115, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -20622,15 +20643,15 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       }
     }
     __pyx_v_self = values[0];
-    __pyx_v_q = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_q == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
-    __pyx_v_m = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_m == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L3_error)
+    __pyx_v_q = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_q == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 116, __pyx_L3_error)
+    __pyx_v_m = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_m == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 116, __pyx_L3_error)
     __pyx_v_field = values[3];
     __pyx_v_r = values[4];
     __pyx_v_v = values[5];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 6, __pyx_nargs); __PYX_ERR(0, 114, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 3, 6, __pyx_nargs); __PYX_ERR(0, 115, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -20640,13 +20661,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle___init__(__pyx_self, __pyx_v_self, __pyx_v_q, __pyx_v_m, __pyx_v_field, __pyx_v_r, __pyx_v_v);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle___init__(__pyx_self, __pyx_v_self, __pyx_v_q, __pyx_v_m, __pyx_v_field, __pyx_v_r, __pyx_v_v);
 
-  /* "electromagpy/src/particles/particles.py":114
+  /* "electromagpy/particles/particles.py":115
  * class Particle:
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -20665,7 +20686,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q, double __pyx_v_m, PyObject *__pyx_v_field, PyObject *__pyx_v_r, PyObject *__pyx_v_v) {
   PyObject *__pyx_7genexpr__pyx_v_ri = NULL;
   PyObject *__pyx_8genexpr1__pyx_v_vi = NULL;
   PyObject *__pyx_r = NULL;
@@ -20686,7 +20707,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   __Pyx_INCREF(__pyx_v_r);
   __Pyx_INCREF(__pyx_v_v);
 
-  /* "electromagpy/src/particles/particles.py":119
+  /* "electromagpy/particles/particles.py":120
  *     ):
  * 
  *         if field is None:             # <<<<<<<<<<<<<<
@@ -20696,14 +20717,14 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   __pyx_t_1 = (__pyx_v_field == Py_None);
   if (__pyx_t_1) {
 
-    /* "electromagpy/src/particles/particles.py":120
+    /* "electromagpy/particles/particles.py":121
  * 
  *         if field is None:
  *             field = Vacuum()             # <<<<<<<<<<<<<<
  * 
  *         self._field = field
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Vacuum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Vacuum); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -20723,14 +20744,14 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 120, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF_SET(__pyx_v_field, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "electromagpy/src/particles/particles.py":119
+    /* "electromagpy/particles/particles.py":120
  *     ):
  * 
  *         if field is None:             # <<<<<<<<<<<<<<
@@ -20739,16 +20760,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
  */
   }
 
-  /* "electromagpy/src/particles/particles.py":122
+  /* "electromagpy/particles/particles.py":123
  *             field = Vacuum()
  * 
  *         self._field = field             # <<<<<<<<<<<<<<
  * 
  *         if r is None:
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_field_2, __pyx_v_field) < 0) __PYX_ERR(0, 122, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_field_2, __pyx_v_field) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":124
+  /* "electromagpy/particles/particles.py":125
  *         self._field = field
  * 
  *         if r is None:             # <<<<<<<<<<<<<<
@@ -20758,28 +20779,28 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   __pyx_t_1 = (__pyx_v_r == Py_None);
   if (__pyx_t_1) {
 
-    /* "electromagpy/src/particles/particles.py":125
+    /* "electromagpy/particles/particles.py":126
  * 
  *         if r is None:
  *             r = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
  *         else:
  *             r = [float(ri) for ri in r]
  */
-    __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 126, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_float_0_0);
     __Pyx_GIVEREF(__pyx_float_0_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_float_0_0)) __PYX_ERR(0, 125, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_float_0_0)) __PYX_ERR(0, 126, __pyx_L1_error);
     __Pyx_INCREF(__pyx_float_0_0);
     __Pyx_GIVEREF(__pyx_float_0_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_float_0_0)) __PYX_ERR(0, 125, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_float_0_0)) __PYX_ERR(0, 126, __pyx_L1_error);
     __Pyx_INCREF(__pyx_float_0_0);
     __Pyx_GIVEREF(__pyx_float_0_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_float_0_0)) __PYX_ERR(0, 125, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_float_0_0)) __PYX_ERR(0, 126, __pyx_L1_error);
     __Pyx_DECREF_SET(__pyx_v_r, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "electromagpy/src/particles/particles.py":124
+    /* "electromagpy/particles/particles.py":125
  *         self._field = field
  * 
  *         if r is None:             # <<<<<<<<<<<<<<
@@ -20789,7 +20810,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
     goto __pyx_L4;
   }
 
-  /* "electromagpy/src/particles/particles.py":127
+  /* "electromagpy/particles/particles.py":128
  *             r = [0.0, 0.0, 0.0]
  *         else:
  *             r = [float(ri) for ri in r]             # <<<<<<<<<<<<<<
@@ -20798,16 +20819,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
  */
   /*else*/ {
     { /* enter inner scope */
-      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 127, __pyx_L7_error)
+      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 128, __pyx_L7_error)
       __Pyx_GOTREF(__pyx_t_2);
       if (likely(PyList_CheckExact(__pyx_v_r)) || PyTuple_CheckExact(__pyx_v_r)) {
         __pyx_t_3 = __pyx_v_r; __Pyx_INCREF(__pyx_t_3);
         __pyx_t_6 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 127, __pyx_L7_error)
+        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 128, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 127, __pyx_L7_error)
+        __pyx_t_7 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 128, __pyx_L7_error)
       }
       for (;;) {
         if (likely(!__pyx_t_7)) {
@@ -20815,28 +20836,28 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
             {
               Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 127, __pyx_L7_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 128, __pyx_L7_error)
               #endif
               if (__pyx_t_6 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 127, __pyx_L7_error)
+            __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 128, __pyx_L7_error)
             #else
-            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
             #endif
           } else {
             {
               Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 127, __pyx_L7_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 128, __pyx_L7_error)
               #endif
               if (__pyx_t_6 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 127, __pyx_L7_error)
+            __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 128, __pyx_L7_error)
             #else
-            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
             #endif
           }
@@ -20846,7 +20867,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 127, __pyx_L7_error)
+              else __PYX_ERR(0, 128, __pyx_L7_error)
             }
             break;
           }
@@ -20854,9 +20875,9 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
         }
         __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_ri, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_7genexpr__pyx_v_ri); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 127, __pyx_L7_error)
+        __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_7genexpr__pyx_v_ri); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L7_error)
         __Pyx_GOTREF(__pyx_t_4);
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 127, __pyx_L7_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 128, __pyx_L7_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -20872,7 +20893,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   }
   __pyx_L4:;
 
-  /* "electromagpy/src/particles/particles.py":129
+  /* "electromagpy/particles/particles.py":130
  *             r = [float(ri) for ri in r]
  * 
  *         if v is None:             # <<<<<<<<<<<<<<
@@ -20882,28 +20903,28 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   __pyx_t_1 = (__pyx_v_v == Py_None);
   if (__pyx_t_1) {
 
-    /* "electromagpy/src/particles/particles.py":130
+    /* "electromagpy/particles/particles.py":131
  * 
  *         if v is None:
  *             v = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
  *         else:
  *             v = [float(vi) for vi in v]
  */
-    __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_float_0_0);
     __Pyx_GIVEREF(__pyx_float_0_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_float_0_0)) __PYX_ERR(0, 130, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_float_0_0)) __PYX_ERR(0, 131, __pyx_L1_error);
     __Pyx_INCREF(__pyx_float_0_0);
     __Pyx_GIVEREF(__pyx_float_0_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_float_0_0)) __PYX_ERR(0, 130, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_float_0_0)) __PYX_ERR(0, 131, __pyx_L1_error);
     __Pyx_INCREF(__pyx_float_0_0);
     __Pyx_GIVEREF(__pyx_float_0_0);
-    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_float_0_0)) __PYX_ERR(0, 130, __pyx_L1_error);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_float_0_0)) __PYX_ERR(0, 131, __pyx_L1_error);
     __Pyx_DECREF_SET(__pyx_v_v, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "electromagpy/src/particles/particles.py":129
+    /* "electromagpy/particles/particles.py":130
  *             r = [float(ri) for ri in r]
  * 
  *         if v is None:             # <<<<<<<<<<<<<<
@@ -20913,7 +20934,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
     goto __pyx_L12;
   }
 
-  /* "electromagpy/src/particles/particles.py":132
+  /* "electromagpy/particles/particles.py":133
  *             v = [0.0, 0.0, 0.0]
  *         else:
  *             v = [float(vi) for vi in v]             # <<<<<<<<<<<<<<
@@ -20922,16 +20943,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
  */
   /*else*/ {
     { /* enter inner scope */
-      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L15_error)
+      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L15_error)
       __Pyx_GOTREF(__pyx_t_2);
       if (likely(PyList_CheckExact(__pyx_v_v)) || PyTuple_CheckExact(__pyx_v_v)) {
         __pyx_t_3 = __pyx_v_v; __Pyx_INCREF(__pyx_t_3);
         __pyx_t_6 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L15_error)
+        __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L15_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_7 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 132, __pyx_L15_error)
+        __pyx_t_7 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 133, __pyx_L15_error)
       }
       for (;;) {
         if (likely(!__pyx_t_7)) {
@@ -20939,28 +20960,28 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
             {
               Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 132, __pyx_L15_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 133, __pyx_L15_error)
               #endif
               if (__pyx_t_6 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 132, __pyx_L15_error)
+            __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 133, __pyx_L15_error)
             #else
-            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L15_error)
+            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L15_error)
             __Pyx_GOTREF(__pyx_t_4);
             #endif
           } else {
             {
               Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 132, __pyx_L15_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 133, __pyx_L15_error)
               #endif
               if (__pyx_t_6 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 132, __pyx_L15_error)
+            __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely((0 < 0))) __PYX_ERR(0, 133, __pyx_L15_error)
             #else
-            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L15_error)
+            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L15_error)
             __Pyx_GOTREF(__pyx_t_4);
             #endif
           }
@@ -20970,7 +20991,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 132, __pyx_L15_error)
+              else __PYX_ERR(0, 133, __pyx_L15_error)
             }
             break;
           }
@@ -20978,9 +20999,9 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
         }
         __Pyx_XDECREF_SET(__pyx_8genexpr1__pyx_v_vi, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_8genexpr1__pyx_v_vi); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L15_error)
+        __pyx_t_4 = __Pyx_PyNumber_Float(__pyx_8genexpr1__pyx_v_vi); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 133, __pyx_L15_error)
         __Pyx_GOTREF(__pyx_t_4);
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 132, __pyx_L15_error)
+        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 133, __pyx_L15_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -20996,43 +21017,43 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   }
   __pyx_L12:;
 
-  /* "electromagpy/src/particles/particles.py":134
+  /* "electromagpy/particles/particles.py":135
  *             v = [float(vi) for vi in v]
  * 
  *         self._particle = _Particle(q, m, field._field, r, v)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_m); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_m); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_field, __pyx_n_s_field_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_field, __pyx_n_s_field_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = PyTuple_New(5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(5); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_2);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_r);
   __Pyx_GIVEREF(__pyx_v_r);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 3, __pyx_v_r)) __PYX_ERR(0, 134, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 3, __pyx_v_r)) __PYX_ERR(0, 135, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_v);
   __Pyx_GIVEREF(__pyx_v_v);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 4, __pyx_v_v)) __PYX_ERR(0, 134, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 4, __pyx_v_v)) __PYX_ERR(0, 135, __pyx_L1_error);
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_12electromagpy_10_particles_9particles__Particle), __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_12electromagpy_9particles_9particles__Particle), __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_particle, __pyx_t_4) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_particle, __pyx_t_4) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "electromagpy/src/particles/particles.py":114
+  /* "electromagpy/particles/particles.py":115
  * class Particle:
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
@@ -21048,7 +21069,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_7genexpr__pyx_v_ri);
@@ -21061,7 +21082,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":136
+/* "electromagpy/particles/particles.py":137
  *         self._particle = _Particle(q, m, field._field, r, v)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -21070,15 +21091,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle___ini
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_3q(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_3q(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_3q = {"q", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_3q, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_3q(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_3q = {"q", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_3q, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_3q(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21122,12 +21143,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 136, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 137, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "q") < 0)) __PYX_ERR(0, 136, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "q") < 0)) __PYX_ERR(0, 137, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -21138,7 +21159,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("q", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 136, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("q", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 137, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21148,11 +21169,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_2q(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -21165,7 +21186,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_2q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21175,7 +21196,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CY
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("q", 1);
 
-  /* "electromagpy/src/particles/particles.py":138
+  /* "electromagpy/particles/particles.py":139
  *     @property
  *     def q(self) -> float:
  *         return self._particle.q             # <<<<<<<<<<<<<<
@@ -21183,16 +21204,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CY
  *     @q.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":136
+  /* "electromagpy/particles/particles.py":137
  *         self._particle = _Particle(q, m, field._field, r, v)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -21204,7 +21225,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CY
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21212,7 +21233,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CY
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":140
+/* "electromagpy/particles/particles.py":141
  *         return self._particle.q
  * 
  *     @q.setter             # <<<<<<<<<<<<<<
@@ -21221,15 +21242,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_2q(CY
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_5q(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_5q(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_5q = {"q", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_5q, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_5q(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_5q = {"q", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_5q, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_5q(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21276,7 +21297,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 140, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 141, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -21284,14 +21305,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 140, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 141, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("q", 1, 2, 2, 1); __PYX_ERR(0, 140, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("q", 1, 2, 2, 1); __PYX_ERR(0, 141, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "q") < 0)) __PYX_ERR(0, 140, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "q") < 0)) __PYX_ERR(0, 141, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -21300,11 +21321,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_q = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_q == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 141, __pyx_L3_error)
+    __pyx_v_q = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_q == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 142, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("q", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 140, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("q", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 141, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21314,11 +21335,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(__pyx_self, __pyx_v_self, __pyx_v_q);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_4q(__pyx_self, __pyx_v_self, __pyx_v_q);
 
   /* function exit code */
   {
@@ -21331,7 +21352,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_4q(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_q) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21341,22 +21362,22 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(CY
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("q", 1);
 
-  /* "electromagpy/src/particles/particles.py":142
+  /* "electromagpy/particles/particles.py":143
  *     @q.setter
  *     def q(self, q: float):
  *         self._particle.q = q             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_q, __pyx_t_1) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_q, __pyx_t_1) < 0) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/src/particles/particles.py":140
+  /* "electromagpy/particles/particles.py":141
  *         return self._particle.q
  * 
  *     @q.setter             # <<<<<<<<<<<<<<
@@ -21370,7 +21391,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(CY
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.q", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21378,7 +21399,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(CY
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":144
+/* "electromagpy/particles/particles.py":145
  *         self._particle.q = q
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -21387,15 +21408,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_4q(CY
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_7m(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_7m(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_7m = {"m", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_7m, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_7m(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_7m = {"m", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_7m, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_7m(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21439,12 +21460,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 144, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 145, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "m") < 0)) __PYX_ERR(0, 144, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "m") < 0)) __PYX_ERR(0, 145, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -21455,7 +21476,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("m", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 144, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("m", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 145, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21465,11 +21486,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_6m(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -21482,7 +21503,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_6m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21492,7 +21513,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CY
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("m", 1);
 
-  /* "electromagpy/src/particles/particles.py":146
+  /* "electromagpy/particles/particles.py":147
  *     @property
  *     def m(self) -> float:
  *         return self._particle.m             # <<<<<<<<<<<<<<
@@ -21500,16 +21521,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CY
  *     @m.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_m); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_m); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":144
+  /* "electromagpy/particles/particles.py":145
  *         self._particle.q = q
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -21521,7 +21542,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CY
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21529,7 +21550,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CY
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":148
+/* "electromagpy/particles/particles.py":149
  *         return self._particle.m
  * 
  *     @m.setter             # <<<<<<<<<<<<<<
@@ -21538,15 +21559,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_6m(CY
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_9m(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_9m(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_9m = {"m", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_9m, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_9m(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_9m = {"m", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_9m, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_9m(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21593,7 +21614,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 148, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -21601,14 +21622,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 148, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("m", 1, 2, 2, 1); __PYX_ERR(0, 148, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("m", 1, 2, 2, 1); __PYX_ERR(0, 149, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "m") < 0)) __PYX_ERR(0, 148, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "m") < 0)) __PYX_ERR(0, 149, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -21617,11 +21638,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
     __pyx_v_self = values[0];
-    __pyx_v_m = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_m == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L3_error)
+    __pyx_v_m = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_m == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 150, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("m", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 148, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("m", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 149, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21631,11 +21652,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(__pyx_self, __pyx_v_self, __pyx_v_m);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_8m(__pyx_self, __pyx_v_self, __pyx_v_m);
 
   /* function exit code */
   {
@@ -21648,7 +21669,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_m) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_8m(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, double __pyx_v_m) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21658,22 +21679,22 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(CY
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("m", 1);
 
-  /* "electromagpy/src/particles/particles.py":150
+  /* "electromagpy/particles/particles.py":151
  *     @m.setter
  *     def m(self, m: float):
  *         self._particle.m = m             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_m, __pyx_t_1) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_m, __pyx_t_1) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/src/particles/particles.py":148
+  /* "electromagpy/particles/particles.py":149
  *         return self._particle.m
  * 
  *     @m.setter             # <<<<<<<<<<<<<<
@@ -21687,7 +21708,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(CY
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.m", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21695,7 +21716,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(CY
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":152
+/* "electromagpy/particles/particles.py":153
  *         self._particle.m = m
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -21704,15 +21725,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_8m(CY
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_11field(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_11field(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_11field = {"field", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_11field, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_11field(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_11field = {"field", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_11field, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_11field(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21756,12 +21777,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 152, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "field") < 0)) __PYX_ERR(0, 152, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "field") < 0)) __PYX_ERR(0, 153, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -21772,7 +21793,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("field", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 152, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("field", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 153, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21782,11 +21803,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_10field(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_10field(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -21799,7 +21820,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_10field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21808,7 +21829,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10fie
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("field", 1);
 
-  /* "electromagpy/src/particles/particles.py":154
+  /* "electromagpy/particles/particles.py":155
  *     @property
  *     def field(self) -> Field:
  *         return self._field             # <<<<<<<<<<<<<<
@@ -21816,13 +21837,13 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10fie
  *     @field.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_field_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_field_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":152
+  /* "electromagpy/particles/particles.py":153
  *         self._particle.m = m
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -21833,7 +21854,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10fie
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21841,7 +21862,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10fie
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":156
+/* "electromagpy/particles/particles.py":157
  *         return self._field
  * 
  *     @field.setter             # <<<<<<<<<<<<<<
@@ -21850,15 +21871,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_10fie
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_13field(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_13field(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_13field = {"field", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_13field, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_13field(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_13field = {"field", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_13field, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_13field(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21905,7 +21926,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 157, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -21913,14 +21934,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 157, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("field", 1, 2, 2, 1); __PYX_ERR(0, 156, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("field", 1, 2, 2, 1); __PYX_ERR(0, 157, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "field") < 0)) __PYX_ERR(0, 156, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "field") < 0)) __PYX_ERR(0, 157, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -21933,7 +21954,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("field", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 156, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("field", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 157, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21943,11 +21964,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_12field(__pyx_self, __pyx_v_self, __pyx_v_field);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_12field(__pyx_self, __pyx_v_self, __pyx_v_field);
 
   /* function exit code */
   {
@@ -21960,7 +21981,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_12field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_field) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_12field(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_field) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21970,31 +21991,31 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_12fie
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("field", 1);
 
-  /* "electromagpy/src/particles/particles.py":158
+  /* "electromagpy/particles/particles.py":159
  *     @field.setter
  *     def field(self, field: Field):
  *         self._field = field             # <<<<<<<<<<<<<<
  *         self._particle.field = field._field
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_field_2, __pyx_v_field) < 0) __PYX_ERR(0, 158, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_field_2, __pyx_v_field) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":159
+  /* "electromagpy/particles/particles.py":160
  *     def field(self, field: Field):
  *         self._field = field
  *         self._particle.field = field._field             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_field, __pyx_n_s_field_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_field, __pyx_n_s_field_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_field, __pyx_t_1) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_t_2, __pyx_n_s_field, __pyx_t_1) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/src/particles/particles.py":156
+  /* "electromagpy/particles/particles.py":157
  *         return self._field
  * 
  *     @field.setter             # <<<<<<<<<<<<<<
@@ -22008,7 +22029,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_12fie
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.field", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -22016,7 +22037,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_12fie
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":161
+/* "electromagpy/particles/particles.py":162
  *         self._particle.field = field._field
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -22025,15 +22046,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_12fie
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_15r(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_15r(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_15r = {"r", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_15r, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_15r(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_15r = {"r", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_15r, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_15r(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -22077,12 +22098,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 161, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 162, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "r") < 0)) __PYX_ERR(0, 161, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "r") < 0)) __PYX_ERR(0, 162, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -22093,7 +22114,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("r", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 161, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("r", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 162, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22103,11 +22124,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_14r(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -22120,7 +22141,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_14r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_8genexpr2__pyx_v_ri = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -22136,7 +22157,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("r", 1);
 
-  /* "electromagpy/src/particles/particles.py":163
+  /* "electromagpy/particles/particles.py":164
  *     @property
  *     def r(self) -> np.ndarray:
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -22144,17 +22165,17 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
  *     @r.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   { /* enter inner scope */
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L5_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L5_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L5_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
@@ -22162,9 +22183,9 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
       __pyx_t_5 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L5_error)
+      __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L5_error)
+      __pyx_t_6 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L5_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -22173,28 +22194,28 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 163, __pyx_L5_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 164, __pyx_L5_error)
             #endif
             if (__pyx_t_5 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 163, __pyx_L5_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 164, __pyx_L5_error)
           #else
-          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L5_error)
+          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           {
             Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 163, __pyx_L5_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 164, __pyx_L5_error)
             #endif
             if (__pyx_t_5 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 163, __pyx_L5_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 164, __pyx_L5_error)
           #else
-          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L5_error)
+          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -22204,7 +22225,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 163, __pyx_L5_error)
+            else __PYX_ERR(0, 164, __pyx_L5_error)
           }
           break;
         }
@@ -22212,7 +22233,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
       }
       __Pyx_XDECREF_SET(__pyx_8genexpr2__pyx_v_ri, __pyx_t_4);
       __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_8genexpr2__pyx_v_ri))) __PYX_ERR(0, 163, __pyx_L5_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_8genexpr2__pyx_v_ri))) __PYX_ERR(0, 164, __pyx_L5_error)
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_ri); __pyx_8genexpr2__pyx_v_ri = 0;
@@ -22222,21 +22243,21 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
     goto __pyx_L1_error;
     __pyx_L9_exit_scope:;
   } /* exit inner scope */
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -22245,7 +22266,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":161
+  /* "electromagpy/particles/particles.py":162
  *         self._particle.field = field._field
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -22260,7 +22281,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_ri);
@@ -22269,7 +22290,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":165
+/* "electromagpy/particles/particles.py":166
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)
  * 
  *     @r.setter             # <<<<<<<<<<<<<<
@@ -22278,15 +22299,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_14r(C
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_17r(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_17r(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_17r = {"r", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_17r, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_17r(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_17r = {"r", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_17r, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_17r(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -22333,7 +22354,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 165, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 166, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -22341,14 +22362,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 165, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 166, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("r", 1, 2, 2, 1); __PYX_ERR(0, 165, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("r", 1, 2, 2, 1); __PYX_ERR(0, 166, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "r") < 0)) __PYX_ERR(0, 165, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "r") < 0)) __PYX_ERR(0, 166, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -22361,7 +22382,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("r", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 165, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("r", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 166, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22371,11 +22392,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(__pyx_self, __pyx_v_self, __pyx_v_r);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_16r(__pyx_self, __pyx_v_self, __pyx_v_r);
 
   /* function exit code */
   {
@@ -22388,7 +22409,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_r) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_16r(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_r) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -22399,61 +22420,61 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("r", 1);
 
-  /* "electromagpy/src/particles/particles.py":167
+  /* "electromagpy/particles/particles.py":168
  *     @r.setter
  *     def r(self, r: Iterable):
  *         self._particle.r[0] = r[0]             # <<<<<<<<<<<<<<
  *         self._particle.r[1] = r[1]
  *         self._particle.r[2] = r[2]
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_r, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_r, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":168
+  /* "electromagpy/particles/particles.py":169
  *     def r(self, r: Iterable):
  *         self._particle.r[0] = r[0]
  *         self._particle.r[1] = r[1]             # <<<<<<<<<<<<<<
  *         self._particle.r[2] = r[2]
  * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_r, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_r, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_r); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_r); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely((__Pyx_SetItemInt(__pyx_t_2, 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 168, __pyx_L1_error)
+  if (unlikely((__Pyx_SetItemInt(__pyx_t_2, 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 169, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":169
+  /* "electromagpy/particles/particles.py":170
  *         self._particle.r[0] = r[0]
  *         self._particle.r[1] = r[1]
  *         self._particle.r[2] = r[2]             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_r, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_r, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 169, __pyx_L1_error)
+  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":165
+  /* "electromagpy/particles/particles.py":166
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)
  * 
  *     @r.setter             # <<<<<<<<<<<<<<
@@ -22468,7 +22489,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(C
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.r", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -22476,7 +22497,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(C
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":171
+/* "electromagpy/particles/particles.py":172
  *         self._particle.r[2] = r[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -22485,15 +22506,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_16r(C
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_19v(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_19v(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_19v = {"v", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_19v, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_19v(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_19v = {"v", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_19v, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_19v(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -22537,12 +22558,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 171, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "v") < 0)) __PYX_ERR(0, 171, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "v") < 0)) __PYX_ERR(0, 172, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -22553,7 +22574,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("v", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 171, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("v", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 172, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22563,11 +22584,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_18v(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -22580,7 +22601,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_18v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_8genexpr3__pyx_v_vi = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -22596,7 +22617,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("v", 1);
 
-  /* "electromagpy/src/particles/particles.py":173
+  /* "electromagpy/particles/particles.py":174
  *     @property
  *     def v(self) -> np.ndarray:
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -22604,17 +22625,17 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
  *     @v.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   { /* enter inner scope */
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L5_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L5_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L5_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L5_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
@@ -22622,9 +22643,9 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
       __pyx_t_5 = 0;
       __pyx_t_6 = NULL;
     } else {
-      __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L5_error)
+      __pyx_t_5 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 173, __pyx_L5_error)
+      __pyx_t_6 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 174, __pyx_L5_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -22633,28 +22654,28 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
           {
             Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 173, __pyx_L5_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 174, __pyx_L5_error)
             #endif
             if (__pyx_t_5 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 173, __pyx_L5_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 174, __pyx_L5_error)
           #else
-          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L5_error)
+          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           {
             Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
             #if !CYTHON_ASSUME_SAFE_MACROS
-            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 173, __pyx_L5_error)
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 174, __pyx_L5_error)
             #endif
             if (__pyx_t_5 >= __pyx_temp) break;
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 173, __pyx_L5_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_5); __Pyx_INCREF(__pyx_t_4); __pyx_t_5++; if (unlikely((0 < 0))) __PYX_ERR(0, 174, __pyx_L5_error)
           #else
-          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L5_error)
+          __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_5); __pyx_t_5++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -22664,7 +22685,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 173, __pyx_L5_error)
+            else __PYX_ERR(0, 174, __pyx_L5_error)
           }
           break;
         }
@@ -22672,7 +22693,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
       }
       __Pyx_XDECREF_SET(__pyx_8genexpr3__pyx_v_vi, __pyx_t_4);
       __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_8genexpr3__pyx_v_vi))) __PYX_ERR(0, 173, __pyx_L5_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_8genexpr3__pyx_v_vi))) __PYX_ERR(0, 174, __pyx_L5_error)
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_8genexpr3__pyx_v_vi); __pyx_8genexpr3__pyx_v_vi = 0;
@@ -22682,21 +22703,21 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
     goto __pyx_L1_error;
     __pyx_L9_exit_scope:;
   } /* exit inner scope */
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 174, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -22705,7 +22726,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":171
+  /* "electromagpy/particles/particles.py":172
  *         self._particle.r[2] = r[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -22720,7 +22741,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_8genexpr3__pyx_v_vi);
@@ -22729,7 +22750,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":175
+/* "electromagpy/particles/particles.py":176
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)
  * 
  *     @v.setter             # <<<<<<<<<<<<<<
@@ -22738,15 +22759,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_18v(C
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_21v(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_21v(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_21v = {"v", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_21v, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_21v(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_21v = {"v", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_21v, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_21v(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -22793,7 +22814,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 175, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -22801,14 +22822,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 175, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("v", 1, 2, 2, 1); __PYX_ERR(0, 175, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("v", 1, 2, 2, 1); __PYX_ERR(0, 176, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "v") < 0)) __PYX_ERR(0, 175, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "v") < 0)) __PYX_ERR(0, 176, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -22821,7 +22842,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("v", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 175, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("v", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 176, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -22831,11 +22852,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(__pyx_self, __pyx_v_self, __pyx_v_v);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_20v(__pyx_self, __pyx_v_self, __pyx_v_v);
 
   /* function exit code */
   {
@@ -22848,7 +22869,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_v) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_20v(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_v) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -22859,61 +22880,61 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("v", 1);
 
-  /* "electromagpy/src/particles/particles.py":177
+  /* "electromagpy/particles/particles.py":178
  *     @v.setter
  *     def v(self, v: Iterable):
  *         self._particle.v[0] = v[0]             # <<<<<<<<<<<<<<
  *         self._particle.v[1] = v[1]
  *         self._particle.v[2] = v[2]
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_v, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_v, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 177, __pyx_L1_error)
+  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":178
+  /* "electromagpy/particles/particles.py":179
  *     def v(self, v: Iterable):
  *         self._particle.v[0] = v[0]
  *         self._particle.v[1] = v[1]             # <<<<<<<<<<<<<<
  *         self._particle.v[2] = v[2]
  * 
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_v, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_v, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely((__Pyx_SetItemInt(__pyx_t_2, 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 178, __pyx_L1_error)
+  if (unlikely((__Pyx_SetItemInt(__pyx_t_2, 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":179
+  /* "electromagpy/particles/particles.py":180
  *         self._particle.v[0] = v[0]
  *         self._particle.v[1] = v[1]
  *         self._particle.v[2] = v[2]             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_v, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_v, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
+  if (unlikely((__Pyx_SetItemInt(__pyx_t_3, 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0))) __PYX_ERR(0, 180, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/src/particles/particles.py":175
+  /* "electromagpy/particles/particles.py":176
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)
  * 
  *     @v.setter             # <<<<<<<<<<<<<<
@@ -22928,7 +22949,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(C
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.v", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -22936,7 +22957,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(C
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":181
+/* "electromagpy/particles/particles.py":182
  *         self._particle.v[2] = v[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -22945,15 +22966,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_20v(C
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_23F(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_23F(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_23F = {"F", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_23F, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_23F(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_23F = {"F", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_23F, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_23F(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -22997,12 +23018,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 181, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 182, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "F") < 0)) __PYX_ERR(0, 181, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "F") < 0)) __PYX_ERR(0, 182, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -23013,7 +23034,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("F", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 181, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("F", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 182, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23023,11 +23044,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.F", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.F", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_22F(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -23040,7 +23061,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_22F(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23050,7 +23071,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("F", 1);
 
-  /* "electromagpy/src/particles/particles.py":184
+  /* "electromagpy/particles/particles.py":185
  *     def F(self) -> np.ndarray:
  * 
  *         return self._particle.F             # <<<<<<<<<<<<<<
@@ -23058,16 +23079,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(C
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_particle); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_F); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_F); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":181
+  /* "electromagpy/particles/particles.py":182
  *         self._particle.v[2] = v[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23079,7 +23100,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(C
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.F", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.F", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23087,7 +23108,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(C
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":186
+/* "electromagpy/particles/particles.py":187
  *         return self._particle.F
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23096,16 +23117,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_22F(C
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_25L(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_25L(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_12electromagpy_10_particles_9particles_8Particle_24L, "Angular momentum vector");
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_25L = {"L", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_25L, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_10_particles_9particles_8Particle_24L};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_25L(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_12electromagpy_9particles_9particles_8Particle_24L, "Angular momentum vector");
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_25L = {"L", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_25L, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_9particles_9particles_8Particle_24L};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_25L(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -23149,12 +23170,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "L") < 0)) __PYX_ERR(0, 186, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "L") < 0)) __PYX_ERR(0, 187, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -23165,7 +23186,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("L", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 186, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("L", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 187, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23175,11 +23196,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.L", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.L", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_24L(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -23192,7 +23213,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_24L(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23207,7 +23228,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("L", 1);
 
-  /* "electromagpy/src/particles/particles.py":189
+  /* "electromagpy/particles/particles.py":190
  *     def L(self) -> np.ndarray:
  *         """Angular momentum vector"""
  *         return self.m * np.linalg.cross(self.r, self.v)             # <<<<<<<<<<<<<<
@@ -23215,19 +23236,19 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_cross); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_cross); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
@@ -23249,11 +23270,11 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -23261,7 +23282,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":186
+  /* "electromagpy/particles/particles.py":187
  *         return self._particle.F
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23277,7 +23298,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.L", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.L", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23285,7 +23306,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":191
+/* "electromagpy/particles/particles.py":192
  *         return self.m * np.linalg.cross(self.r, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23294,16 +23315,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_24L(C
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_27KE(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_27KE(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_12electromagpy_10_particles_9particles_8Particle_26KE, "Kinetic energy");
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_27KE = {"KE", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_27KE, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_10_particles_9particles_8Particle_26KE};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_27KE(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_12electromagpy_9particles_9particles_8Particle_26KE, "Kinetic energy");
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_27KE = {"KE", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_27KE, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_9particles_9particles_8Particle_26KE};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_27KE(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -23347,12 +23368,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 192, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "KE") < 0)) __PYX_ERR(0, 191, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "KE") < 0)) __PYX_ERR(0, 192, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -23363,7 +23384,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("KE", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 191, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("KE", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 192, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23373,11 +23394,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.KE", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.KE", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_26KE(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -23390,7 +23411,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_26KE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23405,7 +23426,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("KE", 1);
 
-  /* "electromagpy/src/particles/particles.py":194
+  /* "electromagpy/particles/particles.py":195
  *     def KE(self) -> float:
  *         """Kinetic energy"""
  *         return 0.5 * self.m * np.dot(self.v, self.v)             # <<<<<<<<<<<<<<
@@ -23413,19 +23434,19 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_m); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_float_0_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_float_0_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_dot); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_dot); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_v); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
@@ -23447,11 +23468,11 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 195, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -23459,7 +23480,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":191
+  /* "electromagpy/particles/particles.py":192
  *         return self.m * np.linalg.cross(self.r, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23475,7 +23496,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.KE", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.KE", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23483,7 +23504,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":196
+/* "electromagpy/particles/particles.py":197
  *         return 0.5 * self.m * np.dot(self.v, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23492,16 +23513,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_26KE(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_29PE(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_29PE(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_12electromagpy_10_particles_9particles_8Particle_28PE, "Potential energy");
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_29PE = {"PE", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_29PE, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_10_particles_9particles_8Particle_28PE};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_29PE(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_12electromagpy_9particles_9particles_8Particle_28PE, "Potential energy");
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_29PE = {"PE", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_29PE, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_9particles_9particles_8Particle_28PE};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_29PE(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -23545,12 +23566,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 197, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PE") < 0)) __PYX_ERR(0, 196, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PE") < 0)) __PYX_ERR(0, 197, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -23561,7 +23582,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("PE", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 196, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("PE", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 197, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23571,11 +23592,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.PE", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.PE", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_28PE(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -23588,7 +23609,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_28PE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23603,7 +23624,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PE", 1);
 
-  /* "electromagpy/src/particles/particles.py":199
+  /* "electromagpy/particles/particles.py":200
  *     def PE(self) -> float:
  *         """Potential energy"""
  *         return self.q * self.field.V(self.r, self.t)             # <<<<<<<<<<<<<<
@@ -23611,16 +23632,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_V); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_V); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_t); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_7 = 0;
@@ -23642,11 +23663,11 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
-  __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -23654,7 +23675,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":196
+  /* "electromagpy/particles/particles.py":197
  *         return 0.5 * self.m * np.dot(self.v, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23670,7 +23691,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.PE", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.PE", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23678,7 +23699,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
   return __pyx_r;
 }
 
-/* "electromagpy/src/particles/particles.py":201
+/* "electromagpy/particles/particles.py":202
  *         return self.q * self.field.V(self.r, self.t)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23687,16 +23708,16 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_28PE(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_31TE(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_31TE(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_12electromagpy_10_particles_9particles_8Particle_30TE, "Total energy");
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_8Particle_31TE = {"TE", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_8Particle_31TE, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_10_particles_9particles_8Particle_30TE};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_8Particle_31TE(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_12electromagpy_9particles_9particles_8Particle_30TE, "Total energy");
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_8Particle_31TE = {"TE", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_8Particle_31TE, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_12electromagpy_9particles_9particles_8Particle_30TE};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_8Particle_31TE(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -23740,12 +23761,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 201, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 202, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "TE") < 0)) __PYX_ERR(0, 201, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "TE") < 0)) __PYX_ERR(0, 202, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -23756,7 +23777,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("TE", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 201, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("TE", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 202, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -23766,11 +23787,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.TE", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.TE", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(__pyx_self, __pyx_v_self);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles_8Particle_30TE(__pyx_self, __pyx_v_self);
 
   /* function exit code */
   {
@@ -23783,7 +23804,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles_8Particle_30TE(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -23794,17 +23815,17 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("TE", 1);
 
-  /* "electromagpy/src/particles/particles.py":204
+  /* "electromagpy/particles/particles.py":205
  *     def TE(self) -> float:
  *         """Total energy"""
  *         return self.KE + self.PE             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_KE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_KE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_PE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_PE); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -23812,7 +23833,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/src/particles/particles.py":201
+  /* "electromagpy/particles/particles.py":202
  *         return self.q * self.field.V(self.r, self.t)
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -23825,7 +23846,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("electromagpy._particles.particles.Particle.TE", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.Particle.TE", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -23840,15 +23861,15 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles_8Particle_30TE(
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_1__pyx_unpickle__Particle(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_1__pyx_unpickle__Particle(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_12electromagpy_10_particles_9particles_1__pyx_unpickle__Particle = {"__pyx_unpickle__Particle", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_1__pyx_unpickle__Particle, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_12electromagpy_10_particles_9particles_1__pyx_unpickle__Particle(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_12electromagpy_9particles_9particles_1__pyx_unpickle__Particle = {"__pyx_unpickle__Particle", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_1__pyx_unpickle__Particle, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_12electromagpy_9particles_9particles_1__pyx_unpickle__Particle(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -23948,11 +23969,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("electromagpy._particles.particles.__pyx_unpickle__Particle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.__pyx_unpickle__Particle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle__Particle(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_12electromagpy_9particles_9particles___pyx_unpickle__Particle(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   {
@@ -23965,7 +23986,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle__Particle(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_12electromagpy_9particles_9particles___pyx_unpickle__Particle(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -24047,7 +24068,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle_
  *     if __pyx_state is not None:
  *         __pyx_unpickle__Particle__set_state(<_Particle> __pyx_result, __pyx_state)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_12electromagpy_10_particles_9particles__Particle), __pyx_n_s_new); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_12electromagpy_9particles_9particles__Particle), __pyx_n_s_new); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -24092,7 +24113,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle_
  * cdef __pyx_unpickle__Particle__set_state(_Particle __pyx_result, tuple __pyx_state):
  */
     if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v___pyx_state))) __PYX_ERR(1, 9, __pyx_L1_error)
-    __pyx_t_1 = __pyx_f_12electromagpy_10_particles_9particles___pyx_unpickle__Particle__set_state(((struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 9, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_12electromagpy_9particles_9particles___pyx_unpickle__Particle__set_state(((struct __pyx_obj_12electromagpy_9particles_9particles__Particle *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -24128,7 +24149,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle_
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("electromagpy._particles.particles.__pyx_unpickle__Particle", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.__pyx_unpickle__Particle", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -24146,7 +24167,7 @@ static PyObject *__pyx_pf_12electromagpy_10_particles_9particles___pyx_unpickle_
  *     if len(__pyx_state) > 10 and hasattr(__pyx_result, '__dict__'):
  */
 
-static PyObject *__pyx_f_12electromagpy_10_particles_9particles___pyx_unpickle__Particle__set_state(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_12electromagpy_9particles_9particles___pyx_unpickle__Particle__set_state(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -24349,17 +24370,17 @@ static PyObject *__pyx_f_12electromagpy_10_particles_9particles___pyx_unpickle__
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("electromagpy._particles.particles.__pyx_unpickle__Particle__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("electromagpy.particles.particles.__pyx_unpickle__Particle__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_12electromagpy_10_particles_9particles__Particle __pyx_vtable_12electromagpy_10_particles_9particles__Particle;
+static struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle __pyx_vtable_12electromagpy_9particles_9particles__Particle;
 
-static PyObject *__pyx_tp_new_12electromagpy_10_particles_9particles__Particle(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *p;
+static PyObject *__pyx_tp_new_12electromagpy_9particles_9particles__Particle(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_12electromagpy_9particles_9particles__Particle *p;
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
@@ -24372,15 +24393,15 @@ static PyObject *__pyx_tp_new_12electromagpy_10_particles_9particles__Particle(P
   }
   if (unlikely(!o)) return 0;
   #endif
-  p = ((struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *)o);
-  p->__pyx_vtab = __pyx_vtabptr_12electromagpy_10_particles_9particles__Particle;
+  p = ((struct __pyx_obj_12electromagpy_9particles_9particles__Particle *)o);
+  p->__pyx_vtab = __pyx_vtabptr_12electromagpy_9particles_9particles__Particle;
   return o;
 }
 
-static void __pyx_tp_dealloc_12electromagpy_10_particles_9particles__Particle(PyObject *o) {
+static void __pyx_tp_dealloc_12electromagpy_9particles_9particles__Particle(PyObject *o) {
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && (!PyType_IS_GC(Py_TYPE(o)) || !__Pyx_PyObject_GC_IsFinalized(o))) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_12electromagpy_10_particles_9particles__Particle) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_12electromagpy_9particles_9particles__Particle) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -24395,35 +24416,35 @@ static void __pyx_tp_dealloc_12electromagpy_10_particles_9particles__Particle(Py
   #endif
 }
 
-static PyMethodDef __pyx_methods_12electromagpy_10_particles_9particles__Particle[] = {
-  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_3__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_5__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+static PyMethodDef __pyx_methods_12electromagpy_9particles_9particles__Particle[] = {
+  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_9_Particle_3__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_12electromagpy_9particles_9particles_9_Particle_5__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_12electromagpy_10_particles_9particles__Particle_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_12electromagpy_10_particles_9particles__Particle},
+static PyType_Slot __pyx_type_12electromagpy_9particles_9particles__Particle_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_12electromagpy_9particles_9particles__Particle},
   {Py_tp_doc, (void *)PyDoc_STR("\n    Charged particle that responds to electromagnetic fields\n    ")},
-  {Py_tp_methods, (void *)__pyx_methods_12electromagpy_10_particles_9particles__Particle},
-  {Py_tp_init, (void *)__pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__},
-  {Py_tp_new, (void *)__pyx_tp_new_12electromagpy_10_particles_9particles__Particle},
+  {Py_tp_methods, (void *)__pyx_methods_12electromagpy_9particles_9particles__Particle},
+  {Py_tp_init, (void *)__pyx_pw_12electromagpy_9particles_9particles_9_Particle_1__init__},
+  {Py_tp_new, (void *)__pyx_tp_new_12electromagpy_9particles_9particles__Particle},
   {0, 0},
 };
-static PyType_Spec __pyx_type_12electromagpy_10_particles_9particles__Particle_spec = {
-  "electromagpy._particles.particles._Particle",
-  sizeof(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle),
+static PyType_Spec __pyx_type_12electromagpy_9particles_9particles__Particle_spec = {
+  "electromagpy.particles.particles._Particle",
+  sizeof(struct __pyx_obj_12electromagpy_9particles_9particles__Particle),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE,
-  __pyx_type_12electromagpy_10_particles_9particles__Particle_slots,
+  __pyx_type_12electromagpy_9particles_9particles__Particle_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_12electromagpy_10_particles_9particles__Particle = {
+static PyTypeObject __pyx_type_12electromagpy_9particles_9particles__Particle = {
   PyVarObject_HEAD_INIT(0, 0)
-  "electromagpy._particles.particles.""_Particle", /*tp_name*/
-  sizeof(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle), /*tp_basicsize*/
+  "electromagpy.particles.particles.""_Particle", /*tp_name*/
+  sizeof(struct __pyx_obj_12electromagpy_9particles_9particles__Particle), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_12electromagpy_10_particles_9particles__Particle, /*tp_dealloc*/
+  __pyx_tp_dealloc_12electromagpy_9particles_9particles__Particle, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -24456,7 +24477,7 @@ static PyTypeObject __pyx_type_12electromagpy_10_particles_9particles__Particle 
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_12electromagpy_10_particles_9particles__Particle, /*tp_methods*/
+  __pyx_methods_12electromagpy_9particles_9particles__Particle, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -24466,9 +24487,9 @@ static PyTypeObject __pyx_type_12electromagpy_10_particles_9particles__Particle 
   #if !CYTHON_USE_TYPE_SPECS
   0, /*tp_dictoffset*/
   #endif
-  __pyx_pw_12electromagpy_10_particles_9particles_9_Particle_1__init__, /*tp_init*/
+  __pyx_pw_12electromagpy_9particles_9particles_9_Particle_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_12electromagpy_10_particles_9particles__Particle, /*tp_new*/
+  __pyx_tp_new_12electromagpy_9particles_9particles__Particle, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -24640,7 +24661,7 @@ static PyType_Slot __pyx_type___pyx_array_slots[] = {
   {0, 0},
 };
 static PyType_Spec __pyx_type___pyx_array_spec = {
-  "electromagpy._particles.particles.array",
+  "electromagpy.particles.particles.array",
   sizeof(struct __pyx_array_obj),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_SEQUENCE,
@@ -24686,7 +24707,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "electromagpy._particles.particles.""array", /*tp_name*/
+  "electromagpy.particles.particles.""array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -24849,7 +24870,7 @@ static PyType_Slot __pyx_type___pyx_MemviewEnum_slots[] = {
   {0, 0},
 };
 static PyType_Spec __pyx_type___pyx_MemviewEnum_spec = {
-  "electromagpy._particles.particles.Enum",
+  "electromagpy.particles.particles.Enum",
   sizeof(struct __pyx_MemviewEnum_obj),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC,
@@ -24859,7 +24880,7 @@ static PyType_Spec __pyx_type___pyx_MemviewEnum_spec = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "electromagpy._particles.particles.""Enum", /*tp_name*/
+  "electromagpy.particles.particles.""Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -25159,7 +25180,7 @@ static PyType_Slot __pyx_type___pyx_memoryview_slots[] = {
   {0, 0},
 };
 static PyType_Spec __pyx_type___pyx_memoryview_spec = {
-  "electromagpy._particles.particles.memoryview",
+  "electromagpy.particles.particles.memoryview",
   sizeof(struct __pyx_memoryview_obj),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC,
@@ -25205,7 +25226,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "electromagpy._particles.particles.""memoryview", /*tp_name*/
+  "electromagpy.particles.particles.""memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -25295,6 +25316,7 @@ static PyObject *__pyx_tp_new__memoryviewslice(PyTypeObject *t, PyObject *a, PyO
   if (unlikely(!o)) return 0;
   p = ((struct __pyx_memoryviewslice_obj *)o);
   p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_memoryview*)__pyx_vtabptr__memoryviewslice;
+  new((void*)&(p->from_slice)) __Pyx_memviewslice();
   p->from_object = Py_None; Py_INCREF(Py_None);
   p->from_slice.memview = NULL;
   return o;
@@ -25318,6 +25340,7 @@ static void __pyx_tp_dealloc__memoryviewslice(PyObject *o) {
     __Pyx_SET_REFCNT(o, Py_REFCNT(o) - 1);
     PyErr_Restore(etype, eval, etb);
   }
+  __Pyx_call_destructor(p->from_slice);
   Py_CLEAR(p->from_object);
   PyObject_GC_Track(o);
   __pyx_tp_dealloc_memoryview(o);
@@ -25360,7 +25383,7 @@ static PyType_Slot __pyx_type___pyx_memoryviewslice_slots[] = {
   {0, 0},
 };
 static PyType_Spec __pyx_type___pyx_memoryviewslice_spec = {
-  "electromagpy._particles.particles._memoryviewslice",
+  "electromagpy.particles.particles._memoryviewslice",
   sizeof(struct __pyx_memoryviewslice_obj),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC|Py_TPFLAGS_SEQUENCE,
@@ -25370,7 +25393,7 @@ static PyType_Spec __pyx_type___pyx_memoryviewslice_spec = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "electromagpy._particles.particles.""_memoryviewslice", /*tp_name*/
+  "electromagpy.particles.particles.""_memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -25573,9 +25596,10 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_dot, __pyx_k_dot, sizeof(__pyx_k_dot), 0, 0, 1, 1},
     {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
     {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
-    {&__pyx_n_s_electromagpy__particles_particle, __pyx_k_electromagpy__particles_particle, sizeof(__pyx_k_electromagpy__particles_particle), 0, 0, 1, 1},
-    {&__pyx_n_s_electromagpy_fields, __pyx_k_electromagpy_fields, sizeof(__pyx_k_electromagpy_fields), 0, 0, 1, 1},
-    {&__pyx_kp_s_electromagpy_src_particles_parti, __pyx_k_electromagpy_src_particles_parti, sizeof(__pyx_k_electromagpy_src_particles_parti), 0, 0, 1, 0},
+    {&__pyx_n_s_electromagpy_fields_electrostati, __pyx_k_electromagpy_fields_electrostati, sizeof(__pyx_k_electromagpy_fields_electrostati), 0, 0, 1, 1},
+    {&__pyx_n_s_electromagpy_fields_field, __pyx_k_electromagpy_fields_field, sizeof(__pyx_k_electromagpy_fields_field), 0, 0, 1, 1},
+    {&__pyx_n_s_electromagpy_particles_particles, __pyx_k_electromagpy_particles_particles, sizeof(__pyx_k_electromagpy_particles_particles), 0, 0, 1, 1},
+    {&__pyx_kp_s_electromagpy_particles_particles_2, __pyx_k_electromagpy_particles_particles_2, sizeof(__pyx_k_electromagpy_particles_particles_2), 0, 0, 1, 0},
     {&__pyx_kp_u_enable, __pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0, 0},
     {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
     {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
@@ -25679,7 +25703,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 137, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(1, 118, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 83, __pyx_L1_error)
   __pyx_builtin_OverflowError = __Pyx_GetBuiltinName(__pyx_n_s_OverflowError); if (!__pyx_builtin_OverflowError) __PYX_ERR(1, 83, __pyx_L1_error)
@@ -25856,179 +25880,179 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__29);
   __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(1, 16, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":114
+  /* "electromagpy/particles/particles.py":115
  * class Particle:
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *             self, q: float, m: float, field: Field = None,
  *             r: Iterable = None, v: Iterable = None
  */
-  __pyx_tuple__31 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_q, __pyx_n_s_m, __pyx_n_s_field, __pyx_n_s_r, __pyx_n_s_v, __pyx_n_s_ri, __pyx_n_s_vi); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_q, __pyx_n_s_m, __pyx_n_s_field, __pyx_n_s_r, __pyx_n_s_v, __pyx_n_s_ri, __pyx_n_s_vi); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_init, 114, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __pyx_tuple__33 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_init, 115, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "electromagpy/src/particles/particles.py":136
+  /* "electromagpy/particles/particles.py":137
  *         self._particle = _Particle(q, m, field._field, r, v)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def q(self) -> float:
  *         return self._particle.q
  */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_q, 136, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_q, 137, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 137, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":140
+  /* "electromagpy/particles/particles.py":141
  *         return self._particle.q
  * 
  *     @q.setter             # <<<<<<<<<<<<<<
  *     def q(self, q: float):
  *         self._particle.q = q
  */
-  __pyx_tuple__36 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_q); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_tuple__36 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_q); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_q, 140, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_q, 141, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 141, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":144
+  /* "electromagpy/particles/particles.py":145
  *         self._particle.q = q
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def m(self) -> float:
  *         return self._particle.m
  */
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_m, 144, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_m, 145, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 145, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":148
+  /* "electromagpy/particles/particles.py":149
  *         return self._particle.m
  * 
  *     @m.setter             # <<<<<<<<<<<<<<
  *     def m(self, m: float):
  *         self._particle.m = m
  */
-  __pyx_tuple__39 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_m); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_m); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_m, 148, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_m, 149, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 149, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":152
+  /* "electromagpy/particles/particles.py":153
  *         self._particle.m = m
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def field(self) -> Field:
  *         return self._field
  */
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_field, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_field, 153, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 153, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":156
+  /* "electromagpy/particles/particles.py":157
  *         return self._field
  * 
  *     @field.setter             # <<<<<<<<<<<<<<
  *     def field(self, field: Field):
  *         self._field = field
  */
-  __pyx_tuple__42 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_field); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_tuple__42 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_field); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_field, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_field, 157, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 157, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":161
+  /* "electromagpy/particles/particles.py":162
  *         self._particle.field = field._field
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def r(self) -> np.ndarray:
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)
  */
-  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_ri); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_ri); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_r, 161, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_r, 162, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 162, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":165
+  /* "electromagpy/particles/particles.py":166
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)
  * 
  *     @r.setter             # <<<<<<<<<<<<<<
  *     def r(self, r: Iterable):
  *         self._particle.r[0] = r[0]
  */
-  __pyx_tuple__46 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_r); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_r); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_r, 165, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_r, 166, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 166, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":171
+  /* "electromagpy/particles/particles.py":172
  *         self._particle.r[2] = r[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def v(self) -> np.ndarray:
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)
  */
-  __pyx_tuple__48 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_vi); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_vi); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_v, 171, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_v, 172, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 172, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":175
+  /* "electromagpy/particles/particles.py":176
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)
  * 
  *     @v.setter             # <<<<<<<<<<<<<<
  *     def v(self, v: Iterable):
  *         self._particle.v[0] = v[0]
  */
-  __pyx_tuple__50 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_v); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_tuple__50 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_v); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__50);
   __Pyx_GIVEREF(__pyx_tuple__50);
-  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_v, 175, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_v, 176, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 176, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":181
+  /* "electromagpy/particles/particles.py":182
  *         self._particle.v[2] = v[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def F(self) -> np.ndarray:
  * 
  */
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_F, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_F, 182, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 182, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":186
+  /* "electromagpy/particles/particles.py":187
  *         return self._particle.F
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def L(self) -> np.ndarray:
  *         """Angular momentum vector"""
  */
-  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_L, 186, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_L, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 187, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":191
+  /* "electromagpy/particles/particles.py":192
  *         return self.m * np.linalg.cross(self.r, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def KE(self) -> float:
  *         """Kinetic energy"""
  */
-  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_KE, 191, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_KE, 192, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) __PYX_ERR(0, 192, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":196
+  /* "electromagpy/particles/particles.py":197
  *         return 0.5 * self.m * np.dot(self.v, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def PE(self) -> float:
  *         """Potential energy"""
  */
-  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_PE, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_PE, 197, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 197, __pyx_L1_error)
 
-  /* "electromagpy/src/particles/particles.py":201
+  /* "electromagpy/particles/particles.py":202
  *         return self.q * self.field.V(self.r, self.t)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def TE(self) -> float:
  *         """Total energy"""
  */
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_src_particles_parti, __pyx_n_s_TE, 201, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_particles_particles_2, __pyx_n_s_TE, 202, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) __PYX_ERR(0, 202, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __pyx_unpickle__Particle(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
@@ -26123,37 +26147,37 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_vtabptr_12electromagpy_10_particles_9particles__Particle = &__pyx_vtable_12electromagpy_10_particles_9particles__Particle;
-  __pyx_vtable_12electromagpy_10_particles_9particles__Particle._eval_F = (void (*)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *))__pyx_f_12electromagpy_10_particles_9particles_9_Particle__eval_F;
-  __pyx_vtable_12electromagpy_10_particles_9particles__Particle.F = (__Pyx_memviewslice (*)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *))__pyx_f_12electromagpy_10_particles_9particles_9_Particle_F;
-  __pyx_vtable_12electromagpy_10_particles_9particles__Particle.update = (void (*)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *, double))__pyx_f_12electromagpy_10_particles_9particles_9_Particle_update;
-  __pyx_vtable_12electromagpy_10_particles_9particles__Particle.evolve = (void (*)(struct __pyx_obj_12electromagpy_10_particles_9particles__Particle *, double, double))__pyx_f_12electromagpy_10_particles_9particles_9_Particle_evolve;
+  __pyx_vtabptr_12electromagpy_9particles_9particles__Particle = &__pyx_vtable_12electromagpy_9particles_9particles__Particle;
+  __pyx_vtable_12electromagpy_9particles_9particles__Particle._eval_F = (void (*)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *))__pyx_f_12electromagpy_9particles_9particles_9_Particle__eval_F;
+  __pyx_vtable_12electromagpy_9particles_9particles__Particle.F = (__Pyx_memviewslice (*)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *))__pyx_f_12electromagpy_9particles_9particles_9_Particle_F;
+  __pyx_vtable_12electromagpy_9particles_9particles__Particle.update = (void (*)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *, double))__pyx_f_12electromagpy_9particles_9particles_9_Particle_update;
+  __pyx_vtable_12electromagpy_9particles_9particles__Particle.evolve = (void (*)(struct __pyx_obj_12electromagpy_9particles_9particles__Particle *, double, double))__pyx_f_12electromagpy_9particles_9particles_9_Particle_evolve;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_12electromagpy_10_particles_9particles__Particle = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_12electromagpy_10_particles_9particles__Particle_spec, NULL); if (unlikely(!__pyx_ptype_12electromagpy_10_particles_9particles__Particle)) __PYX_ERR(0, 10, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_12electromagpy_10_particles_9particles__Particle_spec, __pyx_ptype_12electromagpy_10_particles_9particles__Particle) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_ptype_12electromagpy_9particles_9particles__Particle = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_12electromagpy_9particles_9particles__Particle_spec, NULL); if (unlikely(!__pyx_ptype_12electromagpy_9particles_9particles__Particle)) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_12electromagpy_9particles_9particles__Particle_spec, __pyx_ptype_12electromagpy_9particles_9particles__Particle) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #else
-  __pyx_ptype_12electromagpy_10_particles_9particles__Particle = &__pyx_type_12electromagpy_10_particles_9particles__Particle;
+  __pyx_ptype_12electromagpy_9particles_9particles__Particle = &__pyx_type_12electromagpy_9particles_9particles__Particle;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_12electromagpy_10_particles_9particles__Particle) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_12electromagpy_9particles_9particles__Particle) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_12electromagpy_10_particles_9particles__Particle->tp_print = 0;
+  __pyx_ptype_12electromagpy_9particles_9particles__Particle->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_12electromagpy_10_particles_9particles__Particle->tp_dictoffset && __pyx_ptype_12electromagpy_10_particles_9particles__Particle->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_12electromagpy_10_particles_9particles__Particle->tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_12electromagpy_9particles_9particles__Particle->tp_dictoffset && __pyx_ptype_12electromagpy_9particles_9particles__Particle->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_12electromagpy_9particles_9particles__Particle->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_12electromagpy_10_particles_9particles__Particle, __pyx_vtabptr_12electromagpy_10_particles_9particles__Particle) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_12electromagpy_9particles_9particles__Particle, __pyx_vtabptr_12electromagpy_9particles_9particles__Particle) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_12electromagpy_10_particles_9particles__Particle) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_12electromagpy_9particles_9particles__Particle) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Particle, (PyObject *) __pyx_ptype_12electromagpy_10_particles_9particles__Particle) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Particle, (PyObject *) __pyx_ptype_12electromagpy_9particles_9particles__Particle) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_12electromagpy_10_particles_9particles__Particle) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_12electromagpy_9particles_9particles__Particle) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   #endif
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -26586,14 +26610,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_electromagpy___particles__particles) {
+  if (__pyx_module_is_main_electromagpy__particles__particles) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name_2, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "electromagpy._particles.particles")) {
-      if (unlikely((PyDict_SetItemString(modules, "electromagpy._particles.particles", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "electromagpy.particles.particles")) {
+      if (unlikely((PyDict_SetItemString(modules, "electromagpy.particles.particles", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -27127,26 +27151,26 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Enum, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "electromagpy/src/particles/particles.py":3
+  /* "electromagpy/particles/particles.py":3
  * # Particles that respond to electromagnetic fields
  * import cython
  * import numpy as np             # <<<<<<<<<<<<<<
- * from electromagpy.fields import dot, cross, _Field, Field, Vacuum
- * 
+ * from electromagpy.fields.field import dot, cross, _Field, Field
+ * from electromagpy.fields.electrostatic import Vacuum
  */
   __pyx_t_7 = __Pyx_ImportDottedModule(__pyx_n_s_numpy, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_7) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "electromagpy/src/particles/particles.py":4
+  /* "electromagpy/particles/particles.py":4
  * import cython
  * import numpy as np
- * from electromagpy.fields import dot, cross, _Field, Field, Vacuum             # <<<<<<<<<<<<<<
+ * from electromagpy.fields.field import dot, cross, _Field, Field             # <<<<<<<<<<<<<<
+ * from electromagpy.fields.electrostatic import Vacuum
  * 
- * from collections.abc import Iterable
  */
-  __pyx_t_7 = PyList_New(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_n_s_dot);
   __Pyx_GIVEREF(__pyx_n_s_dot);
@@ -27160,10 +27184,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_Field_2);
   __Pyx_GIVEREF(__pyx_n_s_Field_2);
   if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 3, __pyx_n_s_Field_2)) __PYX_ERR(0, 4, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_n_s_Vacuum);
-  __Pyx_GIVEREF(__pyx_n_s_Vacuum);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 4, __pyx_n_s_Vacuum)) __PYX_ERR(0, 4, __pyx_L1_error);
-  __pyx_t_4 = __Pyx_Import(__pyx_n_s_electromagpy_fields, __pyx_t_7, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_Import(__pyx_n_s_electromagpy_fields_field, __pyx_t_7, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = __Pyx_ImportFrom(__pyx_t_4, __pyx_n_s_dot); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4, __pyx_L1_error)
@@ -27182,43 +27203,60 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_7);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_Field_2, __pyx_t_7) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_ImportFrom(__pyx_t_4, __pyx_n_s_Vacuum); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Vacuum, __pyx_t_7) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "electromagpy/src/particles/particles.py":6
- * from electromagpy.fields import dot, cross, _Field, Field, Vacuum
+  /* "electromagpy/particles/particles.py":5
+ * import numpy as np
+ * from electromagpy.fields.field import dot, cross, _Field, Field
+ * from electromagpy.fields.electrostatic import Vacuum             # <<<<<<<<<<<<<<
+ * 
+ * from collections.abc import Iterable
+ */
+  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_INCREF(__pyx_n_s_Vacuum);
+  __Pyx_GIVEREF(__pyx_n_s_Vacuum);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_s_Vacuum)) __PYX_ERR(0, 5, __pyx_L1_error);
+  __pyx_t_7 = __Pyx_Import(__pyx_n_s_electromagpy_fields_electrostati, __pyx_t_4, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_ImportFrom(__pyx_t_7, __pyx_n_s_Vacuum); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Vacuum, __pyx_t_4) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+
+  /* "electromagpy/particles/particles.py":7
+ * from electromagpy.fields.electrostatic import Vacuum
  * 
  * from collections.abc import Iterable             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_7 = PyList_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_n_s_Iterable);
   __Pyx_GIVEREF(__pyx_n_s_Iterable);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_s_Iterable)) __PYX_ERR(0, 6, __pyx_L1_error);
-  __pyx_t_7 = __Pyx_Import(__pyx_kp_s_collections_abc, __pyx_t_4, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_ImportFrom(__pyx_t_7, __pyx_n_s_Iterable); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_n_s_Iterable)) __PYX_ERR(0, 7, __pyx_L1_error);
+  __pyx_t_4 = __Pyx_Import(__pyx_kp_s_collections_abc, __pyx_t_7, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Iterable, __pyx_t_4) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_ImportFrom(__pyx_t_4, __pyx_n_s_Iterable); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Iterable, __pyx_t_7) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     cdef tuple state
  *     cdef object _dict
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_9_Particle_3__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Particle___reduce_cython, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_10_particles_9particles__Particle, __pyx_n_s_reduce_cython, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_12electromagpy_10_particles_9particles__Particle);
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_9_Particle_3__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Particle___reduce_cython, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_9particles_9particles__Particle, __pyx_n_s_reduce_cython, __pyx_t_4) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  PyType_Modified(__pyx_ptype_12electromagpy_9particles_9particles__Particle);
 
   /* "(tree fragment)":16
  *     else:
@@ -27226,96 +27264,96 @@ if (!__Pyx_RefNanny) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle__Particle__set_state(self, __pyx_state)
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_9_Particle_5__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Particle___setstate_cython, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 16, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_10_particles_9particles__Particle, __pyx_n_s_setstate_cython, __pyx_t_7) < 0) __PYX_ERR(1, 16, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_12electromagpy_10_particles_9particles__Particle);
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_9_Particle_5__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Particle___setstate_cython, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_9particles_9particles__Particle, __pyx_n_s_setstate_cython, __pyx_t_4) < 0) __PYX_ERR(1, 16, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  PyType_Modified(__pyx_ptype_12electromagpy_9particles_9particles__Particle);
 
-  /* "electromagpy/src/particles/particles.py":112
+  /* "electromagpy/particles/particles.py":113
  * 
  * 
  * class Particle:             # <<<<<<<<<<<<<<
  * 
  *     def __init__(
  */
-  __pyx_t_7 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_Particle_2, __pyx_n_s_Particle_2, (PyObject *) NULL, __pyx_n_s_electromagpy__particles_particle, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_4 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_Particle_2, __pyx_n_s_Particle_2, (PyObject *) NULL, __pyx_n_s_electromagpy_particles_particles, (PyObject *) NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
 
-  /* "electromagpy/src/particles/particles.py":114
+  /* "electromagpy/particles/particles.py":115
  * class Particle:
  * 
  *     def __init__(             # <<<<<<<<<<<<<<
  *             self, q: float, m: float, field: Field = None,
  *             r: Iterable = None, v: Iterable = None
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_q, __pyx_n_s_float) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_m, __pyx_n_s_float) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_field, __pyx_n_s_Field_2) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_v, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_1__init__, 0, __pyx_n_s_Particle___init, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_q, __pyx_n_s_float) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_m, __pyx_n_s_float) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_field, __pyx_n_s_Field_2) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_r, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_v, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_1__init__, 0, __pyx_n_s_Particle___init, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_5, __pyx_tuple__33);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_4);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_5) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_5, __pyx_t_7);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_init, __pyx_t_5) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":136
+  /* "electromagpy/particles/particles.py":137
  *         self._particle = _Particle(q, m, field._field, r, v)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def q(self) -> float:
  *         return self._particle.q
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_3q, 0, __pyx_n_s_Particle_q, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 136, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_5);
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_3q, 0, __pyx_n_s_Particle_q, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_q, __pyx_t_5) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_q, __pyx_t_5) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":140
+  /* "electromagpy/particles/particles.py":141
  *         return self._particle.q
  * 
  *     @q.setter             # <<<<<<<<<<<<<<
  *     def q(self, q: float):
  *         self._particle.q = q
  */
-  __pyx_t_4 = PyObject_GetItem(__pyx_t_7, __pyx_n_s_q);
-  if (unlikely(!__pyx_t_4)) {
+  __pyx_t_7 = PyObject_GetItem(__pyx_t_4, __pyx_n_s_q);
+  if (unlikely(!__pyx_t_7)) {
     PyErr_Clear();
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_q);
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_q);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setter); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 140, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_setter); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_q, __pyx_n_s_float) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_5q, 0, __pyx_n_s_Particle_q, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_q, __pyx_n_s_float) < 0) __PYX_ERR(0, 141, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_5q, 0, __pyx_n_s_Particle_q, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_4);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_7);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = NULL;
   __pyx_t_11 = 0;
   #if CYTHON_UNPACK_METHODS
   if (unlikely(PyMethod_Check(__pyx_t_9))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_9);
-    if (likely(__pyx_t_4)) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_9);
+    if (likely(__pyx_t_7)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_7);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_9, function);
       __pyx_t_11 = 1;
@@ -27323,60 +27361,60 @@ if (!__Pyx_RefNanny) {
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_t_10};
+    PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_t_10};
     __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_q, __pyx_t_5) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_q, __pyx_t_5) < 0) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":144
+  /* "electromagpy/particles/particles.py":145
  *         self._particle.q = q
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def m(self) -> float:
  *         return self._particle.m
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_7m, 0, __pyx_n_s_Particle_m, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 144, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_7m, 0, __pyx_n_s_Particle_m, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_9, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_m, __pyx_t_5) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_m, __pyx_t_5) < 0) __PYX_ERR(0, 145, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":148
+  /* "electromagpy/particles/particles.py":149
  *         return self._particle.m
  * 
  *     @m.setter             # <<<<<<<<<<<<<<
  *     def m(self, m: float):
  *         self._particle.m = m
  */
-  __pyx_t_9 = PyObject_GetItem(__pyx_t_7, __pyx_n_s_m);
+  __pyx_t_9 = PyObject_GetItem(__pyx_t_4, __pyx_n_s_m);
   if (unlikely(!__pyx_t_9)) {
     PyErr_Clear();
     __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_m);
   }
-  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_setter); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_setter); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_m, __pyx_n_s_float) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_9m, 0, __pyx_n_s_Particle_m, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_9);
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_m, __pyx_n_s_float) < 0) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_9m, 0, __pyx_n_s_Particle_m, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_9);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_9 = NULL;
   __pyx_t_11 = 0;
@@ -27393,139 +27431,139 @@ if (!__Pyx_RefNanny) {
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_t_4};
+    PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_t_7};
     __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 148, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 149, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_m, __pyx_t_5) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_m, __pyx_t_5) < 0) __PYX_ERR(0, 149, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":152
+  /* "electromagpy/particles/particles.py":153
  *         self._particle.m = m
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def field(self) -> Field:
  *         return self._field
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_Field_2) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_11field, 0, __pyx_n_s_Particle_field, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_Field_2) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_11field, 0, __pyx_n_s_Particle_field, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_field, __pyx_t_5) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_field, __pyx_t_5) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":156
+  /* "electromagpy/particles/particles.py":157
  *         return self._field
  * 
  *     @field.setter             # <<<<<<<<<<<<<<
  *     def field(self, field: Field):
  *         self._field = field
  */
-  __pyx_t_10 = PyObject_GetItem(__pyx_t_7, __pyx_n_s_field);
+  __pyx_t_10 = PyObject_GetItem(__pyx_t_4, __pyx_n_s_field);
   if (unlikely(!__pyx_t_10)) {
     PyErr_Clear();
     __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_field);
   }
-  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 156, __pyx_L1_error)
+  if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_setter); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_setter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_field, __pyx_n_s_Field_2) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_13field, 0, __pyx_n_s_Particle_field, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 156, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_field, __pyx_n_s_Field_2) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_13field, 0, __pyx_n_s_Particle_field, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_9, __pyx_t_10);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_10 = NULL;
   __pyx_t_11 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_4);
+  if (unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_7);
     if (likely(__pyx_t_10)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
       __Pyx_INCREF(__pyx_t_10);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
       __pyx_t_11 = 1;
     }
   }
   #endif
   {
     PyObject *__pyx_callargs[2] = {__pyx_t_10, __pyx_t_9};
-    __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
+    __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
     __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 156, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_field, __pyx_t_5) < 0) __PYX_ERR(0, 156, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_field, __pyx_t_5) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":161
+  /* "electromagpy/particles/particles.py":162
  *         self._particle.field = field._field
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def r(self) -> np.ndarray:
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_15r, 0, __pyx_n_s_Particle_r, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 161, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_5);
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_15r, 0, __pyx_n_s_Particle_r, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_r, __pyx_t_5) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_r, __pyx_t_5) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":165
+  /* "electromagpy/particles/particles.py":166
  *         return np.array([ri for ri in self._particle.r], dtype=np.float64)
  * 
  *     @r.setter             # <<<<<<<<<<<<<<
  *     def r(self, r: Iterable):
  *         self._particle.r[0] = r[0]
  */
-  __pyx_t_4 = PyObject_GetItem(__pyx_t_7, __pyx_n_s_r);
-  if (unlikely(!__pyx_t_4)) {
+  __pyx_t_7 = PyObject_GetItem(__pyx_t_4, __pyx_n_s_r);
+  if (unlikely(!__pyx_t_7)) {
     PyErr_Clear();
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_r);
   }
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_setter); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 165, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_setter); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_17r, 0, __pyx_n_s_Particle_r, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_r, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 166, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_17r, 0, __pyx_n_s_Particle_r, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_4);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_7);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = NULL;
   __pyx_t_11 = 0;
   #if CYTHON_UNPACK_METHODS
   if (unlikely(PyMethod_Check(__pyx_t_9))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_9);
-    if (likely(__pyx_t_4)) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_9);
+    if (likely(__pyx_t_7)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_7);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_9, function);
       __pyx_t_11 = 1;
@@ -27533,60 +27571,60 @@ if (!__Pyx_RefNanny) {
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_t_10};
+    PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_t_10};
     __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_r, __pyx_t_5) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_r, __pyx_t_5) < 0) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":171
+  /* "electromagpy/particles/particles.py":172
  *         self._particle.r[2] = r[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def v(self) -> np.ndarray:
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_19v, 0, __pyx_n_s_Particle_v, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 171, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_19v, 0, __pyx_n_s_Particle_v, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_9, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_v, __pyx_t_5) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_v, __pyx_t_5) < 0) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":175
+  /* "electromagpy/particles/particles.py":176
  *         return np.array([vi for vi in self._particle.v], dtype=np.float64)
  * 
  *     @v.setter             # <<<<<<<<<<<<<<
  *     def v(self, v: Iterable):
  *         self._particle.v[0] = v[0]
  */
-  __pyx_t_9 = PyObject_GetItem(__pyx_t_7, __pyx_n_s_v);
+  __pyx_t_9 = PyObject_GetItem(__pyx_t_4, __pyx_n_s_v);
   if (unlikely(!__pyx_t_9)) {
     PyErr_Clear();
     __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_v);
   }
-  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 175, __pyx_L1_error)
+  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_setter); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_setter); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_v, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_21v, 0, __pyx_n_s_Particle_v, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_9);
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_v, __pyx_n_s_Iterable) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_21v, 0, __pyx_n_s_Particle_v, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_9);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_t_9 = NULL;
   __pyx_t_11 = 0;
@@ -27603,149 +27641,149 @@ if (!__Pyx_RefNanny) {
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_t_4};
+    PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_t_7};
     __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_11, 1+__pyx_t_11);
     __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_v, __pyx_t_5) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_v, __pyx_t_5) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":181
+  /* "electromagpy/particles/particles.py":182
  *         self._particle.v[2] = v[2]
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def F(self) -> np.ndarray:
  * 
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_23F, 0, __pyx_n_s_Particle_F, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 181, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_23F, 0, __pyx_n_s_Particle_F, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_F, __pyx_t_5) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_F, __pyx_t_5) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":186
+  /* "electromagpy/particles/particles.py":187
  *         return self._particle.F
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def L(self) -> np.ndarray:
  *         """Angular momentum vector"""
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 186, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_25L, 0, __pyx_n_s_Particle_L, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 186, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_25L, 0, __pyx_n_s_Particle_L, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__53)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_L, __pyx_t_5) < 0) __PYX_ERR(0, 186, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_L, __pyx_t_5) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":191
+  /* "electromagpy/particles/particles.py":192
  *         return self.m * np.linalg.cross(self.r, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def KE(self) -> float:
  *         """Kinetic energy"""
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_27KE, 0, __pyx_n_s_Particle_KE, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 191, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_27KE, 0, __pyx_n_s_Particle_KE, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_KE, __pyx_t_5) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_KE, __pyx_t_5) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":196
+  /* "electromagpy/particles/particles.py":197
  *         return 0.5 * self.m * np.dot(self.v, self.v)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def PE(self) -> float:
  *         """Potential energy"""
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_29PE, 0, __pyx_n_s_Particle_PE, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__55)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_29PE, 0, __pyx_n_s_Particle_PE, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__55)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_PE, __pyx_t_5) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_PE, __pyx_t_5) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":201
+  /* "electromagpy/particles/particles.py":202
  *         return self.q * self.field.V(self.r, self.t)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def TE(self) -> float:
  *         """Total energy"""
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
-  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_8Particle_31TE, 0, __pyx_n_s_Particle_TE, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_return, __pyx_n_s_float) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_8Particle_31TE, 0, __pyx_n_s_Particle_TE, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__56)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_10, __pyx_t_5);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_property, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_TE, __pyx_t_5) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_4, __pyx_n_s_TE, __pyx_t_5) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "electromagpy/src/particles/particles.py":112
+  /* "electromagpy/particles/particles.py":113
  * 
  * 
  * class Particle:             # <<<<<<<<<<<<<<
  * 
  *     def __init__(
  */
-  __pyx_t_5 = __Pyx_Py3ClassCreate(((PyObject*)&PyType_Type), __pyx_n_s_Particle_2, __pyx_empty_tuple, __pyx_t_7, NULL, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_Py3ClassCreate(((PyObject*)&PyType_Type), __pyx_n_s_Particle_2, __pyx_empty_tuple, __pyx_t_4, NULL, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Particle_2, __pyx_t_5) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Particle_2, __pyx_t_5) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle__Particle(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_10_particles_9particles_1__pyx_unpickle__Particle, 0, __pyx_n_s_pyx_unpickle__Particle, NULL, __pyx_n_s_electromagpy__particles_particle, __pyx_d, ((PyObject *)__pyx_codeobj__57)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle__Particle, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_9particles_9particles_1__pyx_unpickle__Particle, 0, __pyx_n_s_pyx_unpickle__Particle, NULL, __pyx_n_s_electromagpy_particles_particles, __pyx_d, ((PyObject *)__pyx_codeobj__57)); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle__Particle, __pyx_t_4) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "electromagpy/src/particles/particles.py":1
+  /* "electromagpy/particles/particles.py":1
  * # Particles that respond to electromagnetic fields             # <<<<<<<<<<<<<<
  * import cython
  * import numpy as np
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_7) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_4) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /*--- Wrapped vars code ---*/
 
@@ -27758,7 +27796,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_10);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init electromagpy._particles.particles", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init electromagpy.particles.particles", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -27772,7 +27810,7 @@ if (!__Pyx_RefNanny) {
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init electromagpy._particles.particles");
+    PyErr_SetString(PyExc_ImportError, "init electromagpy.particles.particles");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

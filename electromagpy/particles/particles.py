@@ -1,7 +1,8 @@
 # Particles that respond to electromagnetic fields
 import cython
 import numpy as np
-from electromagpy.fields import dot, cross, _Field, Field, Vacuum
+from electromagpy.fields.field import dot, cross, _Field, Field
+from electromagpy.fields.electrostatic import Vacuum
 
 from collections.abc import Iterable
 
