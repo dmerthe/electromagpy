@@ -71,3 +71,74 @@ class _Field:
 class Field(_Field):
     """Python wrapper for _Field C type"""
     pass
+
+
+@cython.cclass
+class _CompositeField(_Field):
+
+    def __init__(self, components: vector[_Field]):
+
+        self._components = components
+
+    @cython.ccall
+    def V(self, r: vector[double], t: double) -> double:
+
+        self._V = 0.0
+
+        for component in self._components:
+            self._V += component.V(r, t)
+
+        return self._V
+
+    @cython.ccall
+    def E(self, r: vector[double], t: double) -> vector[double]:
+
+        self._E[0] = 0.0
+        self._E[1] = 0.0
+        self._E[2] = 0.0
+
+        for component in self._components:
+
+            _E: vector[double] = component.E(r, t)
+
+            self._E[0] += _E[0]
+            self._E[1] += _E[1]
+            self._E[1] += _E[1]
+
+        return self._E
+
+    @cython.ccall
+    def A(self, r: vector[double], t: double) -> vector[double]:
+
+        self._A[0] = 0.0
+        self._A[1] = 0.0
+        self._A[2] = 0.0
+
+        for component in self._components:
+            _A: vector[double] = component.A(r, t)
+
+            self._A[0] += _A[0]
+            self._A[1] += _A[1]
+            self._A[1] += _A[1]
+
+        return self._A
+
+    @cython.ccall
+    def B(self, r: vector[double], t: double) -> vector[double]:
+
+        self._B[0] = 0.0
+        self._B[1] = 0.0
+        self._B[2] = 0.0
+
+        for component in self._components:
+            _B: vector[double] = component.B(r, t)
+
+            self._B[0] += _B[0]
+            self._B[1] += _B[1]
+            self._B[1] += _B[1]
+
+        return self._B
+
+
+class CompositeField(_CompositeField):
+    pass
