@@ -3,6 +3,9 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
+        "extra_compile_args": [
+            "-std=c++20"
+        ],
         "language": "c++",
         "name": "electromagpy.particles.particles",
         "sources": [

@@ -4,11 +4,15 @@
 import cython
 from cython import double
 from cython.cimports.libcpp.numbers import pi
-from cython.cimports.libcpp.cmath import sqrt as csqrt, comp_ellint_1 as K, comp_ellint_2 as E
+from cython.cimports.libcpp.cmath import sqrt as csqrt
+from cython.cimports.scipy.special.cython_special import ellipk as K, ellipe as E
 from cython.cimports.libcpp.vector import vector
 from cython.cimports.electromagpy.fields.field import _Field, dot, cross
 
+from math import sqrt
+
 mu0: double = pi*4.0e-7
+
 
 @cython.cclass
 class _UniformB(_Field):
@@ -59,7 +63,13 @@ class _CurrentLoop(_Field):
         self.a = radius
 
         self.r0 = center
+
         self.n = normal
+
+        norm_n: double = sqrt(self.n[0]**2 + self.n[1]**2 + self.n[2]**2)
+        self.n[0] = self.n[0] / norm_n
+        self.n[1] = self.n[1] / norm_n
+        self.n[2] = self.n[2] / norm_n
 
     @cython.ccall
     def A(self, r: vector[double], t: double) -> vector[double]:
@@ -76,7 +86,7 @@ class _CurrentLoop(_Field):
         # compute cylindrical coordinates oriented to the loop
         zpp: double = xp*self.n[0] + yp*self.n[1] + zp*self.n[2]
         rho: double = csqrt(rp2 - zpp*zpp)
-
+        print(rho, rp2, zpp)
         if rho == 0.0:
 
             self._A[0] = 0.0
@@ -86,10 +96,11 @@ class _CurrentLoop(_Field):
             return self._A
 
         # compute argument k
-        k: double = csqrt(4.0 * self.a * rho / ((self.a + rho)*(self.a + rho) + zpp*zpp))
+        k2: double = 4.0 * self.a * rho / ((self.a + rho)*(self.a + rho) + zpp*zpp)
+        k: double = csqrt(k2)
 
         # compute azimuthal component in loop-oriented cylindrical coordinates
-        Athpp: double = (4.0e-7*self.I/k) * csqrt(self.a/rho) * ((1.0-0.5*k*k)*K(k) - E(k))
+        Athpp: double = (4.0e-7*self.I/k) * csqrt(self.a/rho) * ((1.0-0.5*k2)*K(k2) - E(k2))
 
         # compute loop-oriented azimuthal unit vector in original cartesian basis
         thpphat0: double = (self.n[1]*zp - self.n[2]*yp) / rp
@@ -119,23 +130,25 @@ class _CurrentLoop(_Field):
         rho: double = csqrt(rp2 - zpp * zpp)
 
         if rho == 0.0:
-            # compute on axis B
+            # compute on-axis B
 
-            Brho = 0.0
-            Bzpp = 0.5*mu0*self.a*self.a*self.I / csqrt(self.a*self.a + zpp*zpp)
+            Bzpp: double = 0.5*mu0*self.a*self.a*self.I / csqrt(self.a*self.a + zpp*zpp)**3
 
-        else:
-            # compute off axis B
+            self._B[0] = Bzpp * self.n[0]
+            self._B[1] = Bzpp * self.n[1]
+            self._B[2] = Bzpp * self.n[2]
 
-            # compute argument k
-            k: double = csqrt(4 * self.a * rho / ((self.a + rho) * (self.a + rho) + zpp * zpp))
+            return self._B
 
-            factor1: double = 1.0 / csqrt((self.a+rho)*(self.a+rho) + zpp*zpp)
-            factor2: double = (self.a*self.a + rho*rho + zpp*zpp) / ((self.a-rho)*(self.a-rho) + zpp*zpp)
-            factor3: double = (self.a*self.a - rho*rho - zpp*zpp) / ((self.a-rho)*(self.a-rho) + zpp*zpp)
+        # compute argument k
+        k2: double = 4.0 * self.a * rho / ((self.a + rho) * (self.a + rho) + zpp * zpp)
 
-            Brho = (2.0e-7 * self.I) * (zpp/rho) * factor1 * (-K(k) + factor2*E(k))
-            Bzpp = (2.0e-7 * self.I) * factor1 * (K(k) + factor3 * E(k))
+        factor1: double = 1.0 / csqrt((self.a+rho)*(self.a+rho) + zpp*zpp)
+        factor2: double = (self.a*self.a + rho*rho + zpp*zpp) / ((self.a-rho)*(self.a-rho) + zpp*zpp)
+        factor3: double = (self.a*self.a - rho*rho - zpp*zpp) / ((self.a-rho)*(self.a-rho) + zpp*zpp)
+
+        Brho = (2.0e-7 * self.I) * (zpp/rho) * factor1 * (-K(k2) + factor2*E(k2))
+        Bzpp = (2.0e-7 * self.I) * factor1 * (K(k2) + factor3 * E(k2))
 
         # compute loop-oriented azimuthal unit vector in original cartesian basis
         thpphat0: double = (self.n[1] * zp - self.n[2] * yp) / rp

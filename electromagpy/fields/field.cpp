@@ -4,6 +4,9 @@
 {
     "distutils": {
         "depends": [],
+        "extra_compile_args": [
+            "-std=c++20"
+        ],
         "language": "c++",
         "name": "electromagpy.fields.field",
         "sources": [
