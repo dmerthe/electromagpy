@@ -1,3 +1,4 @@
+# distutils: language=c++
 # Electromagnetic fields, either explicitly defined or generated from bodies
 from collections.abc import Iterable
 
@@ -76,7 +77,7 @@ class Field(_Field):
 @cython.cclass
 class _CompositeField(_Field):
 
-    def __init__(self, components: vector[_Field]):
+    def __init__(self, components: Iterable[Field]):
 
         self._components = components
 

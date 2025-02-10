@@ -1,6 +1,9 @@
 import os
-from setuptools import setup
+from setuptools import setup, Extension
 from Cython.Build import cythonize
+from Cython.Compiler import Options
+
+Options.fast_fail = True
 
 setup(
     ext_modules=cythonize([
@@ -9,5 +12,5 @@ setup(
         os.path.join("electromagpy", "fields", "magnetostatic.py"),
 
         os.path.join("electromagpy", "particles", "particles.py")
-    ], annotate=True, force=True, language='c++')
+    ], annotate=True, force=True, compiler_directives={"language_level": 3})
 )

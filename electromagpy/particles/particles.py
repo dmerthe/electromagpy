@@ -1,3 +1,4 @@
+# distutils: language=c++
 # Particles that respond to electromagnetic fields
 import cython
 import numpy as np

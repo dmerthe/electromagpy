@@ -1,3 +1,4 @@
+# distutils: language=c++
 # Extension module for magnetostatic fields
 
 import cython
@@ -41,31 +42,24 @@ class _CurrentLoop(_Field):
     Electricity", starting from page 270.
     """
 
+    I: double
+    a: double
+
+    r0: vector[double]
+    n: vector[double]
+
     def __init__(
             self,
             I: double, radius: double,
-            center: vector[double] = None,
-            normal: vector[double] = None
+            center: vector[double] = (0.0, 0.0, 0.0),
+            normal: vector[double] = (0.0, 0.0, 1.0)
     ):
 
-        self.I: double = I
-        self.a: double = radius
+        self.I = I
+        self.a = radius
 
-        if center is not None:
-            self.r0: vector[double] = center
-        else:
-            self.r0: vector[double]
-            self.r0.push_back(0.0)
-            self.r0.push_back(0.0)
-            self.r0.push_back(0.0)
-
-        if normal is not None:
-            self.n: vector[double] = normal
-        else:
-            self.n: vector[double]
-            self.n.push_back(0.0)
-            self.n.push_back(0.0)
-            self.n.push_back(1.0)
+        self.r0 = center
+        self.n = normal
 
     @cython.ccall
     def A(self, r: vector[double], t: double) -> vector[double]:
@@ -92,7 +86,7 @@ class _CurrentLoop(_Field):
             return self._A
 
         # compute argument k
-        k: double = csqrt(4*self.a * rho / ((self.a + rho)*(self.a + rho) + zpp*zpp))
+        k: double = csqrt(4.0 * self.a * rho / ((self.a + rho)*(self.a + rho) + zpp*zpp))
 
         # compute azimuthal component in loop-oriented cylindrical coordinates
         Athpp: double = (4.0e-7*self.I/k) * csqrt(self.a/rho) * ((1.0-0.5*k*k)*K(k) - E(k))

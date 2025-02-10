@@ -1,3 +1,4 @@
+# distutils: language=c++
 # cython extension module for electrostatic fields
 
 import cython
