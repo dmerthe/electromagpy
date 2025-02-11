@@ -45,6 +45,7 @@ extensions = [
 
 setup(
     ext_modules=cythonize(
-        extensions, annotate=True, force=True, compiler_directives={"language_level": 3}
+        extensions, annotate=True, force=True,
+        compiler_directives={"language_level": 3, "cdivision": True}
     )
 )

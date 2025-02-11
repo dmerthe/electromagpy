@@ -19791,10 +19791,6 @@ static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struc
  *         self._a1[1] = self._F[1] / self.m
  *         self._a1[2] = self._F[2] / self.m
  */
-  if (unlikely(__pyx_v_self->m == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 75, __pyx_L1_error)
-  }
   (__pyx_v_self->_a1[0]) = ((__pyx_v_self->_F[0]) / __pyx_v_self->m);
 
   /* "electromagpy/particles/particles.py":76
@@ -19804,10 +19800,6 @@ static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struc
  *         self._a1[2] = self._F[2] / self.m
  * 
  */
-  if (unlikely(__pyx_v_self->m == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 76, __pyx_L1_error)
-  }
   (__pyx_v_self->_a1[1]) = ((__pyx_v_self->_F[1]) / __pyx_v_self->m);
 
   /* "electromagpy/particles/particles.py":77
@@ -19817,10 +19809,6 @@ static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struc
  * 
  *         # update the coordinates
  */
-  if (unlikely(__pyx_v_self->m == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 77, __pyx_L1_error)
-  }
   (__pyx_v_self->_a1[2]) = ((__pyx_v_self->_F[2]) / __pyx_v_self->m);
 
   /* "electromagpy/particles/particles.py":80
@@ -19869,10 +19857,6 @@ static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struc
  *         self._a2[1] = self._F[1] / self.m
  *         self._a2[2] = self._F[2] / self.m
  */
-  if (unlikely(__pyx_v_self->m == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 88, __pyx_L1_error)
-  }
   (__pyx_v_self->_a2[0]) = ((__pyx_v_self->_F[0]) / __pyx_v_self->m);
 
   /* "electromagpy/particles/particles.py":89
@@ -19882,10 +19866,6 @@ static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struc
  *         self._a2[2] = self._F[2] / self.m
  * 
  */
-  if (unlikely(__pyx_v_self->m == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 89, __pyx_L1_error)
-  }
   (__pyx_v_self->_a2[1]) = ((__pyx_v_self->_F[1]) / __pyx_v_self->m);
 
   /* "electromagpy/particles/particles.py":90
@@ -19895,10 +19875,6 @@ static void __pyx_f_12electromagpy_9particles_9particles_9_Particle_update(struc
  * 
  *         # update the velocity
  */
-  if (unlikely(__pyx_v_self->m == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 90, __pyx_L1_error)
-  }
   (__pyx_v_self->_a2[2]) = ((__pyx_v_self->_F[2]) / __pyx_v_self->m);
 
   /* "electromagpy/particles/particles.py":93

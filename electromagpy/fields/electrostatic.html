@@ -770,12 +770,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_13electrostatic_9_Orbitrap_2V(s
 </pre><pre class="cython line score-0">&#xA0;<span class="">045</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">046</span>:         self._V = 0.5 * self.k * (</pre>
 <pre class='cython code score-0 '>  __pyx_v_self-&gt;__pyx_base._V = (((0.5 * __pyx_v_self-&gt;k) * ((((__pyx_v_r[2]) * (__pyx_v_r[2])) - (0.5 * __pyx_v_rr2)) + ((0.5 * __pyx_v_Rm2) * __pyx_t_8))) + __pyx_v_self-&gt;C);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">047</span>:                 (r[2]*r[2] - 0.5 * rr2) + 0.5 * Rm2 * clog(rr2 / Rm2)</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_Rm2 == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 47, __pyx_L1_error)</span>
-  }
-  try {
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">047</span>:                 (r[2]*r[2] - 0.5 * rr2) + 0.5 * Rm2 * clog(rr2 / Rm2)</pre>
+<pre class='cython code score-0 '>  try {
     __pyx_t_8 = std::log((__pyx_v_rr2 / __pyx_v_Rm2));
   } catch(...) {
     __Pyx_CppExn2PyErr();
@@ -1024,13 +1020,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_13electrostatic_9_Orbitrap_4E(s
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">055</span>:         rr2: double = r[0]*r[0] + r[1]*r[1]</pre>
 <pre class='cython code score-0 '>  __pyx_v_rr2 = (((__pyx_v_r[0]) * (__pyx_v_r[0])) + ((__pyx_v_r[1]) * (__pyx_v_r[1])));
 </pre><pre class="cython line score-0">&#xA0;<span class="">056</span>: </pre>
-<pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">057</span>:         factor: double = 0.5 * self.k * (1.0 - self.Rm*self.Rm / rr2)</pre>
-<pre class='cython code score-5 '>  __pyx_t_9 = (__pyx_v_self-&gt;Rm * __pyx_v_self-&gt;Rm);
-  if (unlikely(__pyx_v_rr2 == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 57, __pyx_L1_error)</span>
-  }
-  __pyx_v_factor = ((0.5 * __pyx_v_self-&gt;k) * (1.0 - (__pyx_t_9 / __pyx_v_rr2)));
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">057</span>:         factor: double = 0.5 * self.k * (1.0 - self.Rm*self.Rm / rr2)</pre>
+<pre class='cython code score-0 '>  __pyx_v_factor = ((0.5 * __pyx_v_self-&gt;k) * (1.0 - ((__pyx_v_self-&gt;Rm * __pyx_v_self-&gt;Rm) / __pyx_v_rr2)));
 </pre><pre class="cython line score-0">&#xA0;<span class="">058</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">059</span>:         self._E[0] = r[0] * factor</pre>
 <pre class='cython code score-0 '>  (__pyx_v_self-&gt;__pyx_base._E[0]) = ((__pyx_v_r[0]) * __pyx_v_factor);
@@ -1300,8 +1291,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_13electrostatic_8Orbitrap_param
   }
   __pyx_v_Rm = __pyx_t_1;
   __pyx_t_1 = 0;
-</pre><pre class="cython line score-75" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">081</span>:         k = 4 * bias / (2 * Rm ** 2 * log(ra / rc) - ra ** 2 + rc ** 2)</pre>
-<pre class='cython code score-75 '>  __pyx_t_1 = <span class='py_c_api'>PyFloat_FromDouble</span>((4.0 * __pyx_v_bias));<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)</span>
+</pre><pre class="cython line score-70" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">081</span>:         k = 4 * bias / (2 * Rm ** 2 * log(ra / rc) - ra ** 2 + rc ** 2)</pre>
+<pre class='cython code score-70 '>  __pyx_t_1 = <span class='py_c_api'>PyFloat_FromDouble</span>((4.0 * __pyx_v_bias));<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   __pyx_t_2 = <span class='py_c_api'>PyNumber_Power</span>(__pyx_v_Rm, __pyx_int_2, Py_None);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
@@ -1310,10 +1301,6 @@ static PyObject *__pyx_pf_12electromagpy_6fields_13electrostatic_8Orbitrap_param
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
   <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_4, __pyx_n_s_log);<span class='error_goto'> if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_4);
-  if (unlikely(__pyx_v_rc == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 81, __pyx_L1_error)</span>
-  }
   __pyx_t_6 = <span class='py_c_api'>PyFloat_FromDouble</span>((__pyx_v_ra / __pyx_v_rc));<span class='error_goto'> if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 81, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_6);
   __pyx_t_7 = NULL;

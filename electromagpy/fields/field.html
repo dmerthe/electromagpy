@@ -353,9 +353,9 @@ body.cython { font-family: courier; font-size: 12; }
 <pre class="cython line score-0">&#xA0;<span class="">017</span>:     """Compute the ith element of the cross product of two 3-vectors"""</pre>
 <pre class="cython line score-0">&#xA0;<span class="">018</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">019</span>:     j: int = (i + 1) % 3</pre>
-<pre class='cython code score-0 '>  __pyx_v_j = __Pyx_mod_long((__pyx_v_i + 1), 3);
+<pre class='cython code score-0 '>  __pyx_v_j = ((__pyx_v_i + 1) % 3);
 </pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">020</span>:     k: int = (i + 2) % 3</pre>
-<pre class='cython code score-0 '>  __pyx_v_k = __Pyx_mod_long((__pyx_v_i + 2), 3);
+<pre class='cython code score-0 '>  __pyx_v_k = ((__pyx_v_i + 2) % 3);
 </pre><pre class="cython line score-0">&#xA0;<span class="">021</span>: </pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">022</span>:     return v1[j] * v2[k] - v1[k] * v2[j]</pre>
 <pre class='cython code score-0 '>  __pyx_r = (((__pyx_v_v1[__pyx_v_j]) * (__pyx_v_v2[__pyx_v_k])) - ((__pyx_v_v1[__pyx_v_k]) * (__pyx_v_v2[__pyx_v_j])));

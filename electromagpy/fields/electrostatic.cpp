@@ -4169,10 +4169,6 @@ static double __pyx_f_12electromagpy_6fields_13electrostatic_9_Orbitrap_V(struct
  *         ) + self.C
  * 
  */
-  if (unlikely(__pyx_v_Rm2 == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 47, __pyx_L1_error)
-  }
   try {
     __pyx_t_8 = std::log((__pyx_v_rr2 / __pyx_v_Rm2));
   } catch(...) {
@@ -4389,7 +4385,6 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_13electrostatic_9_Orb
   PyObject *__pyx_t_6 = NULL;
   unsigned int __pyx_t_7;
   std::vector<double>  __pyx_t_8;
-  double __pyx_t_9;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4470,12 +4465,7 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_13electrostatic_9_Orb
  * 
  *         self._E[0] = r[0] * factor
  */
-  __pyx_t_9 = (__pyx_v_self->Rm * __pyx_v_self->Rm);
-  if (unlikely(__pyx_v_rr2 == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 57, __pyx_L1_error)
-  }
-  __pyx_v_factor = ((0.5 * __pyx_v_self->k) * (1.0 - (__pyx_t_9 / __pyx_v_rr2)));
+  __pyx_v_factor = ((0.5 * __pyx_v_self->k) * (1.0 - ((__pyx_v_self->Rm * __pyx_v_self->Rm) / __pyx_v_rr2)));
 
   /* "electromagpy/fields/electrostatic.py":59
  *         factor: double = 0.5 * self.k * (1.0 - self.Rm*self.Rm / rr2)
@@ -5340,10 +5330,6 @@ static PyObject *__pyx_pf_12electromagpy_6fields_13electrostatic_8Orbitrap_param
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_log); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (unlikely(__pyx_v_rc == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 81, __pyx_L1_error)
-  }
   __pyx_t_6 = PyFloat_FromDouble((__pyx_v_ra / __pyx_v_rc)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = NULL;

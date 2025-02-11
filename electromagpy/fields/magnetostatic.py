@@ -11,8 +11,6 @@ from cython.cimports.electromagpy.fields.field import _Field, dot, cross
 
 from math import sqrt
 
-mu0: double = pi*4.0e-7
-
 
 @cython.cclass
 class _UniformB(_Field):
@@ -86,7 +84,7 @@ class _CurrentLoop(_Field):
         # compute cylindrical coordinates oriented to the loop
         zpp: double = xp*self.n[0] + yp*self.n[1] + zp*self.n[2]
         rho: double = csqrt(rp2 - zpp*zpp)
-        print(rho, rp2, zpp)
+
         if rho == 0.0:
 
             self._A[0] = 0.0
@@ -132,7 +130,8 @@ class _CurrentLoop(_Field):
         if rho == 0.0:
             # compute on-axis B
 
-            Bzpp: double = 0.5*mu0*self.a*self.a*self.I / csqrt(self.a*self.a + zpp*zpp)**3
+            sqrt_val: double = csqrt(self.a*self.a + zpp*zpp)
+            Bzpp: double = 6.28318531e-7*self.a*self.a*self.I / (sqrt_val*sqrt_val*sqrt_val)
 
             self._B[0] = Bzpp * self.n[0]
             self._B[1] = Bzpp * self.n[1]

@@ -1723,9 +1723,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStrNoError(PyObject* obj, P
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
-/* ModInt[long].proto */
-static CYTHON_INLINE long __Pyx_mod_long(long, long);
-
 /* TupleAndListFromArray.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyList_FromArray(PyObject *const *src, Py_ssize_t n);
@@ -3226,7 +3223,7 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
  *     k: int = (i + 2) % 3
  * 
  */
-  __pyx_v_j = __Pyx_mod_long((__pyx_v_i + 1), 3);
+  __pyx_v_j = ((__pyx_v_i + 1) % 3);
 
   /* "electromagpy/fields/field.py":20
  * 
@@ -3235,7 +3232,7 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
  * 
  *     return v1[j] * v2[k] - v1[k] * v2[j]
  */
-  __pyx_v_k = __Pyx_mod_long((__pyx_v_i + 2), 3);
+  __pyx_v_k = ((__pyx_v_i + 2) % 3);
 
   /* "electromagpy/fields/field.py":22
  *     k: int = (i + 2) % 3
@@ -8239,13 +8236,6 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
 #endif
     }
     return result;
-}
-
-/* ModInt[long] */
-static CYTHON_INLINE long __Pyx_mod_long(long a, long b) {
-    long r = a % b;
-    r += ((r != 0) & ((r ^ b) < 0)) * b;
-    return r;
 }
 
 /* TupleAndListFromArray */

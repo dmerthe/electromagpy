@@ -926,24 +926,12 @@ static int __pyx_pf_12electromagpy_9particles_9particles_9_Particle___init__(str
 <pre class='cython code score-0 '>  ((struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *)__pyx_v_self-&gt;__pyx_vtab)-&gt;_eval_F(__pyx_v_self);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">073</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">074</span>:         # Update the acceleration</pre>
-<pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">075</span>:         self._a1[0] = self._F[0] / self.m</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_self-&gt;m == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 75, __pyx_L1_error)</span>
-  }
-  (__pyx_v_self-&gt;_a1[0]) = ((__pyx_v_self-&gt;_F[0]) / __pyx_v_self-&gt;m);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">076</span>:         self._a1[1] = self._F[1] / self.m</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_self-&gt;m == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 76, __pyx_L1_error)</span>
-  }
-  (__pyx_v_self-&gt;_a1[1]) = ((__pyx_v_self-&gt;_F[1]) / __pyx_v_self-&gt;m);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">077</span>:         self._a1[2] = self._F[2] / self.m</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_self-&gt;m == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 77, __pyx_L1_error)</span>
-  }
-  (__pyx_v_self-&gt;_a1[2]) = ((__pyx_v_self-&gt;_F[2]) / __pyx_v_self-&gt;m);
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">075</span>:         self._a1[0] = self._F[0] / self.m</pre>
+<pre class='cython code score-0 '>  (__pyx_v_self-&gt;_a1[0]) = ((__pyx_v_self-&gt;_F[0]) / __pyx_v_self-&gt;m);
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">076</span>:         self._a1[1] = self._F[1] / self.m</pre>
+<pre class='cython code score-0 '>  (__pyx_v_self-&gt;_a1[1]) = ((__pyx_v_self-&gt;_F[1]) / __pyx_v_self-&gt;m);
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">077</span>:         self._a1[2] = self._F[2] / self.m</pre>
+<pre class='cython code score-0 '>  (__pyx_v_self-&gt;_a1[2]) = ((__pyx_v_self-&gt;_F[2]) / __pyx_v_self-&gt;m);
 </pre><pre class="cython line score-0">&#xA0;<span class="">078</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">079</span>:         # update the coordinates</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">080</span>:         self.r[0] += self.v[0] * dt + 0.5 * self._a1[0] * dt * dt</pre>
@@ -961,24 +949,12 @@ static int __pyx_pf_12electromagpy_9particles_9particles_9_Particle___init__(str
 <pre class='cython code score-0 '>  ((struct __pyx_vtabstruct_12electromagpy_9particles_9particles__Particle *)__pyx_v_self-&gt;__pyx_vtab)-&gt;_eval_F(__pyx_v_self);<span class='error_goto'> if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)</span>
 </pre><pre class="cython line score-0">&#xA0;<span class="">086</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">087</span>:         # update the acceleration again</pre>
-<pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">088</span>:         self._a2[0] = self._F[0] / self.m</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_self-&gt;m == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 88, __pyx_L1_error)</span>
-  }
-  (__pyx_v_self-&gt;_a2[0]) = ((__pyx_v_self-&gt;_F[0]) / __pyx_v_self-&gt;m);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">089</span>:         self._a2[1] = self._F[1] / self.m</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_self-&gt;m == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 89, __pyx_L1_error)</span>
-  }
-  (__pyx_v_self-&gt;_a2[1]) = ((__pyx_v_self-&gt;_F[1]) / __pyx_v_self-&gt;m);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">090</span>:         self._a2[2] = self._F[2] / self.m</pre>
-<pre class='cython code score-5 '>  if (unlikely(__pyx_v_self-&gt;m == 0)) {
-    <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 90, __pyx_L1_error)</span>
-  }
-  (__pyx_v_self-&gt;_a2[2]) = ((__pyx_v_self-&gt;_F[2]) / __pyx_v_self-&gt;m);
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">088</span>:         self._a2[0] = self._F[0] / self.m</pre>
+<pre class='cython code score-0 '>  (__pyx_v_self-&gt;_a2[0]) = ((__pyx_v_self-&gt;_F[0]) / __pyx_v_self-&gt;m);
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">089</span>:         self._a2[1] = self._F[1] / self.m</pre>
+<pre class='cython code score-0 '>  (__pyx_v_self-&gt;_a2[1]) = ((__pyx_v_self-&gt;_F[1]) / __pyx_v_self-&gt;m);
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">090</span>:         self._a2[2] = self._F[2] / self.m</pre>
+<pre class='cython code score-0 '>  (__pyx_v_self-&gt;_a2[2]) = ((__pyx_v_self-&gt;_F[2]) / __pyx_v_self-&gt;m);
 </pre><pre class="cython line score-0">&#xA0;<span class="">091</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">092</span>:         # update the velocity</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">093</span>:         self.v[0] += 0.5 * (self._a1[0] + self._a2[0]) * dt</pre>
