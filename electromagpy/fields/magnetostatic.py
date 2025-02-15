@@ -2,7 +2,7 @@
 # Extension module for magnetostatic fields
 
 import cython
-from cython import double
+from cython import double, void
 from cython.cimports.libcpp.numbers import pi
 from cython.cimports.libcpp.cmath import sqrt as csqrt
 from cython.cimports.scipy.special.cython_special import ellipk as K, ellipe as E
@@ -22,13 +22,12 @@ class _UniformB(_Field):
         self._B[1] = By
         self._B[2] = Bz
 
-    @cython.ccall
-    def A(self, r: vector[double], t: double) -> vector[double]:
+    @cython.cfunc
+    def eval_A(self, r: vector[double], t: double) -> void:
+
         self._A[0] = 0.5 * cross(0, self._B, r)
         self._A[1] = 0.5 * cross(1, self._B, r)
         self._A[2] = 0.5 * cross(2, self._B, r)
-
-        return self._A
 
 
 class UniformB(_UniformB):
@@ -69,8 +68,8 @@ class _CurrentLoop(_Field):
         self.n[1] = self.n[1] / norm_n
         self.n[2] = self.n[2] / norm_n
 
-    @cython.ccall
-    def A(self, r: vector[double], t: double) -> vector[double]:
+    @cython.cfunc
+    def eval_A(self, r: vector[double], t: double) -> void:
         """Taken from page 932 of Arfken, Weber and Harris"""
 
         # compute displacement of position from loop center
@@ -91,7 +90,7 @@ class _CurrentLoop(_Field):
             self._A[1] = 0.0
             self._A[2] = 0.0
 
-            return self._A
+            return
 
         # compute argument k
         k2: double = 4.0 * self.a * rho / ((self.a + rho)*(self.a + rho) + zpp*zpp)
@@ -110,10 +109,8 @@ class _CurrentLoop(_Field):
         self._A[1] = Athpp * thpphat1
         self._A[2] = Athpp * thpphat2
 
-        return self._A
-
-    @cython.ccall
-    def B(self, r: vector[double], t: double) -> vector[double]:
+    @cython.cfunc
+    def eval_B(self, r: vector[double], t: double) -> void:
 
         # compute displacement of position from loop center
         xp: double = r[0] - self.r0[0]
@@ -137,7 +134,7 @@ class _CurrentLoop(_Field):
             self._B[1] = Bzpp * self.n[1]
             self._B[2] = Bzpp * self.n[2]
 
-            return self._B
+            return
 
         # compute argument k
         k2: double = 4.0 * self.a * rho / ((self.a + rho) * (self.a + rho) + zpp * zpp)
@@ -162,8 +159,6 @@ class _CurrentLoop(_Field):
         self._B[0] = Brho * rhohat0 + Bzpp * self.n[0]
         self._B[1] = Brho * rhohat1 + Bzpp * self.n[1]
         self._B[2] = Brho * rhohat2 + Bzpp * self.n[2]
-
-        return self._B
 
 
 class CurrentLoop(_CurrentLoop):

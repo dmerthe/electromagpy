@@ -2,11 +2,11 @@
 # cython extension module for electrostatic fields
 
 import cython
-from cython import double
+from cython import double, void
 from math import sqrt, log, pi
 from cython.cimports.libcpp.cmath import log as clog
 from cython.cimports.libcpp.vector import vector
-from cython.cimports.electromagpy.fields.field import _Field
+from cython.cimports.electromagpy.fields.field import _Field, dot
 
 @cython.cclass
 class _Vacuum(_Field):
@@ -15,6 +15,25 @@ class _Vacuum(_Field):
 
 
 class Vacuum(_Vacuum):
+    pass
+
+@cython.cclass
+class _UniformE(_Field):
+    """Constant uniform magnetic field"""
+
+    def __init__(self, Ex: double, Ey: double, Ez: double):
+
+        self._E[0] = Ex
+        self._E[1] = Ey
+        self._E[2] = Ez
+
+    @cython.cfunc
+    def eval_V(self, r: vector[double], t: double) -> void:
+
+        self._V = -dot(self._E, r)
+
+
+class UniformE(_UniformE):
     pass
 
 
@@ -37,8 +56,8 @@ class _Orbitrap(_Field):
         self.Rm = Rm
         self.C = C
 
-    @cython.ccall
-    def V(self, r: vector[double], t: double) -> double:
+    @cython.cfunc
+    def eval_V(self, r: vector[double], t: double) -> void:
 
         rr2: double = r[0] * r[0] + r[1] * r[1]  # cylindrical radius squared
         Rm2: double = self.Rm * self.Rm  # Rm squared
@@ -47,10 +66,8 @@ class _Orbitrap(_Field):
                 (r[2]*r[2] - 0.5 * rr2) + 0.5 * Rm2 * clog(rr2 / Rm2)
         ) + self.C
 
-        return self._V
-
-    @cython.ccall
-    def E(self, r: vector[double], t: double) -> vector[double]:
+    @cython.cfunc
+    def eval_E(self, r: vector[double], t: double) -> void:
 
         rr2: double = r[0]*r[0] + r[1]*r[1]
 
@@ -59,8 +76,6 @@ class _Orbitrap(_Field):
         self._E[0] = r[0] * factor
         self._E[1] = r[1] * factor
         self._E[2] = -self.k * r[2]
-
-        return self._E
 
 
 class Orbitrap(_Orbitrap):

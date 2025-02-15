@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 from Cython.Compiler import Options
@@ -29,7 +30,8 @@ extensions = [
         "electromagpy.particles.particles",
         [os.path.join("electromagpy", "particles", "particles.py")],
         language="c++",
-        extra_compile_args=["-std=c++20"]
+        extra_compile_args=["-std=c++20"],
+        include_dirs=[np.get_include()]
     ),
 ]
 
