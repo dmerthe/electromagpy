@@ -1,11 +1,11 @@
 from libcpp.vector cimport vector
-from electromagpy.particles.particles cimport _Particle
 
 cdef double dot(vector[double] v1, vector[double] v2)
 cdef double cross(int i, vector[double] v1, vector[double] v2)
 
 cdef class _Field:
 
+    # pre-initialized field buffers
     cdef double _V  # electric potential
     cdef vector[double] _E  # electric field
     cdef vector[double] _A  # magnetic potential

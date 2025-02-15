@@ -1668,7 +1668,7 @@ struct __pyx_memoryviewslice_obj;
  * 
  * cdef class _Particle:             # <<<<<<<<<<<<<<
  * 
- *     cdef double _q
+ *     cdef double _q  # electric charge
  */
 struct __pyx_obj_12electromagpy_9particles_9particles__Particle {
   PyObject_HEAD
@@ -1676,15 +1676,17 @@ struct __pyx_obj_12electromagpy_9particles_9particles__Particle {
   double _m;
   std::vector<double>  _r;
   std::vector<double>  _v;
+  double _PE;
+  std::vector<double>  _F;
 };
 
 
-/* "electromagpy/fields/field.pxd":7
+/* "electromagpy/fields/field.pxd":6
  * cdef double cross(int i, vector[double] v1, vector[double] v2)
  * 
  * cdef class _Field:             # <<<<<<<<<<<<<<
  * 
- *     cdef double _V  # electric potential
+ *     # pre-initialized field buffers
  */
 struct __pyx_obj_12electromagpy_6fields_5field__Field {
   PyObject_HEAD
@@ -1696,7 +1698,7 @@ struct __pyx_obj_12electromagpy_6fields_5field__Field {
 };
 
 
-/* "electromagpy/fields/field.py":185
+/* "electromagpy/fields/field.py":194
  * 
  * @cython.cclass
  * class _CompositeField(_Field):             # <<<<<<<<<<<<<<
@@ -1785,7 +1787,7 @@ struct __pyx_memoryviewslice_obj {
 
 
 
-/* "electromagpy/fields/field.py":27
+/* "electromagpy/fields/field.py":28
  * 
  * @cython.cclass
  * class _Field:             # <<<<<<<<<<<<<<
@@ -1808,7 +1810,7 @@ struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field {
 static struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *__pyx_vtabptr_12electromagpy_6fields_5field__Field;
 
 
-/* "electromagpy/fields/field.py":185
+/* "electromagpy/fields/field.py":194
  * 
  * @cython.cclass
  * class _CompositeField(_Field):             # <<<<<<<<<<<<<<
@@ -2472,9 +2474,6 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 #define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
 #endif
 
-/* BufferIndexError.proto */
-static void __Pyx_RaiseBufferIndexError(int axis);
-
 /* PyObject_GenericGetAttrNoDict.proto */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj, PyObject* attr_name);
@@ -2954,13 +2953,13 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
 
 /* Module declarations from "libcpp.vector" */
 
-/* Module declarations from "electromagpy.particles.particles" */
-
 /* Module declarations from "cython.view" */
 
 /* Module declarations from "cython.dataclasses" */
 
 /* Module declarations from "cython" */
+
+/* Module declarations from "electromagpy.particles.particles" */
 
 /* Module declarations from "electromagpy.fields.field" */
 static PyObject *__pyx_collections_abc_Sequence = 0;
@@ -3032,6 +3031,7 @@ static const char __pyx_k_[] = ": ";
 static const char __pyx_k_A[] = "A";
 static const char __pyx_k_B[] = "B";
 static const char __pyx_k_E[] = "E";
+static const char __pyx_k_F[] = "F";
 static const char __pyx_k_O[] = "O";
 static const char __pyx_k_V[] = "V";
 static const char __pyx_k_c[] = "c";
@@ -3040,6 +3040,7 @@ static const char __pyx_k_q[] = "q";
 static const char __pyx_k_r[] = "r";
 static const char __pyx_k_t[] = "t";
 static const char __pyx_k_v[] = "v";
+static const char __pyx_k_PE[] = "PE";
 static const char __pyx_k__2[] = ".";
 static const char __pyx_k__3[] = "*";
 static const char __pyx_k__6[] = "'";
@@ -3292,13 +3293,13 @@ typedef struct {
   #endif
   #if CYTHON_USE_MODULE_STATE
   #endif
+  #if CYTHON_USE_MODULE_STATE
+  #endif
+  #if CYTHON_USE_MODULE_STATE
+  #endif
+  #if CYTHON_USE_MODULE_STATE
+  #endif
   PyTypeObject *__pyx_ptype_12electromagpy_9particles_9particles__Particle;
-  #if CYTHON_USE_MODULE_STATE
-  #endif
-  #if CYTHON_USE_MODULE_STATE
-  #endif
-  #if CYTHON_USE_MODULE_STATE
-  #endif
   #if CYTHON_USE_MODULE_STATE
   PyObject *__pyx_type_12electromagpy_6fields_5field__Field;
   PyObject *__pyx_type_12electromagpy_6fields_5field__CompositeField;
@@ -3336,6 +3337,7 @@ typedef struct {
   PyObject *__pyx_n_s_E_2;
   PyObject *__pyx_n_s_Ellipsis;
   PyObject *__pyx_kp_s_Empty_shape_tuple_for_cython_arr;
+  PyObject *__pyx_n_s_F;
   PyObject *__pyx_n_s_Field;
   PyObject *__pyx_n_s_Field_2;
   PyObject *__pyx_n_s_Field_A;
@@ -3357,6 +3359,7 @@ typedef struct {
   PyObject *__pyx_kp_s_MemoryView_of_r_object;
   PyObject *__pyx_n_b_O;
   PyObject *__pyx_kp_u_Out_of_bounds_on_buffer_access_a;
+  PyObject *__pyx_n_s_PE;
   PyObject *__pyx_n_s_PickleError;
   PyObject *__pyx_kp_s_Python_wrapper_for__Field_C_type;
   PyObject *__pyx_n_s_Sequence;
@@ -3602,6 +3605,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_E_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_Ellipsis);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Empty_shape_tuple_for_cython_arr);
+  Py_CLEAR(clear_module_state->__pyx_n_s_F);
   Py_CLEAR(clear_module_state->__pyx_n_s_Field);
   Py_CLEAR(clear_module_state->__pyx_n_s_Field_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_Field_A);
@@ -3623,6 +3627,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_MemoryView_of_r_object);
   Py_CLEAR(clear_module_state->__pyx_n_b_O);
   Py_CLEAR(clear_module_state->__pyx_kp_u_Out_of_bounds_on_buffer_access_a);
+  Py_CLEAR(clear_module_state->__pyx_n_s_PE);
   Py_CLEAR(clear_module_state->__pyx_n_s_PickleError);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Python_wrapper_for__Field_C_type);
   Py_CLEAR(clear_module_state->__pyx_n_s_Sequence);
@@ -3846,6 +3851,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_E_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_Ellipsis);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Empty_shape_tuple_for_cython_arr);
+  Py_VISIT(traverse_module_state->__pyx_n_s_F);
   Py_VISIT(traverse_module_state->__pyx_n_s_Field);
   Py_VISIT(traverse_module_state->__pyx_n_s_Field_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_Field_A);
@@ -3867,6 +3873,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_MemoryView_of_r_object);
   Py_VISIT(traverse_module_state->__pyx_n_b_O);
   Py_VISIT(traverse_module_state->__pyx_kp_u_Out_of_bounds_on_buffer_access_a);
+  Py_VISIT(traverse_module_state->__pyx_n_s_PE);
   Py_VISIT(traverse_module_state->__pyx_n_s_PickleError);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Python_wrapper_for__Field_C_type);
   Py_VISIT(traverse_module_state->__pyx_n_s_Sequence);
@@ -4066,13 +4073,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 #if CYTHON_USE_MODULE_STATE
 #endif
+#if CYTHON_USE_MODULE_STATE
+#endif
+#if CYTHON_USE_MODULE_STATE
+#endif
+#if CYTHON_USE_MODULE_STATE
+#endif
 #define __pyx_ptype_12electromagpy_9particles_9particles__Particle __pyx_mstate_global->__pyx_ptype_12electromagpy_9particles_9particles__Particle
-#if CYTHON_USE_MODULE_STATE
-#endif
-#if CYTHON_USE_MODULE_STATE
-#endif
-#if CYTHON_USE_MODULE_STATE
-#endif
 #if CYTHON_USE_MODULE_STATE
 #define __pyx_type_12electromagpy_6fields_5field__Field __pyx_mstate_global->__pyx_type_12electromagpy_6fields_5field__Field
 #define __pyx_type_12electromagpy_6fields_5field__CompositeField __pyx_mstate_global->__pyx_type_12electromagpy_6fields_5field__CompositeField
@@ -4110,6 +4117,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_E_2 __pyx_mstate_global->__pyx_n_s_E_2
 #define __pyx_n_s_Ellipsis __pyx_mstate_global->__pyx_n_s_Ellipsis
 #define __pyx_kp_s_Empty_shape_tuple_for_cython_arr __pyx_mstate_global->__pyx_kp_s_Empty_shape_tuple_for_cython_arr
+#define __pyx_n_s_F __pyx_mstate_global->__pyx_n_s_F
 #define __pyx_n_s_Field __pyx_mstate_global->__pyx_n_s_Field
 #define __pyx_n_s_Field_2 __pyx_mstate_global->__pyx_n_s_Field_2
 #define __pyx_n_s_Field_A __pyx_mstate_global->__pyx_n_s_Field_A
@@ -4131,6 +4139,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_MemoryView_of_r_object __pyx_mstate_global->__pyx_kp_s_MemoryView_of_r_object
 #define __pyx_n_b_O __pyx_mstate_global->__pyx_n_b_O
 #define __pyx_kp_u_Out_of_bounds_on_buffer_access_a __pyx_mstate_global->__pyx_kp_u_Out_of_bounds_on_buffer_access_a
+#define __pyx_n_s_PE __pyx_mstate_global->__pyx_n_s_PE
 #define __pyx_n_s_PickleError __pyx_mstate_global->__pyx_n_s_PickleError
 #define __pyx_kp_s_Python_wrapper_for__Field_C_type __pyx_mstate_global->__pyx_kp_s_Python_wrapper_for__Field_C_type
 #define __pyx_n_s_Sequence __pyx_mstate_global->__pyx_n_s_Sequence
@@ -18255,8 +18264,8 @@ static double __pyx_f_12electromagpy_6fields_5field_dot(std::vector<double>  __p
  *     return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
  * 
  * @cython.cfunc             # <<<<<<<<<<<<<<
+ * @cython.exceptval(check=False)
  * def cross(i: int, v1: vector[double], v2: vector[double]) -> double:
- *     """Compute the ith element of the cross product of two 3-vectors"""
  */
 
 static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::vector<double>  __pyx_v_v1, std::vector<double>  __pyx_v_v2) {
@@ -18264,7 +18273,7 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
   int __pyx_v_k;
   double __pyx_r;
 
-  /* "electromagpy/fields/field.py":20
+  /* "electromagpy/fields/field.py":21
  *     """Compute the ith element of the cross product of two 3-vectors"""
  * 
  *     j: int = (i + 1) % 3             # <<<<<<<<<<<<<<
@@ -18273,7 +18282,7 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
  */
   __pyx_v_j = ((__pyx_v_i + 1) % 3);
 
-  /* "electromagpy/fields/field.py":21
+  /* "electromagpy/fields/field.py":22
  * 
  *     j: int = (i + 1) % 3
  *     k: int = (i + 2) % 3             # <<<<<<<<<<<<<<
@@ -18282,7 +18291,7 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
  */
   __pyx_v_k = ((__pyx_v_i + 2) % 3);
 
-  /* "electromagpy/fields/field.py":23
+  /* "electromagpy/fields/field.py":24
  *     k: int = (i + 2) % 3
  * 
  *     return v1[j] * v2[k] - v1[k] * v2[j]             # <<<<<<<<<<<<<<
@@ -18296,8 +18305,8 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
  *     return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
  * 
  * @cython.cfunc             # <<<<<<<<<<<<<<
+ * @cython.exceptval(check=False)
  * def cross(i: int, v1: vector[double], v2: vector[double]) -> double:
- *     """Compute the ith element of the cross product of two 3-vectors"""
  */
 
   /* function exit code */
@@ -18305,7 +18314,7 @@ static double __pyx_f_12electromagpy_6fields_5field_cross(int __pyx_v_i, std::ve
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":35
+/* "electromagpy/fields/field.py":36
  *     """
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -18347,7 +18356,7 @@ static int __pyx_pf_12electromagpy_6fields_5field_6_Field___cinit__(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 1);
 
-  /* "electromagpy/fields/field.py":37
+  /* "electromagpy/fields/field.py":38
  *     def __cinit__(self):
  * 
  *         self._V = 0.0             # <<<<<<<<<<<<<<
@@ -18356,34 +18365,12 @@ static int __pyx_pf_12electromagpy_6fields_5field_6_Field___cinit__(struct __pyx
  */
   __pyx_v_self->_V = 0.0;
 
-  /* "electromagpy/fields/field.py":38
+  /* "electromagpy/fields/field.py":39
  * 
  *         self._V = 0.0
  *         self._E = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
  *         self._A = [0.0, 0.0, 0.0]
  *         self._B = [0.0, 0.0, 0.0]
- */
-  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_INCREF(__pyx_float_0_0);
-  __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, __pyx_float_0_0)) __PYX_ERR(0, 38, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_float_0_0);
-  __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 1, __pyx_float_0_0)) __PYX_ERR(0, 38, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_float_0_0);
-  __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 2, __pyx_float_0_0)) __PYX_ERR(0, 38, __pyx_L1_error);
-  __pyx_t_2 = __pyx_convert_vector_from_py_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 38, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_self->_E = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
-
-  /* "electromagpy/fields/field.py":39
- *         self._V = 0.0
- *         self._E = [0.0, 0.0, 0.0]
- *         self._A = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
- *         self._B = [0.0, 0.0, 0.0]
- *         self.particles = []
  */
   __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -18398,14 +18385,14 @@ static int __pyx_pf_12electromagpy_6fields_5field_6_Field___cinit__(struct __pyx
   if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 2, __pyx_float_0_0)) __PYX_ERR(0, 39, __pyx_L1_error);
   __pyx_t_2 = __pyx_convert_vector_from_py_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_self->_A = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
+  __pyx_v_self->_E = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
 
   /* "electromagpy/fields/field.py":40
+ *         self._V = 0.0
  *         self._E = [0.0, 0.0, 0.0]
- *         self._A = [0.0, 0.0, 0.0]
- *         self._B = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
+ *         self._A = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
+ *         self._B = [0.0, 0.0, 0.0]
  *         self.particles = []
- * 
  */
   __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -18420,21 +18407,43 @@ static int __pyx_pf_12electromagpy_6fields_5field_6_Field___cinit__(struct __pyx
   if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 2, __pyx_float_0_0)) __PYX_ERR(0, 40, __pyx_L1_error);
   __pyx_t_2 = __pyx_convert_vector_from_py_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_self->_B = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
+  __pyx_v_self->_A = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
 
   /* "electromagpy/fields/field.py":41
+ *         self._E = [0.0, 0.0, 0.0]
+ *         self._A = [0.0, 0.0, 0.0]
+ *         self._B = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
+ *         self.particles = []
+ * 
+ */
+  __pyx_t_1 = PyList_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_float_0_0);
+  __Pyx_GIVEREF(__pyx_float_0_0);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, __pyx_float_0_0)) __PYX_ERR(0, 41, __pyx_L1_error);
+  __Pyx_INCREF(__pyx_float_0_0);
+  __Pyx_GIVEREF(__pyx_float_0_0);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 1, __pyx_float_0_0)) __PYX_ERR(0, 41, __pyx_L1_error);
+  __Pyx_INCREF(__pyx_float_0_0);
+  __Pyx_GIVEREF(__pyx_float_0_0);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 2, __pyx_float_0_0)) __PYX_ERR(0, 41, __pyx_L1_error);
+  __pyx_t_2 = __pyx_convert_vector_from_py_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_self->_B = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
+
+  /* "electromagpy/fields/field.py":42
  *         self._A = [0.0, 0.0, 0.0]
  *         self._B = [0.0, 0.0, 0.0]
  *         self.particles = []             # <<<<<<<<<<<<<<
  * 
  *     @cython.cfunc
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_particles, __pyx_t_1) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_particles, __pyx_t_1) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "electromagpy/fields/field.py":35
+  /* "electromagpy/fields/field.py":36
  *     """
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -18454,7 +18463,7 @@ static int __pyx_pf_12electromagpy_6fields_5field_6_Field___cinit__(struct __pyx
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":43
+/* "electromagpy/fields/field.py":44
  *         self.particles = []
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -18464,7 +18473,7 @@ static int __pyx_pf_12electromagpy_6fields_5field_6_Field___cinit__(struct __pyx
 
 static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_V(CYTHON_UNUSED struct __pyx_obj_12electromagpy_6fields_5field__Field *__pyx_v_self, CYTHON_UNUSED std::vector<double>  __pyx_v_r, CYTHON_UNUSED double __pyx_v_t) {
 
-  /* "electromagpy/fields/field.py":45
+  /* "electromagpy/fields/field.py":46
  *     @cython.cfunc
  *     def eval_V(self, r: vector[double], t: double) -> void:
  *         """Update self._V"""             # <<<<<<<<<<<<<<
@@ -18475,7 +18484,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_V(CYTHON_UNUSED s
   /* function exit code */
 }
 
-/* "electromagpy/fields/field.py":48
+/* "electromagpy/fields/field.py":49
  *         pass
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -18485,7 +18494,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_V(CYTHON_UNUSED s
 
 static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_E(CYTHON_UNUSED struct __pyx_obj_12electromagpy_6fields_5field__Field *__pyx_v_self, CYTHON_UNUSED std::vector<double>  __pyx_v_r, CYTHON_UNUSED double __pyx_v_t) {
 
-  /* "electromagpy/fields/field.py":50
+  /* "electromagpy/fields/field.py":51
  *     @cython.cfunc
  *     def eval_E(self, r: vector[double], t: double) -> void:
  *         """Update self._E"""             # <<<<<<<<<<<<<<
@@ -18496,7 +18505,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_E(CYTHON_UNUSED s
   /* function exit code */
 }
 
-/* "electromagpy/fields/field.py":53
+/* "electromagpy/fields/field.py":54
  *         pass
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -18506,7 +18515,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_E(CYTHON_UNUSED s
 
 static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_A(CYTHON_UNUSED struct __pyx_obj_12electromagpy_6fields_5field__Field *__pyx_v_self, CYTHON_UNUSED std::vector<double>  __pyx_v_r, CYTHON_UNUSED double __pyx_v_t) {
 
-  /* "electromagpy/fields/field.py":55
+  /* "electromagpy/fields/field.py":56
  *     @cython.cfunc
  *     def eval_A(self, r: vector[double], t: double) -> void:
  *         """Update self._A"""             # <<<<<<<<<<<<<<
@@ -18517,7 +18526,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_A(CYTHON_UNUSED s
   /* function exit code */
 }
 
-/* "electromagpy/fields/field.py":58
+/* "electromagpy/fields/field.py":59
  *         pass
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -18527,7 +18536,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_A(CYTHON_UNUSED s
 
 static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_B(CYTHON_UNUSED struct __pyx_obj_12electromagpy_6fields_5field__Field *__pyx_v_self, CYTHON_UNUSED std::vector<double>  __pyx_v_r, CYTHON_UNUSED double __pyx_v_t) {
 
-  /* "electromagpy/fields/field.py":60
+  /* "electromagpy/fields/field.py":61
  *     @cython.cfunc
  *     def eval_B(self, r: vector[double], t: double) -> void:
  *         """Update self._B"""             # <<<<<<<<<<<<<<
@@ -18538,7 +18547,7 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_B(CYTHON_UNUSED s
   /* function exit code */
 }
 
-/* "electromagpy/fields/field.py":63
+/* "electromagpy/fields/field.py":64
  *         pass
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -18577,12 +18586,12 @@ static double __pyx_f_12electromagpy_6fields_5field_6_Field_V(struct __pyx_obj_1
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_typedict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_V); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_V); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!__Pyx_IsSameCFunction(__pyx_t_1, (void*) __pyx_pw_12electromagpy_6fields_5field_6_Field_3V)) {
-        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
@@ -18605,11 +18614,11 @@ static double __pyx_f_12electromagpy_6fields_5field_6_Field_V(struct __pyx_obj_1
           __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
-        __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L1_error)
+        __pyx_t_8 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_8 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_8;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -18628,16 +18637,16 @@ static double __pyx_f_12electromagpy_6fields_5field_6_Field_V(struct __pyx_obj_1
     #endif
   }
 
-  /* "electromagpy/fields/field.py":67
+  /* "electromagpy/fields/field.py":68
  *         """Update and return self._V"""
  * 
  *         self.eval_V(r, t)             # <<<<<<<<<<<<<<
  * 
  *         return self._V
  */
-  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_V(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 67, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_V(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 68, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":69
+  /* "electromagpy/fields/field.py":70
  *         self.eval_V(r, t)
  * 
  *         return self._V             # <<<<<<<<<<<<<<
@@ -18647,7 +18656,7 @@ static double __pyx_f_12electromagpy_6fields_5field_6_Field_V(struct __pyx_obj_1
   __pyx_r = __pyx_v_self->_V;
   goto __pyx_L0;
 
-  /* "electromagpy/fields/field.py":63
+  /* "electromagpy/fields/field.py":64
  *         pass
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -18727,7 +18736,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -18735,14 +18744,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("V", 1, 2, 2, 1); __PYX_ERR(0, 63, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("V", 1, 2, 2, 1); __PYX_ERR(0, 64, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "V") < 0)) __PYX_ERR(0, 63, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "V") < 0)) __PYX_ERR(0, 64, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -18750,12 +18759,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
-    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
+    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("V", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 63, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("V", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 64, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -18792,8 +18801,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_2V(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("V", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_V(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L1_error)
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_V(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -18810,7 +18819,7 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_2V(struct __pyx_
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":71
+/* "electromagpy/fields/field.py":72
  *         return self._V
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -18849,12 +18858,12 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_E(stru
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_typedict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_E); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_E); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!__Pyx_IsSameCFunction(__pyx_t_1, (void*) __pyx_pw_12electromagpy_6fields_5field_6_Field_5E)) {
-        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
+        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 71, __pyx_L1_error)
+        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
@@ -18877,11 +18886,11 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_E(stru
           __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
-        __pyx_t_8 = __pyx_convert_vector_from_py_double(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
+        __pyx_t_8 = __pyx_convert_vector_from_py_double(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_8;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -18900,16 +18909,16 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_E(stru
     #endif
   }
 
-  /* "electromagpy/fields/field.py":75
+  /* "electromagpy/fields/field.py":76
  *         """Update and return self._E"""
  * 
  *         self.eval_E(r, t)             # <<<<<<<<<<<<<<
  * 
  *         return self._E
  */
-  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_E(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_E(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":77
+  /* "electromagpy/fields/field.py":78
  *         self.eval_E(r, t)
  * 
  *         return self._E             # <<<<<<<<<<<<<<
@@ -18919,7 +18928,7 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_E(stru
   __pyx_r = __pyx_v_self->_E;
   goto __pyx_L0;
 
-  /* "electromagpy/fields/field.py":71
+  /* "electromagpy/fields/field.py":72
  *         return self._V
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -18999,7 +19008,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -19007,14 +19016,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("E", 1, 2, 2, 1); __PYX_ERR(0, 71, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("E", 1, 2, 2, 1); __PYX_ERR(0, 72, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "E") < 0)) __PYX_ERR(0, 71, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "E") < 0)) __PYX_ERR(0, 72, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -19022,12 +19031,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
-    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L3_error)
+    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L3_error)
+    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("E", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 71, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("E", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 72, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19064,8 +19073,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_4E(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("E", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_E(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_E(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -19082,7 +19091,7 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_4E(struct __pyx_
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":79
+/* "electromagpy/fields/field.py":80
  *         return self._E
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -19121,12 +19130,12 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_A(stru
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_typedict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_A); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_A); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!__Pyx_IsSameCFunction(__pyx_t_1, (void*) __pyx_pw_12electromagpy_6fields_5field_6_Field_7A)) {
-        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 79, __pyx_L1_error)
+        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
+        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
@@ -19149,11 +19158,11 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_A(stru
           __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
-        __pyx_t_8 = __pyx_convert_vector_from_py_double(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
+        __pyx_t_8 = __pyx_convert_vector_from_py_double(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_8;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -19172,16 +19181,16 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_A(stru
     #endif
   }
 
-  /* "electromagpy/fields/field.py":83
+  /* "electromagpy/fields/field.py":84
  *         """Update and return self._A"""
  * 
  *         self.eval_A(r, t)             # <<<<<<<<<<<<<<
  * 
  *         return self._A
  */
-  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_A(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 83, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_A(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":85
+  /* "electromagpy/fields/field.py":86
  *         self.eval_A(r, t)
  * 
  *         return self._A             # <<<<<<<<<<<<<<
@@ -19191,7 +19200,7 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_A(stru
   __pyx_r = __pyx_v_self->_A;
   goto __pyx_L0;
 
-  /* "electromagpy/fields/field.py":79
+  /* "electromagpy/fields/field.py":80
  *         return self._E
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -19271,7 +19280,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -19279,14 +19288,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("A", 1, 2, 2, 1); __PYX_ERR(0, 79, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("A", 1, 2, 2, 1); __PYX_ERR(0, 80, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "A") < 0)) __PYX_ERR(0, 79, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "A") < 0)) __PYX_ERR(0, 80, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -19294,12 +19303,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L3_error)
-    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L3_error)
+    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 81, __pyx_L3_error)
+    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 81, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("A", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 79, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("A", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 80, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19336,8 +19345,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_6A(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("A", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_A(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_A(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -19354,7 +19363,7 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_6A(struct __pyx_
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":87
+/* "electromagpy/fields/field.py":88
  *         return self._A
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -19393,12 +19402,12 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_B(stru
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_typedict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_B); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_B); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!__Pyx_IsSameCFunction(__pyx_t_1, (void*) __pyx_pw_12electromagpy_6fields_5field_6_Field_9B)) {
-        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_3 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 88, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
@@ -19421,11 +19430,11 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_B(stru
           __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         }
-        __pyx_t_8 = __pyx_convert_vector_from_py_double(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_8 = __pyx_convert_vector_from_py_double(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_8;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -19444,16 +19453,16 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_B(stru
     #endif
   }
 
-  /* "electromagpy/fields/field.py":91
+  /* "electromagpy/fields/field.py":92
  *         """Update and return self._B"""
  * 
  *         self.eval_B(r, t)             # <<<<<<<<<<<<<<
  * 
  *         return self._B
  */
-  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_B(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_B(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 92, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":93
+  /* "electromagpy/fields/field.py":94
  *         self.eval_B(r, t)
  * 
  *         return self._B             # <<<<<<<<<<<<<<
@@ -19463,7 +19472,7 @@ static std::vector<double>  __pyx_f_12electromagpy_6fields_5field_6_Field_B(stru
   __pyx_r = __pyx_v_self->_B;
   goto __pyx_L0;
 
-  /* "electromagpy/fields/field.py":87
+  /* "electromagpy/fields/field.py":88
  *         return self._A
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
@@ -19543,7 +19552,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -19551,14 +19560,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("B", 1, 2, 2, 1); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("B", 1, 2, 2, 1); __PYX_ERR(0, 88, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "B") < 0)) __PYX_ERR(0, 87, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "B") < 0)) __PYX_ERR(0, 88, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -19566,12 +19575,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L3_error)
-    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L3_error)
+    __pyx_v_r = __pyx_convert_vector_from_py_double(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
+    __pyx_v_t = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("B", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 87, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("B", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 88, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19608,8 +19617,8 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_8B(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("B", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_B(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_B(__pyx_v_self, __pyx_v_r, __pyx_v_t, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_vector_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -19626,7 +19635,7 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_8B(struct __pyx_
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":95
+/* "electromagpy/fields/field.py":96
  *         return self._B
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19635,60 +19644,56 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_8B(struct __pyx_
  */
 
 static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_F(struct __pyx_obj_12electromagpy_6fields_5field__Field *__pyx_v_self, std::vector<double>  __pyx_v_r, std::vector<double>  __pyx_v_v, double __pyx_v_t, double __pyx_v_q, double *__pyx_v_F) {
-  double __pyx_t_1;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "electromagpy/fields/field.py":98
+  /* "electromagpy/fields/field.py":99
  *     def eval_F(self, r: vector[double], v: vector[double], t: double, q: double, F: double[3]) -> void:
  * 
  *         self.eval_E(r, t)             # <<<<<<<<<<<<<<
  *         self.eval_B(r, t)
  * 
  */
-  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_E(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_E(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":99
+  /* "electromagpy/fields/field.py":100
  * 
  *         self.eval_E(r, t)
  *         self.eval_B(r, t)             # <<<<<<<<<<<<<<
  * 
  *         F[0] = q * (self._E[0] + cross(0, v, self._B))
  */
-  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_B(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_B(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":101
+  /* "electromagpy/fields/field.py":102
  *         self.eval_B(r, t)
  * 
  *         F[0] = q * (self._E[0] + cross(0, v, self._B))             # <<<<<<<<<<<<<<
  *         F[1] = q * (self._E[1] + cross(1, v, self._B))
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))
  */
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_cross(0, __pyx_v_v, __pyx_v_self->_B); if (unlikely(__pyx_t_1 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
-  (__pyx_v_F[0]) = (__pyx_v_q * ((__pyx_v_self->_E[0]) + __pyx_t_1));
+  (__pyx_v_F[0]) = (__pyx_v_q * ((__pyx_v_self->_E[0]) + __pyx_f_12electromagpy_6fields_5field_cross(0, __pyx_v_v, __pyx_v_self->_B)));
 
-  /* "electromagpy/fields/field.py":102
+  /* "electromagpy/fields/field.py":103
  * 
  *         F[0] = q * (self._E[0] + cross(0, v, self._B))
  *         F[1] = q * (self._E[1] + cross(1, v, self._B))             # <<<<<<<<<<<<<<
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))
  * 
  */
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_cross(1, __pyx_v_v, __pyx_v_self->_B); if (unlikely(__pyx_t_1 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 102, __pyx_L1_error)
-  (__pyx_v_F[1]) = (__pyx_v_q * ((__pyx_v_self->_E[1]) + __pyx_t_1));
+  (__pyx_v_F[1]) = (__pyx_v_q * ((__pyx_v_self->_E[1]) + __pyx_f_12electromagpy_6fields_5field_cross(1, __pyx_v_v, __pyx_v_self->_B)));
 
-  /* "electromagpy/fields/field.py":103
+  /* "electromagpy/fields/field.py":104
  *         F[0] = q * (self._E[0] + cross(0, v, self._B))
  *         F[1] = q * (self._E[1] + cross(1, v, self._B))
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))             # <<<<<<<<<<<<<<
  * 
- *     @cython.ccall
+ *     @cython.boundscheck(False)
  */
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_cross(2, __pyx_v_v, __pyx_v_self->_B); if (unlikely(__pyx_t_1 == ((double)-1) && PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L1_error)
-  (__pyx_v_F[2]) = (__pyx_v_q * ((__pyx_v_self->_E[2]) + __pyx_t_1));
+  (__pyx_v_F[2]) = (__pyx_v_q * ((__pyx_v_self->_E[2]) + __pyx_f_12electromagpy_6fields_5field_cross(2, __pyx_v_v, __pyx_v_self->_B)));
 
-  /* "electromagpy/fields/field.py":95
+  /* "electromagpy/fields/field.py":96
  *         return self._B
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -19703,12 +19708,12 @@ static void __pyx_f_12electromagpy_6fields_5field_6_Field_eval_F(struct __pyx_ob
   __pyx_L0:;
 }
 
-/* "electromagpy/fields/field.py":105
+/* "electromagpy/fields/field.py":106
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))
  * 
- *     @cython.ccall             # <<<<<<<<<<<<<<
+ *     @cython.boundscheck(False)             # <<<<<<<<<<<<<<
+ *     @cython.ccall
  *     def push(self, particles: list, t1: double, t2: double, dt: double):
- * 
  */
 
 static PyObject *__pyx_pw_12electromagpy_6fields_5field_6_Field_11push(PyObject *__pyx_v_self, 
@@ -19759,7 +19764,6 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
   size_t __pyx_t_21;
   size_t __pyx_t_22;
   Py_ssize_t __pyx_t_23;
-  int __pyx_t_24;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -19773,15 +19777,15 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_typedict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_push); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_push); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!__Pyx_IsSameCFunction(__pyx_t_1, (void*) __pyx_pw_12electromagpy_6fields_5field_6_Field_11push)) {
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_3 = PyFloat_FromDouble(__pyx_v_t1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_3 = PyFloat_FromDouble(__pyx_v_t1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 106, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_4 = PyFloat_FromDouble(__pyx_v_t2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 106, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_5 = PyFloat_FromDouble(__pyx_v_dt); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_5 = PyFloat_FromDouble(__pyx_v_dt); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 106, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_6 = __pyx_t_1; __pyx_t_7 = NULL;
@@ -19805,7 +19809,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
@@ -19827,17 +19831,17 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
     #endif
   }
 
-  /* "electromagpy/fields/field.py":108
+  /* "electromagpy/fields/field.py":110
  *     def push(self, particles: list, t1: double, t2: double, dt: double):
  * 
  *         M: ulong = len(particles)             # <<<<<<<<<<<<<<
  *         N: ulong = cython.cast(ulong, (t2-t1) / dt)
  * 
  */
-  __pyx_t_9 = __Pyx_PyList_GET_SIZE(__pyx_v_particles); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyList_GET_SIZE(__pyx_v_particles); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 110, __pyx_L1_error)
   __pyx_v_M = __pyx_t_9;
 
-  /* "electromagpy/fields/field.py":109
+  /* "electromagpy/fields/field.py":111
  * 
  *         M: ulong = len(particles)
  *         N: ulong = cython.cast(ulong, (t2-t1) / dt)             # <<<<<<<<<<<<<<
@@ -19846,48 +19850,48 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
   __pyx_v_N = ((unsigned long)((__pyx_v_t2 - __pyx_v_t1) / __pyx_v_dt));
 
-  /* "electromagpy/fields/field.py":111
+  /* "electromagpy/fields/field.py":113
  *         N: ulong = cython.cast(ulong, (t2-t1) / dt)
  * 
  *         trajectory = np.empty((M, N, 3), dtype=np.double)             # <<<<<<<<<<<<<<
  *         traj_view = cython.declare(double[:, :, :], trajectory)
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_long(__pyx_v_M); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_long(__pyx_v_M); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyInt_From_unsigned_long(__pyx_v_N); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_unsigned_long(__pyx_v_N); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_6);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error);
   __Pyx_INCREF(__pyx_int_3);
   __Pyx_GIVEREF(__pyx_int_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_int_3)) __PYX_ERR(0, 111, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_int_3)) __PYX_ERR(0, 113, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_t_6 = 0;
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_5);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5)) __PYX_ERR(0, 111, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error);
   __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_double); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_double); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -19895,19 +19899,19 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
   __pyx_v_trajectory = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "electromagpy/fields/field.py":112
+  /* "electromagpy/fields/field.py":114
  * 
  *         trajectory = np.empty((M, N, 3), dtype=np.double)
  *         traj_view = cython.declare(double[:, :, :], trajectory)             # <<<<<<<<<<<<<<
  * 
  *         t: double = t1
  */
-  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_v_trajectory, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_v_trajectory, PyBUF_WRITABLE); if (unlikely(!__pyx_t_10.memview)) __PYX_ERR(0, 114, __pyx_L1_error)
   __pyx_v_traj_view = __pyx_t_10;
   __pyx_t_10.memview = NULL;
   __pyx_t_10.data = NULL;
 
-  /* "electromagpy/fields/field.py":114
+  /* "electromagpy/fields/field.py":116
  *         traj_view = cython.declare(double[:, :, :], trajectory)
  * 
  *         t: double = t1             # <<<<<<<<<<<<<<
@@ -19916,51 +19920,51 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
   __pyx_v_t = __pyx_v_t1;
 
-  /* "electromagpy/fields/field.py":116
+  /* "electromagpy/fields/field.py":118
  *         t: double = t1
  * 
  *         r: vector[double] = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
  *         v: vector[double] = [0.0, 0.0, 0.0]
  * 
  */
-  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_float_0_0);
   __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_float_0_0)) __PYX_ERR(0, 116, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_float_0_0)) __PYX_ERR(0, 118, __pyx_L1_error);
   __Pyx_INCREF(__pyx_float_0_0);
   __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_float_0_0)) __PYX_ERR(0, 116, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_float_0_0)) __PYX_ERR(0, 118, __pyx_L1_error);
   __Pyx_INCREF(__pyx_float_0_0);
   __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 2, __pyx_float_0_0)) __PYX_ERR(0, 116, __pyx_L1_error);
-  __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 2, __pyx_float_0_0)) __PYX_ERR(0, 118, __pyx_L1_error);
+  __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_r = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_11);
 
-  /* "electromagpy/fields/field.py":117
+  /* "electromagpy/fields/field.py":119
  * 
  *         r: vector[double] = [0.0, 0.0, 0.0]
  *         v: vector[double] = [0.0, 0.0, 0.0]             # <<<<<<<<<<<<<<
  * 
- *         F = cython.declare(double[3])
+ *         # force and acceleration buffers
  */
-  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_float_0_0);
   __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_float_0_0)) __PYX_ERR(0, 117, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_float_0_0)) __PYX_ERR(0, 119, __pyx_L1_error);
   __Pyx_INCREF(__pyx_float_0_0);
   __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_float_0_0)) __PYX_ERR(0, 117, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_float_0_0)) __PYX_ERR(0, 119, __pyx_L1_error);
   __Pyx_INCREF(__pyx_float_0_0);
   __Pyx_GIVEREF(__pyx_float_0_0);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 2, __pyx_float_0_0)) __PYX_ERR(0, 117, __pyx_L1_error);
-  __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 117, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 2, __pyx_float_0_0)) __PYX_ERR(0, 119, __pyx_L1_error);
+  __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_v = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_11);
 
-  /* "electromagpy/fields/field.py":123
+  /* "electromagpy/fields/field.py":126
  *         a2 = cython.declare(double[3])
  * 
  *         for i in range(M):             # <<<<<<<<<<<<<<
@@ -19972,71 +19976,59 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
   for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
     __pyx_v_i = __pyx_t_14;
 
-    /* "electromagpy/fields/field.py":125
+    /* "electromagpy/fields/field.py":128
  *         for i in range(M):
  * 
  *             q: double = particles[i].q             # <<<<<<<<<<<<<<
  *             m: double = particles[i].m
  * 
  */
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_particles, __pyx_v_i, unsigned long, 0, __Pyx_PyInt_From_unsigned_long, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_q); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_q); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 128, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 125, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_q = __pyx_t_15;
 
-    /* "electromagpy/fields/field.py":126
+    /* "electromagpy/fields/field.py":129
  * 
  *             q: double = particles[i].q
  *             m: double = particles[i].m             # <<<<<<<<<<<<<<
  * 
  *             r = particles[i].r
  */
-    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_particles, __pyx_v_i, unsigned long, 0, __Pyx_PyInt_From_unsigned_long, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_m); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_m); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 126, __pyx_L1_error)
+    __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_m = __pyx_t_15;
 
-    /* "electromagpy/fields/field.py":128
+    /* "electromagpy/fields/field.py":131
  *             m: double = particles[i].m
  * 
  *             r = particles[i].r             # <<<<<<<<<<<<<<
  *             v = particles[i].v
  * 
  */
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_particles, __pyx_v_i, unsigned long, 0, __Pyx_PyInt_From_unsigned_long, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_r); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 128, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_v_r = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_11);
 
-    /* "electromagpy/fields/field.py":129
+    /* "electromagpy/fields/field.py":132
  * 
  *             r = particles[i].r
  *             v = particles[i].v             # <<<<<<<<<<<<<<
  * 
  *             for k in range(3):
  */
-    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_particles, __pyx_v_i, unsigned long, 0, __Pyx_PyInt_From_unsigned_long, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
+    __pyx_t_11 = __pyx_convert_vector_from_py_double(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_v = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_11);
 
-    /* "electromagpy/fields/field.py":131
+    /* "electromagpy/fields/field.py":134
  *             v = particles[i].v
  * 
  *             for k in range(3):             # <<<<<<<<<<<<<<
@@ -20046,7 +20038,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
     for (__pyx_t_16 = 0; __pyx_t_16 < 3; __pyx_t_16+=1) {
       __pyx_v_k = __pyx_t_16;
 
-      /* "electromagpy/fields/field.py":132
+      /* "electromagpy/fields/field.py":135
  * 
  *             for k in range(3):
  *                 F[k] = 0.0             # <<<<<<<<<<<<<<
@@ -20055,7 +20047,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_F[__pyx_v_k]) = 0.0;
 
-      /* "electromagpy/fields/field.py":133
+      /* "electromagpy/fields/field.py":136
  *             for k in range(3):
  *                 F[k] = 0.0
  *                 a1[k] = 0.0             # <<<<<<<<<<<<<<
@@ -20064,7 +20056,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a1[__pyx_v_k]) = 0.0;
 
-      /* "electromagpy/fields/field.py":134
+      /* "electromagpy/fields/field.py":137
  *                 F[k] = 0.0
  *                 a1[k] = 0.0
  *                 a2[k] = 0.0             # <<<<<<<<<<<<<<
@@ -20074,7 +20066,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       (__pyx_v_a2[__pyx_v_k]) = 0.0;
     }
 
-    /* "electromagpy/fields/field.py":136
+    /* "electromagpy/fields/field.py":139
  *                 a2[k] = 0.0
  * 
  *             for j in range(N):             # <<<<<<<<<<<<<<
@@ -20086,16 +20078,16 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
     for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=1) {
       __pyx_v_j = __pyx_t_19;
 
-      /* "electromagpy/fields/field.py":139
+      /* "electromagpy/fields/field.py":142
  * 
  *                 # Update the force
  *                 self.eval_F(r, v, t, q, F)             # <<<<<<<<<<<<<<
  * 
  *                 # Update the acceleration
  */
-      ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_F(__pyx_v_self, __pyx_v_r, __pyx_v_v, __pyx_v_t, __pyx_v_q, __pyx_v_F); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 139, __pyx_L1_error)
+      ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_F(__pyx_v_self, __pyx_v_r, __pyx_v_v, __pyx_v_t, __pyx_v_q, __pyx_v_F); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 142, __pyx_L1_error)
 
-      /* "electromagpy/fields/field.py":142
+      /* "electromagpy/fields/field.py":145
  * 
  *                 # Update the acceleration
  *                 a1[0] = F[0] / m             # <<<<<<<<<<<<<<
@@ -20104,7 +20096,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a1[0]) = ((__pyx_v_F[0]) / __pyx_v_m);
 
-      /* "electromagpy/fields/field.py":143
+      /* "electromagpy/fields/field.py":146
  *                 # Update the acceleration
  *                 a1[0] = F[0] / m
  *                 a1[1] = F[1] / m             # <<<<<<<<<<<<<<
@@ -20113,7 +20105,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a1[1]) = ((__pyx_v_F[1]) / __pyx_v_m);
 
-      /* "electromagpy/fields/field.py":144
+      /* "electromagpy/fields/field.py":147
  *                 a1[0] = F[0] / m
  *                 a1[1] = F[1] / m
  *                 a1[2] = F[2] / m             # <<<<<<<<<<<<<<
@@ -20122,7 +20114,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a1[2]) = ((__pyx_v_F[2]) / __pyx_v_m);
 
-      /* "electromagpy/fields/field.py":147
+      /* "electromagpy/fields/field.py":150
  * 
  *                 # update the coordinates
  *                 r[0] += v[0] * dt + 0.5 * a1[0] * dt * dt             # <<<<<<<<<<<<<<
@@ -20132,7 +20124,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_20 = 0;
       (__pyx_v_r[__pyx_t_20]) = ((__pyx_v_r[__pyx_t_20]) + (((__pyx_v_v[0]) * __pyx_v_dt) + (((0.5 * (__pyx_v_a1[0])) * __pyx_v_dt) * __pyx_v_dt)));
 
-      /* "electromagpy/fields/field.py":148
+      /* "electromagpy/fields/field.py":151
  *                 # update the coordinates
  *                 r[0] += v[0] * dt + 0.5 * a1[0] * dt * dt
  *                 r[1] += v[1] * dt + 0.5 * a1[1] * dt * dt             # <<<<<<<<<<<<<<
@@ -20142,7 +20134,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_20 = 1;
       (__pyx_v_r[__pyx_t_20]) = ((__pyx_v_r[__pyx_t_20]) + (((__pyx_v_v[1]) * __pyx_v_dt) + (((0.5 * (__pyx_v_a1[1])) * __pyx_v_dt) * __pyx_v_dt)));
 
-      /* "electromagpy/fields/field.py":149
+      /* "electromagpy/fields/field.py":152
  *                 r[0] += v[0] * dt + 0.5 * a1[0] * dt * dt
  *                 r[1] += v[1] * dt + 0.5 * a1[1] * dt * dt
  *                 r[2] += v[2] * dt + 0.5 * a1[2] * dt * dt             # <<<<<<<<<<<<<<
@@ -20152,16 +20144,16 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_20 = 2;
       (__pyx_v_r[__pyx_t_20]) = ((__pyx_v_r[__pyx_t_20]) + (((__pyx_v_v[2]) * __pyx_v_dt) + (((0.5 * (__pyx_v_a1[2])) * __pyx_v_dt) * __pyx_v_dt)));
 
-      /* "electromagpy/fields/field.py":152
+      /* "electromagpy/fields/field.py":155
  * 
  *                 # update the force again, at the new coordinate
  *                 self.eval_F(r, v, t, q, F)             # <<<<<<<<<<<<<<
  * 
  *                 # update the acceleration again
  */
-      ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_F(__pyx_v_self, __pyx_v_r, __pyx_v_v, __pyx_v_t, __pyx_v_q, __pyx_v_F); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 152, __pyx_L1_error)
+      ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_F(__pyx_v_self, __pyx_v_r, __pyx_v_v, __pyx_v_t, __pyx_v_q, __pyx_v_F); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 155, __pyx_L1_error)
 
-      /* "electromagpy/fields/field.py":155
+      /* "electromagpy/fields/field.py":158
  * 
  *                 # update the acceleration again
  *                 a2[0] = F[0] / m             # <<<<<<<<<<<<<<
@@ -20170,7 +20162,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a2[0]) = ((__pyx_v_F[0]) / __pyx_v_m);
 
-      /* "electromagpy/fields/field.py":156
+      /* "electromagpy/fields/field.py":159
  *                 # update the acceleration again
  *                 a2[0] = F[0] / m
  *                 a2[1] = F[1] / m             # <<<<<<<<<<<<<<
@@ -20179,7 +20171,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a2[1]) = ((__pyx_v_F[1]) / __pyx_v_m);
 
-      /* "electromagpy/fields/field.py":157
+      /* "electromagpy/fields/field.py":160
  *                 a2[0] = F[0] / m
  *                 a2[1] = F[1] / m
  *                 a2[2] = F[2] / m             # <<<<<<<<<<<<<<
@@ -20188,7 +20180,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       (__pyx_v_a2[2]) = ((__pyx_v_F[2]) / __pyx_v_m);
 
-      /* "electromagpy/fields/field.py":160
+      /* "electromagpy/fields/field.py":163
  * 
  *                 # update the velocity
  *                 v[0] += 0.5 * (a1[0] + a2[0]) * dt             # <<<<<<<<<<<<<<
@@ -20198,7 +20190,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_20 = 0;
       (__pyx_v_v[__pyx_t_20]) = ((__pyx_v_v[__pyx_t_20]) + ((0.5 * ((__pyx_v_a1[0]) + (__pyx_v_a2[0]))) * __pyx_v_dt));
 
-      /* "electromagpy/fields/field.py":161
+      /* "electromagpy/fields/field.py":164
  *                 # update the velocity
  *                 v[0] += 0.5 * (a1[0] + a2[0]) * dt
  *                 v[1] += 0.5 * (a1[1] + a2[1]) * dt             # <<<<<<<<<<<<<<
@@ -20208,7 +20200,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_20 = 1;
       (__pyx_v_v[__pyx_t_20]) = ((__pyx_v_v[__pyx_t_20]) + ((0.5 * ((__pyx_v_a1[1]) + (__pyx_v_a2[1]))) * __pyx_v_dt));
 
-      /* "electromagpy/fields/field.py":162
+      /* "electromagpy/fields/field.py":165
  *                 v[0] += 0.5 * (a1[0] + a2[0]) * dt
  *                 v[1] += 0.5 * (a1[1] + a2[1]) * dt
  *                 v[2] += 0.5 * (a1[2] + a2[2]) * dt             # <<<<<<<<<<<<<<
@@ -20218,7 +20210,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_20 = 2;
       (__pyx_v_v[__pyx_t_20]) = ((__pyx_v_v[__pyx_t_20]) + ((0.5 * ((__pyx_v_a1[2]) + (__pyx_v_a2[2]))) * __pyx_v_dt));
 
-      /* "electromagpy/fields/field.py":165
+      /* "electromagpy/fields/field.py":168
  * 
  *                 # update the time
  *                 t += dt             # <<<<<<<<<<<<<<
@@ -20227,7 +20219,7 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
  */
       __pyx_v_t = (__pyx_v_t + __pyx_v_dt);
 
-      /* "electromagpy/fields/field.py":168
+      /* "electromagpy/fields/field.py":171
  * 
  *                 # update trajectory
  *                 traj_view[i, j, 0] = r[0]             # <<<<<<<<<<<<<<
@@ -20237,20 +20229,10 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_21 = __pyx_v_i;
       __pyx_t_22 = __pyx_v_j;
       __pyx_t_23 = 0;
-      __pyx_t_24 = -1;
-      if (unlikely(__pyx_t_21 >= (size_t)__pyx_v_traj_view.shape[0])) __pyx_t_24 = 0;
-      if (unlikely(__pyx_t_22 >= (size_t)__pyx_v_traj_view.shape[1])) __pyx_t_24 = 1;
-      if (__pyx_t_23 < 0) {
-        __pyx_t_23 += __pyx_v_traj_view.shape[2];
-        if (unlikely(__pyx_t_23 < 0)) __pyx_t_24 = 2;
-      } else if (unlikely(__pyx_t_23 >= __pyx_v_traj_view.shape[2])) __pyx_t_24 = 2;
-      if (unlikely(__pyx_t_24 != -1)) {
-        __Pyx_RaiseBufferIndexError(__pyx_t_24);
-        __PYX_ERR(0, 168, __pyx_L1_error)
-      }
+      if (__pyx_t_23 < 0) __pyx_t_23 += __pyx_v_traj_view.shape[2];
       *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_traj_view.data + __pyx_t_21 * __pyx_v_traj_view.strides[0]) ) + __pyx_t_22 * __pyx_v_traj_view.strides[1]) ) + __pyx_t_23 * __pyx_v_traj_view.strides[2]) )) = (__pyx_v_r[0]);
 
-      /* "electromagpy/fields/field.py":169
+      /* "electromagpy/fields/field.py":172
  *                 # update trajectory
  *                 traj_view[i, j, 0] = r[0]
  *                 traj_view[i, j, 1] = r[1]             # <<<<<<<<<<<<<<
@@ -20260,20 +20242,10 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_22 = __pyx_v_i;
       __pyx_t_21 = __pyx_v_j;
       __pyx_t_23 = 1;
-      __pyx_t_24 = -1;
-      if (unlikely(__pyx_t_22 >= (size_t)__pyx_v_traj_view.shape[0])) __pyx_t_24 = 0;
-      if (unlikely(__pyx_t_21 >= (size_t)__pyx_v_traj_view.shape[1])) __pyx_t_24 = 1;
-      if (__pyx_t_23 < 0) {
-        __pyx_t_23 += __pyx_v_traj_view.shape[2];
-        if (unlikely(__pyx_t_23 < 0)) __pyx_t_24 = 2;
-      } else if (unlikely(__pyx_t_23 >= __pyx_v_traj_view.shape[2])) __pyx_t_24 = 2;
-      if (unlikely(__pyx_t_24 != -1)) {
-        __Pyx_RaiseBufferIndexError(__pyx_t_24);
-        __PYX_ERR(0, 169, __pyx_L1_error)
-      }
+      if (__pyx_t_23 < 0) __pyx_t_23 += __pyx_v_traj_view.shape[2];
       *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_traj_view.data + __pyx_t_22 * __pyx_v_traj_view.strides[0]) ) + __pyx_t_21 * __pyx_v_traj_view.strides[1]) ) + __pyx_t_23 * __pyx_v_traj_view.strides[2]) )) = (__pyx_v_r[1]);
 
-      /* "electromagpy/fields/field.py":170
+      /* "electromagpy/fields/field.py":173
  *                 traj_view[i, j, 0] = r[0]
  *                 traj_view[i, j, 1] = r[1]
  *                 traj_view[i, j, 2] = r[2]             # <<<<<<<<<<<<<<
@@ -20283,99 +20255,131 @@ static PyObject *__pyx_f_12electromagpy_6fields_5field_6_Field_push(struct __pyx
       __pyx_t_21 = __pyx_v_i;
       __pyx_t_22 = __pyx_v_j;
       __pyx_t_23 = 2;
-      __pyx_t_24 = -1;
-      if (unlikely(__pyx_t_21 >= (size_t)__pyx_v_traj_view.shape[0])) __pyx_t_24 = 0;
-      if (unlikely(__pyx_t_22 >= (size_t)__pyx_v_traj_view.shape[1])) __pyx_t_24 = 1;
-      if (__pyx_t_23 < 0) {
-        __pyx_t_23 += __pyx_v_traj_view.shape[2];
-        if (unlikely(__pyx_t_23 < 0)) __pyx_t_24 = 2;
-      } else if (unlikely(__pyx_t_23 >= __pyx_v_traj_view.shape[2])) __pyx_t_24 = 2;
-      if (unlikely(__pyx_t_24 != -1)) {
-        __Pyx_RaiseBufferIndexError(__pyx_t_24);
-        __PYX_ERR(0, 170, __pyx_L1_error)
-      }
+      if (__pyx_t_23 < 0) __pyx_t_23 += __pyx_v_traj_view.shape[2];
       *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_traj_view.data + __pyx_t_21 * __pyx_v_traj_view.strides[0]) ) + __pyx_t_22 * __pyx_v_traj_view.strides[1]) ) + __pyx_t_23 * __pyx_v_traj_view.strides[2]) )) = (__pyx_v_r[2]);
     }
 
-    /* "electromagpy/fields/field.py":173
+    /* "electromagpy/fields/field.py":176
  * 
  *             # update particle coordinates and velocity
  *             particles[i].r = r             # <<<<<<<<<<<<<<
  *             particles[i].v = v
  * 
  */
-    __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_particles, __pyx_v_i, unsigned long, 0, __Pyx_PyInt_From_unsigned_long, 1, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 173, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_5, __pyx_n_s_r, __pyx_t_4) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_r, __pyx_t_4) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "electromagpy/fields/field.py":174
+    /* "electromagpy/fields/field.py":177
  *             # update particle coordinates and velocity
  *             particles[i].r = r
  *             particles[i].v = v             # <<<<<<<<<<<<<<
  * 
+ *             # update potential energy and force of particle at final point
+ */
+    __pyx_t_4 = __pyx_convert_vector_to_py_double(__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_PyObject_SetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_v, __pyx_t_4) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+    /* "electromagpy/fields/field.py":180
+ * 
+ *             # update potential energy and force of particle at final point
+ *             self.eval_V(r, t)             # <<<<<<<<<<<<<<
+ *             particles[i].PE = q*self._V
+ * 
+ */
+    ((struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field *)__pyx_v_self->__pyx_vtab)->eval_V(__pyx_v_self, __pyx_v_r, __pyx_v_t); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 180, __pyx_L1_error)
+
+    /* "electromagpy/fields/field.py":181
+ *             # update potential energy and force of particle at final point
+ *             self.eval_V(r, t)
+ *             particles[i].PE = q*self._V             # <<<<<<<<<<<<<<
+ * 
+ *             particles[i].F = [F[0], F[1], F[2]]
+ */
+    __pyx_t_4 = PyFloat_FromDouble((__pyx_v_q * __pyx_v_self->_V)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__Pyx_PyObject_SetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_PE, __pyx_t_4) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+    /* "electromagpy/fields/field.py":183
+ *             particles[i].PE = q*self._V
+ * 
+ *             particles[i].F = [F[0], F[1], F[2]]             # <<<<<<<<<<<<<<
+ * 
  *         return np.asarray(traj_view)
  */
-    __pyx_t_5 = __pyx_convert_vector_to_py_double(__pyx_v_v); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 174, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_particles, __pyx_v_i, unsigned long, 0, __Pyx_PyInt_From_unsigned_long, 1, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 174, __pyx_L1_error)
+    __pyx_t_4 = PyFloat_FromDouble((__pyx_v_F[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (__Pyx_PyObject_SetAttrStr(__pyx_t_4, __pyx_n_s_v, __pyx_t_5) < 0) __PYX_ERR(0, 174, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_F[1])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = PyFloat_FromDouble((__pyx_v_F[2])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_4);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error);
+    __Pyx_GIVEREF(__pyx_t_5);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_5)) __PYX_ERR(0, 183, __pyx_L1_error);
+    __Pyx_GIVEREF(__pyx_t_6);
+    if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_t_6)) __PYX_ERR(0, 183, __pyx_L1_error);
+    __pyx_t_4 = 0;
+    __pyx_t_5 = 0;
+    __pyx_t_6 = 0;
+    if (__Pyx_PyObject_SetAttrStr(PyList_GET_ITEM(__pyx_v_particles, __pyx_v_i), __pyx_n_s_F, __pyx_t_2) < 0) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "electromagpy/fields/field.py":176
- *             particles[i].v = v
+  /* "electromagpy/fields/field.py":185
+ *             particles[i].F = [F[0], F[1], F[2]]
  * 
  *         return np.asarray(traj_view)             # <<<<<<<<<<<<<<
  * 
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 176, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_traj_view, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = NULL;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_traj_view, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_4 = NULL;
   __pyx_t_8 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_6))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_6);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-      __Pyx_INCREF(__pyx_t_2);
+  if (unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_4);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_6, function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
       __pyx_t_8 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_t_5};
-    __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_8, 1+__pyx_t_8);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_t_6};
+    __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_8, 1+__pyx_t_8);
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
-  __pyx_r = __pyx_t_4;
-  __pyx_t_4 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "electromagpy/fields/field.py":105
+  /* "electromagpy/fields/field.py":106
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))
  * 
- *     @cython.ccall             # <<<<<<<<<<<<<<
+ *     @cython.boundscheck(False)             # <<<<<<<<<<<<<<
+ *     @cython.ccall
  *     def push(self, particles: list, t1: double, t2: double, dt: double):
- * 
  */
 
   /* function exit code */
@@ -20460,7 +20464,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -20468,9 +20472,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, 1); __PYX_ERR(0, 105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, 1); __PYX_ERR(0, 106, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -20478,9 +20482,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, 2); __PYX_ERR(0, 105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, 2); __PYX_ERR(0, 106, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -20488,14 +20492,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, 3); __PYX_ERR(0, 105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, 3); __PYX_ERR(0, 106, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "push") < 0)) __PYX_ERR(0, 105, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "push") < 0)) __PYX_ERR(0, 106, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -20506,13 +20510,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
     __pyx_v_particles = ((PyObject*)values[0]);
-    __pyx_v_t1 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
-    __pyx_v_t2 = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_t2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
-    __pyx_v_dt = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_dt == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L3_error)
+    __pyx_v_t1 = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_t1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L3_error)
+    __pyx_v_t2 = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_t2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L3_error)
+    __pyx_v_dt = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_dt == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 105, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("push", 1, 4, 4, __pyx_nargs); __PYX_ERR(0, 106, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -20526,7 +20530,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_particles), (&PyList_Type), 0, "particles", 1))) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_particles), (&PyList_Type), 0, "particles", 1))) __PYX_ERR(0, 108, __pyx_L1_error)
   __pyx_r = __pyx_pf_12electromagpy_6fields_5field_6_Field_10push(((struct __pyx_obj_12electromagpy_6fields_5field__Field *)__pyx_v_self), __pyx_v_particles, __pyx_v_t1, __pyx_v_t2, __pyx_v_dt);
 
   /* function exit code */
@@ -20553,7 +20557,7 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_10push(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("push", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_push(__pyx_v_self, __pyx_v_particles, __pyx_v_t1, __pyx_v_t2, __pyx_v_dt, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_12electromagpy_6fields_5field_6_Field_push(__pyx_v_self, __pyx_v_particles, __pyx_v_t1, __pyx_v_t2, __pyx_v_dt, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -20784,7 +20788,7 @@ static PyObject *__pyx_pf_12electromagpy_6fields_5field_6_Field_14__setstate_cyt
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":187
+/* "electromagpy/fields/field.py":196
  * class _CompositeField(_Field):
  * 
  *     def __init__(self, components: Iterable[Field]):             # <<<<<<<<<<<<<<
@@ -20828,12 +20832,12 @@ static int __pyx_pw_12electromagpy_6fields_5field_15_CompositeField_1__init__(Py
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 187, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 196, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -20844,7 +20848,7 @@ static int __pyx_pw_12electromagpy_6fields_5field_15_CompositeField_1__init__(Py
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 187, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 196, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -20877,16 +20881,16 @@ static int __pyx_pf_12electromagpy_6fields_5field_15_CompositeField___init__(str
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "electromagpy/fields/field.py":189
+  /* "electromagpy/fields/field.py":198
  *     def __init__(self, components: Iterable[Field]):
  * 
  *         self._components = components             # <<<<<<<<<<<<<<
  * 
  *     @cython.cfunc
  */
-  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2, __pyx_v_components) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2, __pyx_v_components) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":187
+  /* "electromagpy/fields/field.py":196
  * class _CompositeField(_Field):
  * 
  *     def __init__(self, components: Iterable[Field]):             # <<<<<<<<<<<<<<
@@ -20904,7 +20908,7 @@ static int __pyx_pf_12electromagpy_6fields_5field_15_CompositeField___init__(str
   return __pyx_r;
 }
 
-/* "electromagpy/fields/field.py":191
+/* "electromagpy/fields/field.py":200
  *         self._components = components
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -20930,7 +20934,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("eval_V", 1);
 
-  /* "electromagpy/fields/field.py":194
+  /* "electromagpy/fields/field.py":203
  *     def eval_V(self, r: vector[double], t: double) -> void:
  * 
  *         self._V = 0.0             # <<<<<<<<<<<<<<
@@ -20939,23 +20943,23 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
  */
   __pyx_v_self->__pyx_base._V = 0.0;
 
-  /* "electromagpy/fields/field.py":196
+  /* "electromagpy/fields/field.py":205
  *         self._V = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
  * 
  *             component.eval_V(r, t)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 196, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 205, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -20964,28 +20968,28 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 196, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 205, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 196, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 205, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 196, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 205, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 196, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 205, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -20995,7 +20999,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 196, __pyx_L1_error)
+          else __PYX_ERR(0, 205, __pyx_L1_error)
         }
         break;
       }
@@ -21004,18 +21008,18 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
     __Pyx_XDECREF_SET(__pyx_v_component, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":198
+    /* "electromagpy/fields/field.py":207
  *         for component in self._components:
  * 
  *             component.eval_V(r, t)             # <<<<<<<<<<<<<<
  * 
  *             self._V += component._V
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_V); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_V); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     __pyx_t_9 = 0;
@@ -21037,32 +21041,32 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":200
+    /* "electromagpy/fields/field.py":209
  *             component.eval_V(r, t)
  * 
  *             self._V += component._V             # <<<<<<<<<<<<<<
  * 
  *     @cython.cfunc
  */
-    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->__pyx_base._V); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->__pyx_base._V); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_V_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_V_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 209, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_self->__pyx_base._V = __pyx_t_10;
 
-    /* "electromagpy/fields/field.py":196
+    /* "electromagpy/fields/field.py":205
  *         self._V = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
@@ -21072,7 +21076,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/fields/field.py":191
+  /* "electromagpy/fields/field.py":200
  *         self._components = components
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -21095,7 +21099,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_V(struc
   __Pyx_RefNannyFinishContext();
 }
 
-/* "electromagpy/fields/field.py":202
+/* "electromagpy/fields/field.py":211
  *             self._V += component._V
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -21122,7 +21126,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("eval_E", 1);
 
-  /* "electromagpy/fields/field.py":205
+  /* "electromagpy/fields/field.py":214
  *     def eval_E(self, r: vector[double], t: double) -> void:
  * 
  *         self._E[0] = 0.0             # <<<<<<<<<<<<<<
@@ -21131,7 +21135,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
  */
   (__pyx_v_self->__pyx_base._E[0]) = 0.0;
 
-  /* "electromagpy/fields/field.py":206
+  /* "electromagpy/fields/field.py":215
  * 
  *         self._E[0] = 0.0
  *         self._E[1] = 0.0             # <<<<<<<<<<<<<<
@@ -21140,7 +21144,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
  */
   (__pyx_v_self->__pyx_base._E[1]) = 0.0;
 
-  /* "electromagpy/fields/field.py":207
+  /* "electromagpy/fields/field.py":216
  *         self._E[0] = 0.0
  *         self._E[1] = 0.0
  *         self._E[2] = 0.0             # <<<<<<<<<<<<<<
@@ -21149,23 +21153,23 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
  */
   (__pyx_v_self->__pyx_base._E[2]) = 0.0;
 
-  /* "electromagpy/fields/field.py":209
+  /* "electromagpy/fields/field.py":218
  *         self._E[2] = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
  * 
  *             component.eval_E(r, t)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 218, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -21174,28 +21178,28 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 209, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 218, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 218, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 209, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 218, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 218, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -21205,7 +21209,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 209, __pyx_L1_error)
+          else __PYX_ERR(0, 218, __pyx_L1_error)
         }
         break;
       }
@@ -21214,18 +21218,18 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
     __Pyx_XDECREF_SET(__pyx_v_component, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":211
+    /* "electromagpy/fields/field.py":220
  *         for component in self._components:
  * 
  *             component.eval_E(r, t)             # <<<<<<<<<<<<<<
  * 
  *             self._E[0] += component._E[0]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_E); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_E); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     __pyx_t_9 = 0;
@@ -21247,13 +21251,13 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":213
+    /* "electromagpy/fields/field.py":222
  *             component.eval_E(r, t)
  * 
  *             self._E[0] += component._E[0]             # <<<<<<<<<<<<<<
@@ -21261,22 +21265,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
  *             self._E[1] += component._E[1]
  */
     __pyx_t_10 = 0;
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._E[__pyx_t_10])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._E[__pyx_t_10])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_E_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_E_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     (__pyx_v_self->__pyx_base._E[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":214
+    /* "electromagpy/fields/field.py":223
  * 
  *             self._E[0] += component._E[0]
  *             self._E[1] += component._E[1]             # <<<<<<<<<<<<<<
@@ -21284,22 +21288,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
  * 
  */
     __pyx_t_10 = 1;
-    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._E[__pyx_t_10])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._E[__pyx_t_10])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_E_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_E_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     (__pyx_v_self->__pyx_base._E[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":215
+    /* "electromagpy/fields/field.py":224
  *             self._E[0] += component._E[0]
  *             self._E[1] += component._E[1]
  *             self._E[1] += component._E[1]             # <<<<<<<<<<<<<<
@@ -21307,22 +21311,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
  *     @cython.cfunc
  */
     __pyx_t_10 = 1;
-    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._E[__pyx_t_10])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._E[__pyx_t_10])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_E_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_E_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 215, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     (__pyx_v_self->__pyx_base._E[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":209
+    /* "electromagpy/fields/field.py":218
  *         self._E[2] = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
@@ -21332,7 +21336,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/fields/field.py":202
+  /* "electromagpy/fields/field.py":211
  *             self._V += component._V
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -21355,7 +21359,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_E(struc
   __Pyx_RefNannyFinishContext();
 }
 
-/* "electromagpy/fields/field.py":217
+/* "electromagpy/fields/field.py":226
  *             self._E[1] += component._E[1]
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -21382,7 +21386,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("eval_A", 1);
 
-  /* "electromagpy/fields/field.py":220
+  /* "electromagpy/fields/field.py":229
  *     def eval_A(self, r: vector[double], t: double) -> void:
  * 
  *         self._A[0] = 0.0             # <<<<<<<<<<<<<<
@@ -21391,7 +21395,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
  */
   (__pyx_v_self->__pyx_base._A[0]) = 0.0;
 
-  /* "electromagpy/fields/field.py":221
+  /* "electromagpy/fields/field.py":230
  * 
  *         self._A[0] = 0.0
  *         self._A[1] = 0.0             # <<<<<<<<<<<<<<
@@ -21400,7 +21404,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
  */
   (__pyx_v_self->__pyx_base._A[1]) = 0.0;
 
-  /* "electromagpy/fields/field.py":222
+  /* "electromagpy/fields/field.py":231
  *         self._A[0] = 0.0
  *         self._A[1] = 0.0
  *         self._A[2] = 0.0             # <<<<<<<<<<<<<<
@@ -21409,23 +21413,23 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
  */
   (__pyx_v_self->__pyx_base._A[2]) = 0.0;
 
-  /* "electromagpy/fields/field.py":224
+  /* "electromagpy/fields/field.py":233
  *         self._A[2] = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
  * 
  *             component.eval_A(r, t)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 233, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -21434,28 +21438,28 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 224, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 233, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 224, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 233, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 224, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 233, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 224, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 233, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -21465,7 +21469,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 224, __pyx_L1_error)
+          else __PYX_ERR(0, 233, __pyx_L1_error)
         }
         break;
       }
@@ -21474,18 +21478,18 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
     __Pyx_XDECREF_SET(__pyx_v_component, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":226
+    /* "electromagpy/fields/field.py":235
  *         for component in self._components:
  * 
  *             component.eval_A(r, t)             # <<<<<<<<<<<<<<
  * 
  *             self._A[0] += component._A[0]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_A); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_A); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     __pyx_t_9 = 0;
@@ -21507,13 +21511,13 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":228
+    /* "electromagpy/fields/field.py":237
  *             component.eval_A(r, t)
  * 
  *             self._A[0] += component._A[0]             # <<<<<<<<<<<<<<
@@ -21521,22 +21525,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
  *             self._A[1] += component._A[1]
  */
     __pyx_t_10 = 0;
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._A[__pyx_t_10])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._A[__pyx_t_10])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_A_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 228, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_A_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 228, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 228, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     (__pyx_v_self->__pyx_base._A[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":229
+    /* "electromagpy/fields/field.py":238
  * 
  *             self._A[0] += component._A[0]
  *             self._A[1] += component._A[1]             # <<<<<<<<<<<<<<
@@ -21544,22 +21548,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
  * 
  */
     __pyx_t_10 = 1;
-    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._A[__pyx_t_10])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 229, __pyx_L1_error)
+    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._A[__pyx_t_10])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_A_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 229, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_A_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 229, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 229, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     (__pyx_v_self->__pyx_base._A[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":230
+    /* "electromagpy/fields/field.py":239
  *             self._A[0] += component._A[0]
  *             self._A[1] += component._A[1]
  *             self._A[1] += component._A[1]             # <<<<<<<<<<<<<<
@@ -21567,22 +21571,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
  *     @cython.cfunc
  */
     __pyx_t_10 = 1;
-    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._A[__pyx_t_10])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 230, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._A[__pyx_t_10])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_A_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_A_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     (__pyx_v_self->__pyx_base._A[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":224
+    /* "electromagpy/fields/field.py":233
  *         self._A[2] = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
@@ -21592,7 +21596,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/fields/field.py":217
+  /* "electromagpy/fields/field.py":226
  *             self._E[1] += component._E[1]
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -21615,7 +21619,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A(struc
   __Pyx_RefNannyFinishContext();
 }
 
-/* "electromagpy/fields/field.py":232
+/* "electromagpy/fields/field.py":241
  *             self._A[1] += component._A[1]
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -21642,7 +21646,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("eval_B", 1);
 
-  /* "electromagpy/fields/field.py":235
+  /* "electromagpy/fields/field.py":244
  *     def eval_B(self, r: vector[double], t: double) -> void:
  * 
  *         self._B[0] = 0.0             # <<<<<<<<<<<<<<
@@ -21651,7 +21655,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
  */
   (__pyx_v_self->__pyx_base._B[0]) = 0.0;
 
-  /* "electromagpy/fields/field.py":236
+  /* "electromagpy/fields/field.py":245
  * 
  *         self._B[0] = 0.0
  *         self._B[1] = 0.0             # <<<<<<<<<<<<<<
@@ -21660,7 +21664,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
  */
   (__pyx_v_self->__pyx_base._B[1]) = 0.0;
 
-  /* "electromagpy/fields/field.py":237
+  /* "electromagpy/fields/field.py":246
  *         self._B[0] = 0.0
  *         self._B[1] = 0.0
  *         self._B[2] = 0.0             # <<<<<<<<<<<<<<
@@ -21669,23 +21673,23 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
  */
   (__pyx_v_self->__pyx_base._B[2]) = 0.0;
 
-  /* "electromagpy/fields/field.py":239
+  /* "electromagpy/fields/field.py":248
  *         self._B[2] = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
  * 
  *             component.eval_B(r, t)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_components_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -21694,28 +21698,28 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 239, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 248, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 239, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 248, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 239, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 248, __pyx_L1_error)
           #endif
           if (__pyx_t_3 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 239, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely((0 < 0))) __PYX_ERR(0, 248, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -21725,7 +21729,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 239, __pyx_L1_error)
+          else __PYX_ERR(0, 248, __pyx_L1_error)
         }
         break;
       }
@@ -21734,18 +21738,18 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
     __Pyx_XDECREF_SET(__pyx_v_component, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":241
+    /* "electromagpy/fields/field.py":250
  *         for component in self._components:
  * 
  *             component.eval_B(r, t)             # <<<<<<<<<<<<<<
  * 
  *             self._B[0] += component._B[0]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_B); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_eval_B); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_6 = __pyx_convert_vector_to_py_double(__pyx_v_r); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble(__pyx_v_t); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 250, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_8 = NULL;
     __pyx_t_9 = 0;
@@ -21767,13 +21771,13 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "electromagpy/fields/field.py":243
+    /* "electromagpy/fields/field.py":252
  *             component.eval_B(r, t)
  * 
  *             self._B[0] += component._B[0]             # <<<<<<<<<<<<<<
@@ -21781,22 +21785,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
  *             self._B[1] += component._B[1]
  */
     __pyx_t_10 = 0;
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._B[__pyx_t_10])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._B[__pyx_t_10])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 252, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_B_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_B_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 252, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 252, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 252, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 252, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     (__pyx_v_self->__pyx_base._B[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":244
+    /* "electromagpy/fields/field.py":253
  * 
  *             self._B[0] += component._B[0]
  *             self._B[1] += component._B[1]             # <<<<<<<<<<<<<<
@@ -21804,22 +21808,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
  * 
  */
     __pyx_t_10 = 1;
-    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._B[__pyx_t_10])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __pyx_t_5 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._B[__pyx_t_10])); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_B_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_B_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_7); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 253, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     (__pyx_v_self->__pyx_base._B[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":245
+    /* "electromagpy/fields/field.py":254
  *             self._B[0] += component._B[0]
  *             self._B[1] += component._B[1]
  *             self._B[1] += component._B[1]             # <<<<<<<<<<<<<<
@@ -21827,22 +21831,22 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
  * 
  */
     __pyx_t_10 = 1;
-    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._B[__pyx_t_10])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_self->__pyx_base._B[__pyx_t_10])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_B_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_component, __pyx_n_s_B_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_7, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     (__pyx_v_self->__pyx_base._B[__pyx_t_10]) = __pyx_t_11;
 
-    /* "electromagpy/fields/field.py":239
+    /* "electromagpy/fields/field.py":248
  *         self._B[2] = 0.0
  * 
  *         for component in self._components:             # <<<<<<<<<<<<<<
@@ -21852,7 +21856,7 @@ static void __pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B(struc
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "electromagpy/fields/field.py":232
+  /* "electromagpy/fields/field.py":241
  *             self._A[1] += component._A[1]
  * 
  *     @cython.cfunc             # <<<<<<<<<<<<<<
@@ -23360,6 +23364,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_E_2, __pyx_k_E_2, sizeof(__pyx_k_E_2), 0, 0, 1, 1},
     {&__pyx_n_s_Ellipsis, __pyx_k_Ellipsis, sizeof(__pyx_k_Ellipsis), 0, 0, 1, 1},
     {&__pyx_kp_s_Empty_shape_tuple_for_cython_arr, __pyx_k_Empty_shape_tuple_for_cython_arr, sizeof(__pyx_k_Empty_shape_tuple_for_cython_arr), 0, 0, 1, 0},
+    {&__pyx_n_s_F, __pyx_k_F, sizeof(__pyx_k_F), 0, 0, 1, 1},
     {&__pyx_n_s_Field, __pyx_k_Field, sizeof(__pyx_k_Field), 0, 0, 1, 1},
     {&__pyx_n_s_Field_2, __pyx_k_Field_2, sizeof(__pyx_k_Field_2), 0, 0, 1, 1},
     {&__pyx_n_s_Field_A, __pyx_k_Field_A, sizeof(__pyx_k_Field_A), 0, 0, 1, 1},
@@ -23381,6 +23386,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_s_MemoryView_of_r_object, __pyx_k_MemoryView_of_r_object, sizeof(__pyx_k_MemoryView_of_r_object), 0, 0, 1, 0},
     {&__pyx_n_b_O, __pyx_k_O, sizeof(__pyx_k_O), 0, 0, 0, 1},
     {&__pyx_kp_u_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 1, 0, 0},
+    {&__pyx_n_s_PE, __pyx_k_PE, sizeof(__pyx_k_PE), 0, 0, 1, 1},
     {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
     {&__pyx_kp_s_Python_wrapper_for__Field_C_type, __pyx_k_Python_wrapper_for__Field_C_type, sizeof(__pyx_k_Python_wrapper_for__Field_C_type), 0, 0, 1, 0},
     {&__pyx_n_s_Sequence, __pyx_k_Sequence, sizeof(__pyx_k_Sequence), 0, 0, 1, 1},
@@ -23519,7 +23525,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 126, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 68, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_n_s_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 100, __pyx_L1_error)
@@ -23676,56 +23682,56 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__18);
   __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 1, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":63
+  /* "electromagpy/fields/field.py":64
  *         pass
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def V(self, r: vector[double], t: double) -> double:
  *         """Update and return self._V"""
  */
-  __pyx_tuple__20 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_r, __pyx_n_s_t); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_r, __pyx_n_s_t); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_V, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_V, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 64, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":71
+  /* "electromagpy/fields/field.py":72
  *         return self._V
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def E(self, r: vector[double], t: double) -> vector[double]:
  *         """Update and return self._E"""
  */
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_E, 71, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_E, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 72, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":79
+  /* "electromagpy/fields/field.py":80
  *         return self._E
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def A(self, r: vector[double], t: double) -> vector[double]:
  *         """Update and return self._A"""
  */
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_A, 79, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_A, 80, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 80, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":87
+  /* "electromagpy/fields/field.py":88
  *         return self._A
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def B(self, r: vector[double], t: double) -> vector[double]:
  *         """Update and return self._B"""
  */
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_B, 87, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_B, 88, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 88, __pyx_L1_error)
 
-  /* "electromagpy/fields/field.py":105
+  /* "electromagpy/fields/field.py":106
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))
  * 
- *     @cython.ccall             # <<<<<<<<<<<<<<
+ *     @cython.boundscheck(False)             # <<<<<<<<<<<<<<
+ *     @cython.ccall
  *     def push(self, particles: list, t1: double, t2: double, dt: double):
- * 
  */
-  __pyx_tuple__25 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_particles, __pyx_n_s_t1, __pyx_n_s_t2, __pyx_n_s_dt); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_particles, __pyx_n_s_t1, __pyx_n_s_t2, __pyx_n_s_dt); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_push, 105, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_electromagpy_fields_field_py, __pyx_n_s_push, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 106, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -23864,15 +23870,15 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_12electromagpy_6fields_5field__Field.eval_F = (void (*)(struct __pyx_obj_12electromagpy_6fields_5field__Field *, std::vector<double> , std::vector<double> , double, double, double *))__pyx_f_12electromagpy_6fields_5field_6_Field_eval_F;
   __pyx_vtable_12electromagpy_6fields_5field__Field.push = (PyObject *(*)(struct __pyx_obj_12electromagpy_6fields_5field__Field *, PyObject *, double, double, double, int __pyx_skip_dispatch))__pyx_f_12electromagpy_6fields_5field_6_Field_push;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_12electromagpy_6fields_5field__Field = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_12electromagpy_6fields_5field__Field_spec, NULL); if (unlikely(!__pyx_ptype_12electromagpy_6fields_5field__Field)) __PYX_ERR(0, 27, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_12electromagpy_6fields_5field__Field_spec, __pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_ptype_12electromagpy_6fields_5field__Field = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_12electromagpy_6fields_5field__Field_spec, NULL); if (unlikely(!__pyx_ptype_12electromagpy_6fields_5field__Field)) __PYX_ERR(0, 28, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_12electromagpy_6fields_5field__Field_spec, __pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   #else
   __pyx_ptype_12electromagpy_6fields_5field__Field = &__pyx_type_12electromagpy_6fields_5field__Field;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_12electromagpy_6fields_5field__Field->tp_print = 0;
@@ -23882,13 +23888,13 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_ptype_12electromagpy_6fields_5field__Field->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_vtabptr_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_vtabptr_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Field, (PyObject *) __pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Field, (PyObject *) __pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_12electromagpy_6fields_5field__Field) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
   #endif
   __pyx_vtabptr_12electromagpy_6fields_5field__CompositeField = &__pyx_vtable_12electromagpy_6fields_5field__CompositeField;
   __pyx_vtable_12electromagpy_6fields_5field__CompositeField.__pyx_base = *__pyx_vtabptr_12electromagpy_6fields_5field__Field;
@@ -23897,12 +23903,12 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_12electromagpy_6fields_5field__CompositeField.__pyx_base.eval_A = (void (*)(struct __pyx_obj_12electromagpy_6fields_5field__Field *, std::vector<double> , double))__pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_A;
   __pyx_vtable_12electromagpy_6fields_5field__CompositeField.__pyx_base.eval_B = (void (*)(struct __pyx_obj_12electromagpy_6fields_5field__Field *, std::vector<double> , double))__pyx_f_12electromagpy_6fields_5field_15_CompositeField_eval_B;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_t_1 = PyTuple_Pack(1, (PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_Pack(1, (PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_ptype_12electromagpy_6fields_5field__CompositeField = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_12electromagpy_6fields_5field__CompositeField_spec, __pyx_t_1);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_ptype_12electromagpy_6fields_5field__CompositeField)) __PYX_ERR(0, 185, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_12electromagpy_6fields_5field__CompositeField_spec, __pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (unlikely(!__pyx_ptype_12electromagpy_6fields_5field__CompositeField)) __PYX_ERR(0, 194, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_12electromagpy_6fields_5field__CompositeField_spec, __pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
   #else
   __pyx_ptype_12electromagpy_6fields_5field__CompositeField = &__pyx_type_12electromagpy_6fields_5field__CompositeField;
   #endif
@@ -23910,7 +23916,7 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_ptype_12electromagpy_6fields_5field__CompositeField->tp_base = __pyx_ptype_12electromagpy_6fields_5field__Field;
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_12electromagpy_6fields_5field__CompositeField->tp_print = 0;
@@ -23920,13 +23926,13 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_ptype_12electromagpy_6fields_5field__CompositeField->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_12electromagpy_6fields_5field__CompositeField, __pyx_vtabptr_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_12electromagpy_6fields_5field__CompositeField, __pyx_vtabptr_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CompositeField, (PyObject *) __pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CompositeField, (PyObject *) __pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_12electromagpy_6fields_5field__CompositeField) < 0) __PYX_ERR(0, 194, __pyx_L1_error)
   #endif
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -24943,100 +24949,100 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_4) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "electromagpy/fields/field.py":63
+  /* "electromagpy/fields/field.py":64
  *         pass
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def V(self, r: vector[double], t: double) -> double:
  *         """Update and return self._V"""
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_3V, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_V, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_3V, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_V, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_V, __pyx_t_7) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_V, __pyx_t_7) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_12electromagpy_6fields_5field__Field);
 
-  /* "electromagpy/fields/field.py":71
+  /* "electromagpy/fields/field.py":72
  *         return self._V
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def E(self, r: vector[double], t: double) -> vector[double]:
  *         """Update and return self._E"""
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_5E, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_E, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 71, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_5E, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_E, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_7);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_E, __pyx_t_4) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_E, __pyx_t_4) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   PyType_Modified(__pyx_ptype_12electromagpy_6fields_5field__Field);
 
-  /* "electromagpy/fields/field.py":79
+  /* "electromagpy/fields/field.py":80
  *         return self._E
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def A(self, r: vector[double], t: double) -> vector[double]:
  *         """Update and return self._A"""
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_7A, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_A, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_7A, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_A, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_A, __pyx_t_7) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_A, __pyx_t_7) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_12electromagpy_6fields_5field__Field);
 
-  /* "electromagpy/fields/field.py":87
+  /* "electromagpy/fields/field.py":88
  *         return self._A
  * 
  *     @cython.ccall             # <<<<<<<<<<<<<<
  *     def B(self, r: vector[double], t: double) -> vector[double]:
  *         """Update and return self._B"""
  */
-  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_9B, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_B, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_r, __pyx_kp_s_vector_double) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_t, __pyx_n_s_double) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_9B, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_B, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_7);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_B, __pyx_t_4) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_B, __pyx_t_4) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   PyType_Modified(__pyx_ptype_12electromagpy_6fields_5field__Field);
 
-  /* "electromagpy/fields/field.py":105
+  /* "electromagpy/fields/field.py":106
  *         F[2] = q * (self._E[2] + cross(2, v, self._B))
  * 
- *     @cython.ccall             # <<<<<<<<<<<<<<
+ *     @cython.boundscheck(False)             # <<<<<<<<<<<<<<
+ *     @cython.ccall
  *     def push(self, particles: list, t1: double, t2: double, dt: double):
- * 
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_particles, __pyx_n_s_list) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t1, __pyx_n_s_double) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t2, __pyx_n_s_double) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dt, __pyx_n_s_double) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_11push, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_push, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_particles, __pyx_n_s_list) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t1, __pyx_n_s_double) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_t2, __pyx_n_s_double) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dt, __pyx_n_s_double) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_12electromagpy_6fields_5field_6_Field_11push, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_Field_push, NULL, __pyx_n_s_electromagpy_fields_field, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_7, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_push, __pyx_t_7) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field, __pyx_n_s_push, __pyx_t_7) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   PyType_Modified(__pyx_ptype_12electromagpy_6fields_5field__Field);
 
@@ -25061,31 +25067,31 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_setstate_cython, __pyx_t_7) < 0) __PYX_ERR(1, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "electromagpy/fields/field.py":179
+  /* "electromagpy/fields/field.py":188
  * 
  * 
  * class Field(_Field):             # <<<<<<<<<<<<<<
  *     """Python wrapper for _Field C type"""
  *     pass
  */
-  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field);
   __Pyx_GIVEREF((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_7, 0, ((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field))) __PYX_ERR(0, 179, __pyx_L1_error);
-  __pyx_t_4 = __Pyx_PEP560_update_bases(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_7, 0, ((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__Field))) __PYX_ERR(0, 188, __pyx_L1_error);
+  __pyx_t_4 = __Pyx_PEP560_update_bases(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_CalculateMetaclass(NULL, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CalculateMetaclass(NULL, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_9 = __Pyx_Py3MetaclassPrepare(__pyx_t_5, __pyx_t_4, __pyx_n_s_Field_2, __pyx_n_s_Field_2, (PyObject *) NULL, __pyx_n_s_electromagpy_fields_field, __pyx_kp_s_Python_wrapper_for__Field_C_type); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_Py3MetaclassPrepare(__pyx_t_5, __pyx_t_4, __pyx_n_s_Field_2, __pyx_n_s_Field_2, (PyObject *) NULL, __pyx_n_s_electromagpy_fields_field, __pyx_kp_s_Python_wrapper_for__Field_C_type); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   if (__pyx_t_4 != __pyx_t_7) {
-    if (unlikely((PyDict_SetItemString(__pyx_t_9, "__orig_bases__", __pyx_t_7) < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
+    if (unlikely((PyDict_SetItemString(__pyx_t_9, "__orig_bases__", __pyx_t_7) < 0))) __PYX_ERR(0, 188, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_Py3ClassCreate(__pyx_t_5, __pyx_n_s_Field_2, __pyx_t_4, __pyx_t_9, NULL, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_Py3ClassCreate(__pyx_t_5, __pyx_n_s_Field_2, __pyx_t_4, __pyx_t_9, NULL, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Field_2, __pyx_t_7) < 0) __PYX_ERR(0, 179, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Field_2, __pyx_t_7) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -25112,30 +25118,30 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_setstate_cython, __pyx_t_4) < 0) __PYX_ERR(1, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "electromagpy/fields/field.py":248
+  /* "electromagpy/fields/field.py":257
  * 
  * 
  * class CompositeField(_CompositeField):             # <<<<<<<<<<<<<<
  *     pass
  */
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__CompositeField);
   __Pyx_GIVEREF((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__CompositeField);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__CompositeField))) __PYX_ERR(0, 248, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PEP560_update_bases(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 248, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_ptype_12electromagpy_6fields_5field__CompositeField))) __PYX_ERR(0, 257, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PEP560_update_bases(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_9 = __Pyx_CalculateMetaclass(NULL, __pyx_t_5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_CalculateMetaclass(NULL, __pyx_t_5); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_7 = __Pyx_Py3MetaclassPrepare(__pyx_t_9, __pyx_t_5, __pyx_n_s_CompositeField_2, __pyx_n_s_CompositeField_2, (PyObject *) NULL, __pyx_n_s_electromagpy_fields_field, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_Py3MetaclassPrepare(__pyx_t_9, __pyx_t_5, __pyx_n_s_CompositeField_2, __pyx_n_s_CompositeField_2, (PyObject *) NULL, __pyx_n_s_electromagpy_fields_field, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   if (__pyx_t_5 != __pyx_t_4) {
-    if (unlikely((PyDict_SetItemString(__pyx_t_7, "__orig_bases__", __pyx_t_4) < 0))) __PYX_ERR(0, 248, __pyx_L1_error)
+    if (unlikely((PyDict_SetItemString(__pyx_t_7, "__orig_bases__", __pyx_t_4) < 0))) __PYX_ERR(0, 257, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_9, __pyx_n_s_CompositeField_2, __pyx_t_5, __pyx_t_7, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_9, __pyx_n_s_CompositeField_2, __pyx_t_5, __pyx_t_7, NULL, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_CompositeField_2, __pyx_t_4) < 0) __PYX_ERR(0, 248, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_CompositeField_2, __pyx_t_4) < 0) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -27649,12 +27655,6 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
     return PyObject_SetAttr(obj, attr_name, value);
 }
 #endif
-
-/* BufferIndexError */
-static void __Pyx_RaiseBufferIndexError(int axis) {
-  PyErr_Format(PyExc_IndexError,
-     "Out of bounds on buffer access (axis %d)", axis);
-}
 
 /* PyObject_GenericGetAttrNoDict */
 #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000

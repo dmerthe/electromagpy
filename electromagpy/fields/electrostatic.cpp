@@ -1503,7 +1503,6 @@ static const char *__pyx_filename;
 static const char *__pyx_f[] = {
   "electromagpy/fields/electrostatic.py",
   "<stringsource>",
-  "electromagpy/particles/particles.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
 /* ForceInitThreads.proto */
@@ -1516,34 +1515,17 @@ static const char *__pyx_f[] = {
 /* #### Code section: type_declarations ### */
 
 /*--- Type declarations ---*/
-struct __pyx_obj_12electromagpy_9particles_9particles__Particle;
 struct __pyx_obj_12electromagpy_6fields_5field__Field;
 struct __pyx_obj_12electromagpy_6fields_13electrostatic__Vacuum;
 struct __pyx_obj_12electromagpy_6fields_13electrostatic__UniformE;
 struct __pyx_obj_12electromagpy_6fields_13electrostatic__Orbitrap;
 
-/* "electromagpy/particles/particles.pxd":3
- * from libcpp.vector cimport vector
- * 
- * cdef class _Particle:             # <<<<<<<<<<<<<<
- * 
- *     cdef double _q
- */
-struct __pyx_obj_12electromagpy_9particles_9particles__Particle {
-  PyObject_HEAD
-  double _q;
-  double _m;
-  std::vector<double>  _r;
-  std::vector<double>  _v;
-};
-
-
-/* "electromagpy/fields/field.pxd":7
+/* "electromagpy/fields/field.pxd":6
  * cdef double cross(int i, vector[double] v1, vector[double] v2)
  * 
  * cdef class _Field:             # <<<<<<<<<<<<<<
  * 
- *     cdef double _V  # electric potential
+ *     # pre-initialized field buffers
  */
 struct __pyx_obj_12electromagpy_6fields_5field__Field {
   PyObject_HEAD
@@ -1595,12 +1577,12 @@ struct __pyx_obj_12electromagpy_6fields_13electrostatic__Orbitrap {
 
 
 
-/* "electromagpy/fields/field.pxd":7
+/* "electromagpy/fields/field.pxd":6
  * cdef double cross(int i, vector[double] v1, vector[double] v2)
  * 
  * cdef class _Field:             # <<<<<<<<<<<<<<
  * 
- *     cdef double _V  # electric potential
+ *     # pre-initialized field buffers
  */
 
 struct __pyx_vtabstruct_12electromagpy_6fields_5field__Field {
@@ -2454,8 +2436,6 @@ static void __pyx_f_12electromagpy_6fields_13electrostatic_9_Orbitrap_eval_E(str
 
 /* Module declarations from "libcpp.vector" */
 
-/* Module declarations from "electromagpy.particles.particles" */
-
 /* Module declarations from "electromagpy.fields.field" */
 static double (*__pyx_f_12electromagpy_6fields_5field_dot)(std::vector<double> , std::vector<double> ); /*proto*/
 
@@ -2622,9 +2602,6 @@ typedef struct {
   #endif
   #if CYTHON_USE_MODULE_STATE
   #endif
-  #if CYTHON_USE_MODULE_STATE
-  #endif
-  PyTypeObject *__pyx_ptype_12electromagpy_9particles_9particles__Particle;
   #if CYTHON_USE_MODULE_STATE
   #endif
   PyTypeObject *__pyx_ptype_12electromagpy_6fields_5field__Field;
@@ -2802,7 +2779,6 @@ static int __pyx_m_clear(PyObject *m) {
   #ifdef __Pyx_FusedFunction_USED
   Py_CLEAR(clear_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_CLEAR(clear_module_state->__pyx_ptype_12electromagpy_9particles_9particles__Particle);
   Py_CLEAR(clear_module_state->__pyx_ptype_12electromagpy_6fields_5field__Field);
   Py_CLEAR(clear_module_state->__pyx_ptype_12electromagpy_6fields_13electrostatic__Vacuum);
   Py_CLEAR(clear_module_state->__pyx_type_12electromagpy_6fields_13electrostatic__Vacuum);
@@ -2954,7 +2930,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   #ifdef __Pyx_FusedFunction_USED
   Py_VISIT(traverse_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_VISIT(traverse_module_state->__pyx_ptype_12electromagpy_9particles_9particles__Particle);
   Py_VISIT(traverse_module_state->__pyx_ptype_12electromagpy_6fields_5field__Field);
   Py_VISIT(traverse_module_state->__pyx_ptype_12electromagpy_6fields_13electrostatic__Vacuum);
   Py_VISIT(traverse_module_state->__pyx_type_12electromagpy_6fields_13electrostatic__Vacuum);
@@ -3120,9 +3095,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 #if CYTHON_USE_MODULE_STATE
 #endif
-#if CYTHON_USE_MODULE_STATE
-#endif
-#define __pyx_ptype_12electromagpy_9particles_9particles__Particle __pyx_mstate_global->__pyx_ptype_12electromagpy_9particles_9particles__Particle
 #if CYTHON_USE_MODULE_STATE
 #endif
 #define __pyx_ptype_12electromagpy_6fields_5field__Field __pyx_mstate_global->__pyx_ptype_12electromagpy_6fields_5field__Field
@@ -8512,22 +8484,10 @@ static int __Pyx_modinit_type_init_code(void) {
 
 static int __Pyx_modinit_type_import_code(void) {
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("electromagpy.particles.particles"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_12electromagpy_9particles_9particles__Particle = __Pyx_ImportType_3_0_11(__pyx_t_1, "electromagpy.particles.particles", "_Particle", sizeof(struct __pyx_obj_12electromagpy_9particles_9particles__Particle), __PYX_GET_STRUCT_ALIGNMENT_3_0_11(struct __pyx_obj_12electromagpy_9particles_9particles__Particle),__Pyx_ImportType_CheckSize_Warn_3_0_11); if (!__pyx_ptype_12electromagpy_9particles_9particles__Particle) __PYX_ERR(2, 3, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_RefNannyFinishContext();
-  return -1;
 }
 
 static int __Pyx_modinit_variable_import_code(void) {
@@ -8832,7 +8792,7 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_variable_export_code();
   (void)__Pyx_modinit_function_export_code();
   if (unlikely((__Pyx_modinit_type_init_code() < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (unlikely((__Pyx_modinit_type_import_code() < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+  (void)__Pyx_modinit_type_import_code();
   (void)__Pyx_modinit_variable_import_code();
   if (unlikely((__Pyx_modinit_function_import_code() < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
   /*--- Execution code ---*/

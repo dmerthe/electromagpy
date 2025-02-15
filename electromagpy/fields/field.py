@@ -14,6 +14,7 @@ def dot(v1: vector[double], v2: vector[double]) -> double:
     return v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
 
 @cython.cfunc
+@cython.exceptval(check=False)
 def cross(i: int, v1: vector[double], v2: vector[double]) -> double:
     """Compute the ith element of the cross product of two 3-vectors"""
 
@@ -102,6 +103,7 @@ class _Field:
         F[1] = q * (self._E[1] + cross(1, v, self._B))
         F[2] = q * (self._E[2] + cross(2, v, self._B))
 
+    @cython.boundscheck(False)
     @cython.ccall
     def push(self, particles: list, t1: double, t2: double, dt: double):
 
@@ -116,6 +118,7 @@ class _Field:
         r: vector[double] = [0.0, 0.0, 0.0]
         v: vector[double] = [0.0, 0.0, 0.0]
 
+        # force and acceleration buffers
         F = cython.declare(double[3])
         a1 = cython.declare(double[3])
         a2 = cython.declare(double[3])
@@ -172,6 +175,12 @@ class _Field:
             # update particle coordinates and velocity
             particles[i].r = r
             particles[i].v = v
+
+            # update potential energy and force of particle at final point
+            self.eval_V(r, t)
+            particles[i].PE = q*self._V
+
+            particles[i].F = [F[0], F[1], F[2]]
 
         return np.asarray(traj_view)
 
