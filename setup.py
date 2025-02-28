@@ -8,31 +8,31 @@ Options.fast_fail = True
 
 extensions = [
     Extension(
-        "electromagpy.fields.field",
-        [os.path.join("electromagpy", "fields", "field.py")],
-        language="c++",
-        extra_compile_args=["-std=c++20"]
-    ),
-    Extension(
         "electromagpy.fields.electrostatic",
-        [os.path.join("electromagpy", "fields", "electrostatic.py")],
+        [os.path.join("electromagpy", "fields", "electrostatic.pyx")],
         language="c++",
         extra_compile_args=["-std=c++20"]
     ),
-    Extension(
-        "electromagpy.fields.magnetostatic",
-        [os.path.join("electromagpy", "fields", "magnetostatic.py")],
-        language="c++",
-        extra_compile_args=["-std=c++20"]
-    ),
-
-    Extension(
-        "electromagpy.particles.particles",
-        [os.path.join("electromagpy", "particles", "particles.py")],
-        language="c++",
-        extra_compile_args=["-std=c++20"],
-        include_dirs=[np.get_include()]
-    ),
+    # Extension(
+    #     "electromagpy.fields.electrostatic",
+    #     [os.path.join("electromagpy", "fields", "electrostatic.py")],
+    #     language="c++",
+    #     extra_compile_args=["-std=c++20"]
+    # ),
+    # Extension(
+    #     "electromagpy.fields.magnetostatic",
+    #     [os.path.join("electromagpy", "fields", "magnetostatic.py")],
+    #     language="c++",
+    #     extra_compile_args=["-std=c++20"]
+    # ),
+    #
+    # Extension(
+    #     "electromagpy.particles.particles",
+    #     [os.path.join("electromagpy", "particles", "particles.py")],
+    #     language="c++",
+    #     extra_compile_args=["-std=c++20"],
+    #     include_dirs=[np.get_include()]
+    # ),
 ]
 
 # setup(
