@@ -39,7 +39,6 @@ class _Field:
         self._E = [0.0, 0.0, 0.0]
         self._A = [0.0, 0.0, 0.0]
         self._B = [0.0, 0.0, 0.0]
-        self.particles = []
 
     @cython.cfunc
     def eval_V(self, r: vector[double], t: double) -> void:

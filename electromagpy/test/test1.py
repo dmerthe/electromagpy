@@ -21,7 +21,6 @@ D.v = [0.0, np.sqrt(2*10*keV/D.m), 0.0]
 
 trajectory = orbitrap.push([D], 0.0, 1.0e-3, 1e-9)
 
-
 fig, ax = plt.subplots()
 
 ax.plot(trajectory[0, :1000, 0], trajectory[0, :1000, 1])
