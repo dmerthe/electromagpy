@@ -3,6 +3,7 @@
 from libc.stdio cimport printf
 from libcpp.vector cimport vector
 from field cimport field as cfield
+
 cdef class Vacuum:
 
     cdef cfield *field
